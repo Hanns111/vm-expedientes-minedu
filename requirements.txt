@@ -1,0 +1,3 @@
+openai-whisper
+PyPDF2
+python-dotenv

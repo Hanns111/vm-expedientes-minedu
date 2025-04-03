@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+# Entorno virtual, archivos temporales y secretos
+venv/
+.env
+__pycache__/
+*.pyc
