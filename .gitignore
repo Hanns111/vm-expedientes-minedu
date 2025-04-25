@@ -177,3 +177,12 @@ venv/
 .env
 __pycache__/
 *.pyc
+# Ignorar entorno virtual
+venv/
+
+# Ignorar variables de entorno
+.env
+
+# Ignorar archivos de configuración locales de Cursor o VSCode
+.vscode/
+.history/
