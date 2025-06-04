@@ -1,17 +1,12 @@
 import re
 import spacy
 from dateutil import parser
+import locale # Para el parseo de fechas en español
 
-# Inicializar el modelo de spaCy para español
-try:
-    nlp = spacy.load("es_core_news_sm")
-except Exception as e:
-    print(f"\nError al cargar el modelo de spaCy: {e}")
-    print("Por favor, instale el modelo usando: python -m spacy download es_core_news_sm")
-    exit(1)
+# Quitar la carga global de nlp aquí
 
 class EntitiesExtractor:
-    def __init__(self):
+    def __init__(self, model_name="es_core_news_sm"): # Aceptar model_name
         self.currency_patterns = [
             r'S/\.?\s*\d+(?:,\d{3})*(?:\.\d{2})?',  # S/. 100.00 o S/ 100
             r'S/\.?\s*\d+(?:\.\d{3})*(?:,\d{2})?',  # S/. 100,00 o S/ 100
@@ -20,8 +15,8 @@ class EntitiesExtractor:
         
         self.date_patterns = [
             r'\b\d{2}[/-]\d{2}[/-]\d{4}\b',  # dd/mm/yyyy o dd-mm-yyyy
-            r'\b\d{2}\s+de\s+[a-zA-Z]+\s+de\s+\d{4}\b',  # 15 de marzo de 2024
-            r'\b\d{1,2}\s+[a-zA-Z]+\s+\d{4}\b',  # 15 marzo 2024
+            r'\b\d{2}\s+de\s+[a-zA-ZáéíóúÁÉÍÓÚÑñ]+\s+de\s+\d{4}\b', # Modificado para incluir tildes y ñ
+            r'\b\d{1,2}\s+[a-zA-ZáéíóúÁÉÍÓÚÑñ]+\s+\d{4}\b', # Modificado para incluir tildes y ñ
         ]
         
         self.numeral_patterns = [
@@ -60,27 +55,38 @@ class EntitiesExtractor:
         return normalized
 
     def extract_dates(self, text):
-        """Extrae fechas en múltiples formatos"""
-        dates = []
+        """Extrae fechas en múltiples formatos y las normaliza."""
+        dates_found_raw = []
         for pattern in self.date_patterns:
-            dates.extend(re.findall(pattern, text))
+            dates_found_raw.extend(re.findall(pattern, text))
         
-        # Intentar parsear fechas en español
+        # Intentar configurar el locale para español para dateutil.parser
+        # Esto es importante para meses como "enero", "febrero", etc.
+        current_locale = locale.getlocale(locale.LC_TIME)
         try:
-            locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-        except:
-            pass
+            locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8') # o 'es_PE.UTF-8' si está disponible
+        except locale.Error:
+            try:
+                locale.setlocale(locale.LC_TIME, 'Spanish_Spain.1252') # Windows
+            except locale.Error:
+                print("Advertencia: No se pudo establecer el locale a español para el parseo de fechas.")
         
         parsed_dates = []
-        for date_str in dates:
+        for date_str in dates_found_raw:
             try:
-                # Intentar parsear la fecha
-                date_obj = parser.parse(date_str, fuzzy=True)
-                # Formatear en formato estándar
+                date_obj = parser.parse(date_str, fuzzy=False) # fuzzy=False para ser más estricto
                 parsed_dates.append(date_obj.strftime("%d/%m/%Y"))
-            except:
-                continue
+            except (ValueError, TypeError):
+                # Si falla el parseo estricto, se podría intentar con fuzzy o registrar el error
+                # print(f"No se pudo parsear la fecha: {date_str}")
+                parsed_dates.append(date_str) # Mantener la cadena original si no se puede parsear
         
+        # Restaurar el locale original
+        try:
+            locale.setlocale(locale.LC_TIME, current_locale)
+        except locale.Error:
+            pass # No hacer nada si no se puede restaurar
+            
         return parsed_dates
 
     def extract_numerals(self, text):
@@ -107,41 +113,76 @@ class EntitiesExtractor:
     def extract_entities(self, text):
         """Extrae todas las entidades importantes del texto"""
         # Procesar con spaCy para obtener entidades nombradas
-        doc = nlp(text)
-        
-        # Extraer todas las entidades
+        doc_ents_list = []
+        if self.nlp: # Solo si nlp se cargó correctamente
+            doc = self.nlp(text)
+            # Modificar para que coincida con el formato esperado por SearchEngine
+            for ent in doc.ents:
+                doc_ents_list.append({"valor": ent.text, "tipo": ent.label_})
+        else:
+            print("Advertencia: Modelo NLP no disponible en EntitiesExtractor. No se extraerán entidades nombradas por Spacy.")
+
         entities = {
             "montos": self.extract_currency(text),
             "fechas": self.extract_dates(text),
             "numerales": self.extract_numerals(text),
             "porcentajes": self.extract_percentages(text),
             "expedientes": self.extract_expedientes(text),
-            "entidades": [ent.text for ent in doc.ents]
+            "entidades": doc_ents_list # Lista de diccionarios
         }
         
-        # Agregar contexto a las entidades
+        # Agregar contexto a las entidades (excepto las de Spacy que ya tienen 'valor' y 'tipo')
+        # El formato de las entidades de Spacy ya es una lista de dicts,
+        # pero _add_context espera una lista de strings (values).
+        # Por ahora, las entidades de Spacy no tendrán "contexto" adicional de _add_context.
         for key in entities:
-            if key != "entidades":
-                entities[key] = self._add_context(text, entities[key])
+            if key != "entidades": # No aplicar _add_context a las entidades de Spacy por ahora
+                # _add_context espera una lista de strings, pero nuestras funciones de extracción ya devuelven strings
+                entities[key] = self._add_context(text, entities[key]) 
         
         return entities
 
     def _add_context(self, text, values):
-        """Agrega contexto a los valores encontrados"""
+        """Agrega contexto a los valores encontrados (que son strings)"""
         results = []
-        for value in values:
+        for value_str in values: # value_str es un string aquí
             # Encontrar la posición del valor en el texto
-            start = text.find(value)
-            if start != -1:
-                # Tomar 50 caracteres antes y después como contexto
-                context_start = max(0, start - 50)
-                context_end = min(len(text), start + len(value) + 50)
-                context = text[context_start:start] + "[" + value + "]" + text[start+len(value):context_end]
-                results.append({
-                    "valor": value,
-                    "contexto": context.strip()
-                })
-        return results
+            try:
+                # value_str debe ser un string para re.escape
+                escaped_value = re.escape(str(value_str))
+                # Buscar todas las ocurrencias para no tomar siempre la primera
+                for match in re.finditer(escaped_value, text):
+                    start = match.start()
+                    end = match.end()
+                    # Tomar N caracteres antes y después como contexto
+                    context_start = max(0, start - 30) # Contexto más corto
+                    context_end = min(len(text), end + 30)
+                    
+                    # Reconstruir el contexto con el valor original (no escapado)
+                    # Asegurarse de que el valor original se resalte correctamente
+                    pre_context = text[context_start:start]
+                    post_context = text[end:context_end]
+                    
+                    context_highlighted = f"{pre_context}[{text[start:end]}]{post_context}"
+                    
+                    results.append({
+                        "valor": text[start:end], # Usar el texto original del match
+                        "contexto": context_highlighted.replace('\n', ' ').strip()
+                    })
+            except re.error: # En caso de que value_str sea problemático para re.escape
+                 results.append({"valor": str(value_str), "contexto": str(value_str)}) # Fallback
+            except Exception: # Captura general por si acaso
+                 results.append({"valor": str(value_str), "contexto": str(value_str)})
+
+        # Eliminar duplicados basados en valor y contexto para evitar redundancia
+        unique_results = []
+        seen = set()
+        for res_dict in results:
+            identifier = (res_dict['valor'], res_dict['contexto'])
+            if identifier not in seen:
+                unique_results.append(res_dict)
+                seen.add(identifier)
+        return unique_results
 
 # Ejemplo de uso
 def main():
