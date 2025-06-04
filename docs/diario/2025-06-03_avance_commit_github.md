@@ -76,6 +76,49 @@ Hoy se realizaron avances significativos en la configuración del entorno de des
 
 ---
 
+### 6. Consolidación de Scripts de Preprocesamiento y Búsqueda (Continuación)
+
+*   **Descripción:** Se continuó con la Fase 1 (Estabilización) del proyecto, enfocándose en la consolidación de scripts duplicados o fragmentados para mejorar la mantenibilidad y robustez del sistema.
+*   **Avances Detallados:**
+    *   **Análisis de Scripts de Preprocesamiento Existentes:**
+        *   Se revisaron los scripts en `src/text_processor/`: `text_cleaner_v2.py`, `text_cleaner_avanzado.py`, `text_chunker_v2.py`, y `chunks_to_json.py`.
+    *   **Consolidación de Pipeline de Preprocesamiento de Texto:**
+        *   Se actualizó `config/settings.py` añadiendo `RAW_TEXT_INPUT_PATH`.
+        *   Se creó `src/text_processor/data_preprocessor.py` integrando limpieza (basada en `text_cleaner_avanzado.py`) y chunking (basada en `text_chunker_v2.py`), utilizando `uuid` para IDs, y leyendo/escribiendo desde rutas en `config/settings.py`.
+    *   **Consolidación de Scripts de Búsqueda Semántica:**
+        *   Se revisó `src/ai/search_vectorstore_hybrid.py`.
+        *   Se creó `src/ai/search_engine.py` (clase `SearchEngine`) que usa `vectorstore_manager.load_vectorstore()`, detecta tipo de vectorizador, integra filtrado de relevancia y generación de respuesta, y usa `entities_extractor.py`.
+    *   **Actualización de `entities_extractor.py`:**
+        *   Se modificó `src/ai/entities_extractor.py` para que `__init__` acepte `model_name` para cargar Spacy, y para que `extract_entities` devuelva entidades Spacy como `[{"valor": ent.text, "tipo": ent.label_}]`. Se mejoró parseo de fechas con `locale` y generación de contexto.
+*   **Decisión Tomada:** Proceder con la consolidación para centralizar la lógica, mejorar la configuración y preparar el sistema para pruebas integrales.
+*   **Utilidad para el Proyecto MINEDU:** Reduce la redundancia de código, facilita el mantenimiento, estandariza los flujos de datos y mejora la claridad general de la arquitectura de IA.
+
+---
+
+### 7. Depuración del Preprocesador de Datos (`data_preprocessor.py`)
+
+*   **Problema Inicial:** El script `data_preprocessor.py` fallaba inicialmente con `ModuleNotFoundError` y luego con `UnicodeDecodeError` al cargar el archivo `.env`.
+    *   **Solución `ModuleNotFoundError`:** Se verificó que el script ya tenía un manejo para agregar el directorio raíz del proyecto a `sys.path`.
+    *   **Solución `UnicodeDecodeError` en `.env`:** Se modificó `config/settings.py` para usar `load_dotenv(encoding='utf-16')`, asumiendo un BOM UTF-16 en el archivo `.env`.
+*   **Problema Persistente: No se generan chunks.**
+    *   **Diagnóstico:** Los logs mostraron que el texto limpiado (`texto_limpio`) aún contenía caracteres anómalos (ej. `�`) y que la función `chunkear_texto_por_titulo` no encontraba ningún título, resultando en 0 chunks.
+    *   **Iteraciones de Depuración:**
+        1.  **Revisión del archivo de entrada (`data/raw/resultado.txt`):** Se observó que el archivo era ruidoso, con caracteres especiales y sin una estructura clara de títulos numerados en las primeras líneas.
+        2.  **Mejoras en funciones de limpieza (`normalizar_texto`, `corregir_espacios`):** Se ajustaron las regex para ser más selectivas con los caracteres permitidos y se amplió la lista de palabras comunes para la corrección de espacios.
+        3.  **Cambios en codificación de lectura de `resultado.txt`:**
+            *   Se probó `latin-1`: Aún persistían caracteres anómalos.
+            *   Se probó `cp1252`: Resultó en `UnicodeDecodeError: 'charmap' codec can't decode byte 0x81...`.
+            *   Se volvió a `utf-8` pero con `errors='ignore'`: Los caracteres `�` seguían presentes en el log de `texto_limpio`, indicando que el problema de codificación ocurría en la lectura inicial.
+    *   **Conclusión Parcial:** Los problemas de codificación en `resultado.txt` y la posible ausencia de una estructura de títulos numerados son las causas principales de la falla en el chunking. Se discutió la necesidad de revisar/regenerar `resultado.txt` a partir del PDF original.
+*   **Commit de Cambios:** Se realizó un commit (`abeaa32`) con las modificaciones en `config/settings.py` y `src/text_processor/data_preprocessor.py` relativas al manejo de errores de codificación y mejoras en la limpieza.
+*   **Decisión Tomada:** Priorizar la obtención de un archivo `resultado.txt` más limpio y con una estructura clara, preferiblemente re-extrayéndolo del PDF original, antes de continuar con la depuración del chunking o modificar la estrategia de chunking.
+
+---
+
 ## Conclusión del Día
 
-La jornada de hoy fue productiva, estableciendo una base sólida para la colaboración asistida por IA con Claude en el proyecto MINEDU. La actualización de la documentación y la validación del flujo de trabajo con Git a través de Windsurf son pasos cruciales para un desarrollo organizado y eficiente del asistente de IA.
+La jornada de hoy fue productiva y multifacética. Se comenzó estableciendo una base sólida para la colaboración asistida por IA con Claude en el proyecto MINEDU, incluyendo la integración con GitHub y la actualización de la documentación (`CONTEXTO_PROYECTO.md`). Posteriormente, se avanzó significativamente en la Fase 1 (Estabilización) con la consolidación de los scripts de preprocesamiento de texto (`data_preprocessor.py`), búsqueda semántica (`search_engine.py`) y el extractor de entidades (`entities_extractor.py`).
+
+Una parte importante del día se dedicó a la depuración del `data_preprocessor.py`, abordando errores de codificación tanto en la carga de la configuración (`settings.py` y `.env`) como en la lectura del archivo de datos crudos (`resultado.txt`). A pesar de múltiples iteraciones y mejoras en las funciones de limpieza, el proceso de chunking sigue sin generar resultados, apuntando a problemas fundamentales con la calidad y estructura del archivo `resultado.txt`. Se concluyó que el siguiente paso crítico es obtener una versión más limpia de este archivo, idealmente re-extrayéndolo del PDF original.
+
+Los esfuerzos de hoy mejoran la mantenibilidad, robustez y claridad de la arquitectura del asistente IA, y los cambios realizados en el código han sido versionados. El proyecto está mejor preparado para las siguientes etapas de prueba y desarrollo una vez que se resuelva el problema de la calidad de los datos de entrada.
