@@ -7,6 +7,14 @@ import locale # Para el parseo de fechas en español
 
 class EntitiesExtractor:
     def __init__(self, model_name="es_core_news_sm"): # Aceptar model_name
+        # Cargar el modelo de spaCy
+        try:
+            self.nlp = spacy.load(model_name)
+            self.has_nlp = True
+        except (IOError, ImportError):
+            print(f"Advertencia: No se pudo cargar el modelo {model_name}. Las entidades nombradas no estarán disponibles.")
+            self.has_nlp = False
+            
         self.currency_patterns = [
             r'S/\.?\s*\d+(?:,\d{3})*(?:\.\d{2})?',  # S/. 100.00 o S/ 100
             r'S/\.?\s*\d+(?:\.\d{3})*(?:,\d{2})?',  # S/. 100,00 o S/ 100
@@ -112,9 +120,9 @@ class EntitiesExtractor:
 
     def extract_entities(self, text):
         """Extrae todas las entidades importantes del texto"""
-        # Procesar con spaCy para obtener entidades nombradas
+        # Extraer entidades nombradas con spaCy si está disponible
         doc_ents_list = []
-        if self.nlp: # Solo si nlp se cargó correctamente
+        if hasattr(self, 'has_nlp') and self.has_nlp:
             doc = self.nlp(text)
             # Modificar para que coincida con el formato esperado por SearchEngine
             for ent in doc.ents:

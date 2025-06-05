@@ -1,0 +1,44 @@
+{
+  "consultas_multientidad": [
+    "¿Cuál es el monto máximo para viáticos nacionales en Lima durante una comisión de 3 días?",
+    "Procedimiento para solicitar viáticos al extranjero con escala en dos países diferentes",
+    "Documentos requeridos para rendición de cuentas de viáticos cuando incluye hospedaje y alimentación",
+    "Plazo para presentar rendición de gastos de viaje realizado a provincia con duración de 5 días",
+    "Límites de gastos para comisiones de servicio que incluyen transporte terrestre y aéreo"
+  ],
+  "consultas_razonamiento": [
+    "Si mi comisión fue aprobada pero cancelada por emergencia, ¿debo devolver los viáticos ya recibidos?",
+    "¿Qué sucede si los gastos reales superan el monto asignado por causas justificadas?",
+    "En caso de ampliación de comisión por causas no previstas, ¿cómo se tramita el adicional de viáticos?",
+    "Si la rendición incluye gastos no contemplados inicialmente pero necesarios, ¿son reembolsables?",
+    "¿Cómo proceder si durante la comisión se requiere viajar a una localidad no prevista en la autorización?"
+  ],
+  "consultas_referencias_cruzadas": [
+    "Relación entre el monto asignado para viáticos y la duración de la comisión según escala jerárquica",
+    "Diferencias entre los requisitos de rendición para viajes nacionales e internacionales",
+    "Compatibilidad entre la asignación de viáticos y otras compensaciones económicas durante la comisión",
+    "Vinculación entre la autorización de viaje y la disponibilidad presupuestal de la unidad ejecutora",
+    "Correlación entre el tipo de comisión de servicios y los documentos sustentatorios requeridos"
+  ],
+  "consultas_ambiguedad_semantica": [
+    "¿Qué se considera como gasto razonable en el contexto de viáticos?",
+    "Definición de 'comisión de servicio de carácter urgente' según la directiva",
+    "Alcance del término 'documentos sustentatorios' para la rendición de cuentas",
+    "¿Qué implica la 'conformidad del servicio' en el contexto de una comisión?",
+    "Interpretación de 'gastos debidamente justificados' según la normativa"
+  ],
+  "consultas_condicionales": [
+    "Si la comisión incluye alimentación proporcionada por los organizadores, ¿cómo afecta al monto de viáticos?",
+    "En caso de que el hospedaje sea cubierto por la entidad receptora, ¿se reduce el monto asignado?",
+    "Cuando la comisión se extiende por causas no imputables al comisionado, ¿se autoriza automáticamente mayor presupuesto?",
+    "Si el viaje incluye regiones con diferentes escalas de viáticos, ¿cómo se calcula el monto total?",
+    "¿Qué sucede si por fuerza mayor no se pueden obtener comprobantes de pago válidos durante la comisión?"
+  ],
+  "consultas_comparativas": [
+    "Diferencias entre viáticos para funcionarios de alto nivel y servidores regulares",
+    "Comparación entre procedimientos de rendición antes y después de la última actualización de la directiva",
+    "Contraste entre los montos asignados para viajes nacionales versus internacionales",
+    "Ventajas y desventajas entre solicitar adelanto de viáticos versus reembolso posterior",
+    "Diferencias en plazos de rendición para comisiones cortas versus comisiones prolongadas"
+  ]
+}

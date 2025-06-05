@@ -1,0 +1,33 @@
+{
+  "query": "Procedimiento para autorización de viajes",
+  "timestamp": "2025-06-05 15:13:44",
+  "systems_compared": [
+    "tfidf",
+    "bm25"
+  ],
+  "metrics": {
+    "execution_time": {
+      "tfidf": 0.20737290382385254,
+      "bm25": 0.0010929107666015625
+    },
+    "result_count": {
+      "tfidf": 5,
+      "bm25": 5
+    },
+    "overlap": {
+      "tfidf_vs_bm25": {
+        "common_count": 3,
+        "percentage": 60.0,
+        "avg_position_diff": 0.6666666666666666
+      }
+    },
+    "top_result_match": {
+      "tfidf_vs_bm25": true
+    },
+    "unique_results": {
+      "unique_to_tfidf": 2,
+      "unique_to_bm25": 2
+    }
+  },
+  "detailed_results": {}
+}

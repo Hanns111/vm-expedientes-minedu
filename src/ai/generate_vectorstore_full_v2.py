@@ -33,7 +33,7 @@ def generate_vectorstore():
     with open(RUTA_VECTORSTORE, "wb") as f:
         pickle.dump(vectorstore, f)
 
-    print(f"✅ Vectorstore robusto generado y guardado en: {RUTA_VECTORSTORE}")
+    print(f"Vectorstore robusto generado y guardado en: {RUTA_VECTORSTORE}")
 
 if __name__ == "__main__":
     generate_vectorstore()
