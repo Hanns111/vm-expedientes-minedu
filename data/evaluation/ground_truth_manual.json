@@ -1,0 +1,72 @@
+{
+  "consulta_1": {
+    "query": "¿Cuál es el monto máximo para viáticos nacionales?",
+    "respuestas_relevantes": [
+      "chunk_id_123",
+      "chunk_id_145",
+      "chunk_id_167"
+    ],
+    "contexto": "La directiva establece montos máximos para viáticos nacionales según la escala jerárquica y zona geográfica",
+    "entidades_esperadas": {
+      "montos": ["S/ 320", "S/ 380"],
+      "fechas": ["vigente desde 01/01/2020"],
+      "normativas": ["Decreto Supremo N° 007-2013-EF"]
+    }
+  },
+  "consulta_2": {
+    "query": "Procedimiento para autorización de viajes",
+    "respuestas_relevantes": [
+      "chunk_id_234",
+      "chunk_id_256",
+      "chunk_id_278"
+    ],
+    "contexto": "La autorización de viajes requiere aprobación jerárquica y documentación justificativa",
+    "entidades_esperadas": {
+      "documentos": ["formato de solicitud", "memorando de autorización", "plan de trabajo"],
+      "plazos": ["con 72 horas de anticipación"],
+      "autoridades": ["jefe inmediato", "director de la oficina"]
+    }
+  },
+  "consulta_3": {
+    "query": "Plazo para presentar rendición de cuentas",
+    "respuestas_relevantes": [
+      "chunk_id_345",
+      "chunk_id_367",
+      "chunk_id_389"
+    ],
+    "contexto": "La rendición de cuentas debe presentarse dentro de un plazo específico después de concluida la comisión",
+    "entidades_esperadas": {
+      "plazos": ["10 días hábiles", "máximo 15 días calendario"],
+      "documentos": ["formato de rendición", "comprobantes originales", "informe de actividades"],
+      "normativas": ["Directiva de Tesorería"]
+    }
+  },
+  "consulta_4": {
+    "query": "Requisitos para viajes internacionales",
+    "respuestas_relevantes": [
+      "chunk_id_456",
+      "chunk_id_478",
+      "chunk_id_490"
+    ],
+    "contexto": "Los viajes internacionales requieren aprobación especial y documentación adicional",
+    "entidades_esperadas": {
+      "documentos": ["resolución ministerial", "formato de autorización internacional"],
+      "plazos": ["con 15 días de anticipación"],
+      "montos": ["según escala aprobada por el MEF"]
+    }
+  },
+  "consulta_5": {
+    "query": "Documentos para rendición de gastos de hospedaje",
+    "respuestas_relevantes": [
+      "chunk_id_512",
+      "chunk_id_534",
+      "chunk_id_556"
+    ],
+    "contexto": "La rendición de gastos de hospedaje requiere comprobantes específicos",
+    "entidades_esperadas": {
+      "documentos": ["factura electrónica", "boleta de venta", "declaración jurada"],
+      "montos": ["hasta el 30% del monto total asignado"],
+      "requisitos": ["con datos completos de la entidad", "detalle del servicio"]
+    }
+  }
+}

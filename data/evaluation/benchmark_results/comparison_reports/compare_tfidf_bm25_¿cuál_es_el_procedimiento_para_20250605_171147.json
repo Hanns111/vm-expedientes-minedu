@@ -1,0 +1,85 @@
+{
+  "query": "¿Cuál es el procedimiento para solicitar viáticos?",
+  "top_k": 5,
+  "timestamp": "2025-06-05T17:11:46.732748",
+  "systems": {
+    "tfidf": {
+      "results": [
+        {
+          "titulo": "13. \nRetención del IGV",
+          "texto": ".- Es el procedimiento mediante el cual el comisionado, que actúa como \ncomprador o usuario de un bien o servicio afecto al Régimen de Retenciones del \nImpuesto General a las Ventas (I.G.V.), retiene el tres por ciento (3%) del pago, cuando la \nfacturación supere los S/ 700,00 (SETECIENTOS Y 00/100 SOLES) para su posterior \nentrega al ﬁsco según la fecha de vencimiento de sus obligaciones tributarias. La emisión \ndel Comprobante de Retención Electrónico está a cargo de la Oﬁcina de Tesorería, por lo \nque el comisionado deberá solicitar las instrucciones de emisión a la Oﬁcina de Tesorería.",
+          "score": 1.0
+        },
+        {
+          "titulo": "2. El",
+          "texto": "(la) Jefe(a) del órgano o \nunidad orgánica que autoriza los viáticos, es \"responsable solidario\" para la devolución \neconómica, cuando el comisionado no cumpla con presentar las rendiciones de cuentas \nde gastos oportunamente. 9.",
+          "score": 0.9
+        },
+        {
+          "titulo": "11. Declaración Jurada de Gastos",
+          "texto": ".- \nDocumento anexo que el comisionado está facultado a presentar en forma detallada y \ncronológica, para sustentar gastos por los cuales no es posible obtener comprobantes de \npago autorizados y emitidos de acuerdo a lo establecido en el Reglamento de \nComprobantes de Pago de la SUNAT; este documento se presenta hasta por un monto \nque no podrá exceder del treinta por ciento (30%) del monto total de los viáticos \nasignados para el viaje en comisión de servicios dentro del territorio nacional. 6.",
+          "score": 0.8
+        },
+        {
+          "titulo": "1. En los casos que sea necesario reprogramar \nuna comisión de servicios",
+          "texto": ", o se requiera reprogramar la ruta inicial, será necesario la \npresentación de un informe de sustento suscrito por el (la) Jefe(a) del órgano o unidad \norgánica dirigido a la Jefatura de la OGA, teniendo en cuenta lo siguiente: a) Sólo será \nposible reprogramar por única vez la comisión de servicios por la misma cantidad de días \nque se programaron en la Planilla de Viáticos inicial, siempre y cuando el viático aún no ha \nsido abonado al comisionado. b) Una vez abonado el viático en la cuenta del \n\n\ncomisionado, éste deberá efectuar su devolución dentro de las veinticuatro (24) horas \nsiguientes, y solicitar un nuevo otorgamiento de viáticos, pasajes y otros gastos. De \nincumplir lo indicado en el párrafo anterior, la Oﬁcina de Contabilidad y Control Previo, \npondrá en conocimiento del (de la) Jefe(a) del órgano o unidad orgánica usuaria que \nautorizó los viáticos, para las acciones disciplinarias que correspondan y a la Secretaría \nTécnica de los Órganos Instructores del Procedimiento Administrativo Disciplinario, a ﬁn \nde que disponga las acciones pertinentes y/o sanciones del caso. c) De requerirse cambio \nde fecha de salida o retorno una vez adquirido el pasaje aéreo, deberá de solicitarse \ndetallando la justiﬁcación correspondiente en el documento señalado en el numeral \n8.3.2, literal a) de la presente directiva. Los costos adicionales que se generen por la \nmodiﬁcación solicitada serán asumidos íntegramente por el comisionado y el(la) Jefe(a) \ndel órgano o unidad orgánica que corresponda, en forma solidaria, excepto cuando \ndichas modiﬁcaciones respondan a causas debidamente sustentadas en el documento a \nque se reﬁere el párrafo precedente. 8.5.",
+          "score": 0.7
+        },
+        {
+          "titulo": "3. La \nrendición de cuentas se inicia con el registro en el Aplicativo SIGA",
+          "texto": "-VIATICOS del detalle de \nlos gastos realizados con cargo a viáticos, pasajes y otros gastos de viaje, con sujeción a \nlas partidas y montos detallados en el Comprobante de pago, a ﬁn de obtener los anexos y \nformatos para continuar con la rendición de cuentas. A ﬁn de mantener la secuencia \n\n\ncorrelativa, y dentro de los plazos establecidos en el párrafo precedente, el órgano o \nunidad orgánica usuaria deberá realizar un \"Reingreso\" en el expediente SINAD que \ngeneró al solicitar la planilla de viáticos, con la ﬁnalidad de remitir a la Coordinación de \nControl Previo la rendición de cuentas debidamente ﬁrmada y visada (según \ncorresponda), por el comisionado, por el(la) Jefe(a) del órgano o unidad orgánica que \nautorizó la comisión y por el (la), en el siguiente orden para su revisión: a) Rendición de \nCuentas por Comisión de Servicios (Según Anexo N° 3), el cual deberá estar refrendado \npor el(la) Jefe(a) del órgano o unidad orgánica que autorizó el viaje y con el visto bueno \n(V°B°) del Coordinador(a) Administrativo(a). b) Planilla de Viáticos (Según Modelo N° 2). c) \nDeclaración Jurada (Según Anexo N° 4). d) Plan de Trabajo Diario (Según Anexo N° 1). e) \nInforme de Comisión de la Planilla de Viáticos, presentado por el comisionado ante el(la) \nJefe(a) del órgano o unidad orgánica que autorizó la comisión de servicios, detallando las \nactividades, coordinaciones, supervisiones, y/o trabajos realizados (Según Anexo N° 2). f) \nConstancia en Comisión de Servicio, la cual debe ser debidamente ﬁrmada por el(la) \nJefe(a) del órgano o unidad orgánica de la institución donde se realizó la comisión (Según \nAnexo N° 5). g) De corresponder, presentar la Constancia en Comisión de Servicio \nSupervisión, Monitoreo, y Similares, consignando la fecha, lugar, ﬁrma y sello del (los) \nservidor(es) de las instituciones donde se realizó las acciones de supervisión, monitoreo \ny/o similares (Según Anexo N° 6). h) Tarjeta de Embarque (Boarding Pass) de salida y \nretorno en el caso de pasajes aéreos. i) El sustento documentario debidamente ordenado, \ncada Comprobante de Pago en original debe sujetarse a los requisitos exigidos por el \nReglamento de Comprobantes de Pago de la SUNAT. j) Pasajes terrestres y/o aéreos \n(Ticket electrónico o boleto de viaje), Boletos o Comprobantes de Pago para los viajes por \nvía ﬂuvial. k) De corresponder, adjuntar copia de la constancia de depósito en el Banco de \nla Nación (según cuentas corrientes detalladas en el numeral 8.4.",
+          "score": 0.6
+        }
+      ],
+      "time": 0.20925331115722656
+    },
+    "bm25": {
+      "results": [
+        {
+          "titulo": "13. \nRetención del IGV",
+          "texto": ".- Es el procedimiento mediante el cual el comisionado, que actúa como \ncomprador o usuario de un bien o servicio afecto al Régimen de Retenciones del \nImpuesto General a las Ventas (I.G.V.), retiene el tres por ciento (3%) del pago, cuando la \nfacturación supere los S/ 700,00 (SETECIENTOS Y 00/100 SOLES) para su posterior \nentrega al ﬁsco según la fecha de vencimiento de sus obligaciones tributarias. La emisión \ndel Comprobante de Retención Electrónico está a cargo de la Oﬁcina de Tesorería, por lo \nque el comisionado deberá solicitar las instrucciones de emisión a la Oﬁcina de Tesorería.",
+          "score": 10.50275755121024
+        }
+      ],
+      "time": 0.09420919418334961
+    }
+  },
+  "metrics": {
+    "result_count": {
+      "tfidf": 5,
+      "bm25": 1,
+      "difference": -4
+    },
+    "overlap": {
+      "common_results": 1,
+      "percentage": 20.0,
+      "avg_position_difference": 0.0
+    },
+    "scores": {
+      "tfidf_avg": 0.8,
+      "bm25_avg": 10.50275755121024
+    },
+    "time_performance": {
+      "tfidf_time": 0.20925331115722656,
+      "bm25_time": 0.09420919418334961,
+      "difference_ms": 115.04411697387695,
+      "percentage_improvement": 54.97839739674958
+    }
+  },
+  "analysis": {
+    "unique_results": {
+      "tfidf_only": 0,
+      "bm25_only": 0
+    },
+    "content_analysis": {
+      "tfidf_avg_length": 1098.2,
+      "bm25_avg_length": 596.0,
+      "length_difference": -502.20000000000005
+    },
+    "top_result_comparison": {
+      "tfidf_top": ".- Es el procedimiento mediante el cual el comisionado, que actúa como \ncomprador o usuario de un bien o servicio afecto al Régimen de Retenciones del...",
+      "bm25_top": ".- Es el procedimiento mediante el cual el comisionado, que actúa como \ncomprador o usuario de un bien o servicio afecto al Régimen de Retenciones del...",
+      "same_top_result": true
+    }
+  }
+}

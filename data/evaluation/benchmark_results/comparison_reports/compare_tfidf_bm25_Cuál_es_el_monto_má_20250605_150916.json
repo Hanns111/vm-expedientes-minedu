@@ -1,0 +1,33 @@
+{
+  "query": "¿Cuál es el monto máximo para viáticos nacionales?",
+  "timestamp": "2025-06-05 15:09:16",
+  "systems_compared": [
+    "tfidf",
+    "bm25"
+  ],
+  "metrics": {
+    "execution_time": {
+      "tfidf": 0.6691532135009766,
+      "bm25": 0.001988649368286133
+    },
+    "result_count": {
+      "tfidf": 5,
+      "bm25": 5
+    },
+    "overlap": {
+      "tfidf_vs_bm25": {
+        "common_count": 2,
+        "percentage": 40.0,
+        "avg_position_diff": 0.5
+      }
+    },
+    "top_result_match": {
+      "tfidf_vs_bm25": true
+    },
+    "unique_results": {
+      "unique_to_tfidf": 3,
+      "unique_to_bm25": 3
+    }
+  },
+  "detailed_results": {}
+}
