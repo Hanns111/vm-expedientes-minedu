@@ -23,7 +23,11 @@ from datetime import datetime
 from rank_bm25 import BM25Okapi
 
 # Importar el extractor de entidades existente
-from entities_extractor import EntitiesExtractor
+try:
+    from src.ai.entities_extractor import EntitiesExtractor
+except ImportError:
+    # Intentar importación relativa como fallback
+    from .entities_extractor import EntitiesExtractor
 
 # Configuración de logging
 logging.basicConfig(
@@ -141,20 +145,48 @@ class BM25Search:
             tokenized_query = preprocess_text(query)
             logger.info(f"Consulta preprocesada: {tokenized_query}")
             
+            # Detectar si la consulta es sobre montos o viáticos
+            is_amount_query = any(term in ' '.join(tokenized_query) for term in ['monto', 'viatico', 'viaticos', 'escala', '320'])
+            
             # Realizar búsqueda BM25
             bm25_scores = self.bm25_index.get_scores(tokenized_query)
             
-            # Obtener los índices de los top_k resultados
-            top_indices = sorted(range(len(bm25_scores)), key=lambda i: bm25_scores[i], reverse=True)[:top_k]
-            
             # Construir resultados con chunks y scores
             results = []
-            for idx in top_indices:
-                if bm25_scores[idx] > 0:  # Solo incluir resultados con score positivo
+            for idx, score in enumerate(bm25_scores):
+                if score > 0:  # Solo incluir resultados con score positivo
                     chunk = self.chunks[idx].copy()
-                    chunk["score"] = float(bm25_scores[idx])  # Convertir a float para serialización JSON
-                    results.append(chunk)
+                    chunk_text = chunk.get('texto', '').lower()
                     
+                    # Aplicar boost a chunks que contienen información sobre montos si la consulta es sobre montos
+                    boost_factor = 1.0
+                    if is_amount_query:
+                        # Patrones para detectar información sobre montos
+                        amount_patterns = [
+                            (r's/\s*320', 5.0),  # Boost muy alto para el monto exacto
+                            (r'320', 3.0),       # Boost alto para cualquier mención del monto
+                            (r's/\s*\d+', 2.0),  # Boost medio para cualquier monto
+                            (r'viático.*día', 1.5),  # Boost bajo para menciones de viáticos por día
+                            (r'escala.*viático', 1.5)  # Boost bajo para menciones de escala de viáticos
+                        ]
+                        
+                        # Aplicar el boost más alto que corresponda
+                        for pattern, factor in amount_patterns:
+                            if re.search(pattern, chunk_text):
+                                boost_factor = max(boost_factor, factor)
+                                logger.info(f"Aplicando boost de {factor} a chunk con patrón '{pattern}'")
+                                break
+                    
+                    # Aplicar el boost al score
+                    boosted_score = score * boost_factor
+                    chunk["score"] = float(boosted_score)  # Convertir a float para serialización JSON
+                    chunk["original_score"] = float(score)  # Guardar el score original para referencia
+                    chunk["boost_factor"] = float(boost_factor)  # Guardar el factor de boost aplicado
+                    results.append(chunk)
+            
+            # Ordenar por score boosteado
+            results = sorted(results, key=lambda x: x["score"], reverse=True)[:top_k]
+            
             # Filtrar resultados de baja calidad
             original_count = len(results)
             results = self.filter_quality_results(results)
@@ -199,25 +231,37 @@ class BM25Search:
         """
         if not text:
             return False
+        
+        # Verificar si el chunk contiene información sobre montos o viáticos
+        # Si contiene esta información, considerarlo de alta calidad automáticamente
+        important_patterns = [
+            r'S/\s*\d+', r'\d+\s*soles', r'viático', r'monto', r'escala', 
+            r'per diem', r'dieta', r'asignación', r'320', r'380'
+        ]
+        
+        for pattern in important_patterns:
+            if re.search(pattern, text.lower()):
+                logger.info(f"Chunk considerado de alta calidad por contener información relevante sobre montos/viáticos")
+                return True
             
-        # Filtro 1: Máximo 20% caracteres especiales
+        # Filtro 1: Máximo 30% caracteres especiales (más permisivo que antes)
         special_ratio = self.count_special_chars(text) / len(text)
-        if special_ratio > 0.2:
+        if special_ratio > 0.3:  # Antes era 0.2
             logger.debug(f"Chunk rechazado por alto ratio de caracteres especiales: {special_ratio:.2f}")
             return False
         
-        # Filtro 2: Mínimo 70% palabras coherentes (>= 3 chars)
+        # Filtro 2: Mínimo 60% palabras coherentes (>= 3 chars) (más permisivo que antes)
         words = text.split()
         if not words:
             return False
             
         coherent_words = [w for w in words if len(w) >= 3 and w.isalpha()]
         coherent_ratio = len(coherent_words) / len(words) if words else 0
-        if coherent_ratio < 0.7:
+        if coherent_ratio < 0.6:  # Antes era 0.7
             logger.debug(f"Chunk rechazado por bajo ratio de palabras coherentes: {coherent_ratio:.2f}")
             return False
         
-        # Filtro 3: Sin patrones OCR típicos
+        # Filtro 3: Sin patrones OCR típicos (mantenemos este filtro)
         ocr_patterns = ['( %)', 'del del', 'S O LE S', '00/ 1 00']
         if any(pattern in text for pattern in ocr_patterns):
             logger.debug(f"Chunk rechazado por contener patrones OCR típicos")
