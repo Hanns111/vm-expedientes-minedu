@@ -5,6 +5,25 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0-fase2] - 2025-06-05
+
+### Añadido
+- Implementación completa del sistema de búsqueda con Sentence Transformers
+- Modelo semántico multilingüe paraphrase-multilingual-MiniLM-L12-v2
+- Extracción de entidades nombradas (ORG, LOC, PER, MISC) en resultados
+- Comparación triple entre TF-IDF, BM25 y Sentence Transformers
+- Documentación científica de métricas y resultados de la Fase 2
+
+### Cambiado
+- Mejorado manejo de codificación de caracteres Unicode en Windows
+- Optimizado sistema de comparación para soportar múltiples motores
+- Actualizada documentación científica con análisis semántico
+
+### Corregido
+- Solucionado UnicodeEncodeError en la visualización de entidades
+- Mejorado manejo de errores en carga de modelos pre-entrenados
+- Ajustada visualización de resultados para mayor claridad
+
 ## [0.1.0-fase1] - 2025-06-05
 
 ### Añadido
