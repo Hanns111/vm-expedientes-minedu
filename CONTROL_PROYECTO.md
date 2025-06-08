@@ -90,14 +90,35 @@ python src/ai/search_vectorstore_hybrid.py
 
 python src/ai/inspect_vectorstore.py
 
-🌌 PRÓXIMOS PASOS
+🌌 ESTADO ACTUAL DEL PROYECTO
 
-Agregar mejoras a la respuesta semántica para que entregue valores clave (como montos, fechas)
+✅ **Sprint 1.1 Completado** (8 de junio de 2025)
+- Implementación y validación de BM25Search
+- Creación de dataset dorado (20 preguntas)
+- Implementación de métricas de evaluación (token_overlap, exact_match, length_ratio)
+- Validación del pipeline completo
 
-Integrar interfaz CLI/web (fase futura)
+📋 **Documentación Actualizada**
+- Resultados científicos: `paper_cientifico/results/visualization/sprint_1_1_results.md`
+- Informe de finalización: `docs/sprint_1_1_completion.md`
 
-Escalar a otros documentos PDF para permitir respuestas cruzadas entre normas
+🌌 **PRÓXIMOS PASOS (Sprint 1.2)**
 
-Exportar datos en formatos estructurados (JSON, Excel, etc)
+1. **Expansión del dataset dorado**:
+   - Agregar al menos 30 preguntas adicionales
+   - Incluir más variedad de tipos de consultas
 
-Actualizado: 24 de abril de 2025Autor: Hanns (usuario) con apoyo de LLM (modo escaneo inteligente)
+2. **Mejoras en TF-IDF**:
+   - Optimizar algoritmo para comparación justa con BM25
+   - Implementar factores de boost similares a BM25
+
+3. **Implementación de Sentence Transformers**:
+   - Integrar modelos de embeddings semánticos
+   - Evaluar rendimiento comparativo
+
+4. **Sistema híbrido**:
+   - Desarrollar prototipo de sistema híbrido BM25 + embeddings
+   - Evaluar mejoras en métricas
+
+Actualizado: 8 de junio de 2025
+Autor: Hanns (usuario) con apoyo de LLM (modo escaneo inteligente)
