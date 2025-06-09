@@ -1,0 +1,49 @@
+{
+  "query": "¿Qué documentos requiere la solicitud de viáticos?",
+  "timestamp": "2025-06-05 20:04:55",
+  "systems_compared": [
+    "tfidf",
+    "bm25",
+    "transformers"
+  ],
+  "metrics": {
+    "execution_time": {
+      "tfidf": 0.1781160831451416,
+      "bm25": 0.0039937496185302734,
+      "transformers": 0.8116037845611572
+    },
+    "result_count": {
+      "tfidf": 5,
+      "bm25": 1,
+      "transformers": 5
+    },
+    "overlap": {
+      "tfidf_vs_bm25": {
+        "common_count": 1,
+        "percentage": 20.0,
+        "avg_position_diff": 0.0
+      },
+      "tfidf_vs_transformers": {
+        "common_count": 1,
+        "percentage": 20.0,
+        "avg_position_diff": 2.0
+      },
+      "bm25_vs_transformers": {
+        "common_count": 1,
+        "percentage": 20.0,
+        "avg_position_diff": 2.0
+      }
+    },
+    "top_result_match": {
+      "tfidf_vs_bm25": true,
+      "tfidf_vs_transformers": false,
+      "bm25_vs_transformers": false
+    },
+    "unique_results": {
+      "unique_to_tfidf": 4,
+      "unique_to_bm25": 0,
+      "unique_to_transformers": 4
+    }
+  },
+  "detailed_results": {}
+}

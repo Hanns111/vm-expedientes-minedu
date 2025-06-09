@@ -1,0 +1,568 @@
+[
+  {
+    "query_id": "Q001",
+    "question": "¿Cuál es el monto máximo para viáticos nacionales?",
+    "category": "montos_limites",
+    "ground_truth_answer": "S/ 320.00 por día según escala de viáticos",
+    "supporting_chunks": [
+      "chunk_045",
+      "chunk_067"
+    ],
+    "metadata": {
+      "difficulty": "easy",
+      "query_type": "factual",
+      "entities_required": [
+        "monto",
+        "viáticos",
+        "nacional"
+      ]
+    }
+  },
+  {
+    "query_id": "Q002",
+    "question": "¿Cuál es el plazo para presentar la rendición de cuentas de viáticos?",
+    "category": "plazos",
+    "ground_truth_answer": "10 días hábiles contados desde la culminación de la comisión de servicios",
+    "supporting_chunks": [
+      "chunk_078",
+      "chunk_079"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "procedural",
+      "entities_required": [
+        "plazo",
+        "rendición",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q003",
+    "question": "¿Qué documentos se requieren para solicitar viáticos?",
+    "category": "procedimientos",
+    "ground_truth_answer": "Memorando de autorización, planilla de viáticos y formato de declaración jurada",
+    "supporting_chunks": [
+      "chunk_082",
+      "chunk_083"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "procedural",
+      "entities_required": [
+        "documentos",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q004",
+    "question": "¿Qué norma regula los viáticos para servidores públicos?",
+    "category": "normativa",
+    "ground_truth_answer": "Decreto Supremo N° 007-2013-EF",
+    "supporting_chunks": [
+      "chunk_056"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "reference",
+      "entities_required": [
+        "norma",
+        "viáticos",
+        "servidores"
+      ]
+    }
+  },
+  {
+    "query_id": "Q005",
+    "question": "¿Quién es responsable de aprobar las solicitudes de viáticos?",
+    "category": "roles",
+    "ground_truth_answer": "El jefe inmediato del comisionado y el Director de la Oficina de Administración",
+    "supporting_chunks": [
+      "chunk_089"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "responsibility",
+      "entities_required": [
+        "responsable",
+        "aprobar",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q006",
+    "question": "¿Cuál es el monto máximo para viáticos internacionales en Europa?",
+    "category": "montos_limites",
+    "ground_truth_answer": "US$ 540.00 por día según escala de viáticos para Europa",
+    "supporting_chunks": [
+      "chunk_102"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "factual",
+      "entities_required": [
+        "monto",
+        "viáticos",
+        "internacional",
+        "Europa"
+      ]
+    }
+  },
+  {
+    "query_id": "Q007",
+    "question": "¿Qué gastos no son reembolsables en una comisión de servicios?",
+    "category": "montos_limites",
+    "ground_truth_answer": "Gastos de bar, bebidas alcohólicas, lavado de ropa, llamadas telefónicas no oficiales y propinas",
+    "supporting_chunks": [
+      "chunk_115"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "factual",
+      "entities_required": [
+        "gastos",
+        "no reembolsables",
+        "comisión"
+      ]
+    }
+  },
+  {
+    "query_id": "Q008",
+    "question": "¿Cuál es el procedimiento para solicitar una ampliación de viáticos?",
+    "category": "procedimientos",
+    "ground_truth_answer": "Presentar solicitud justificada al jefe inmediato con al menos 24 horas de anticipación al término de la comisión original",
+    "supporting_chunks": [
+      "chunk_125",
+      "chunk_126"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "procedural",
+      "entities_required": [
+        "procedimiento",
+        "ampliación",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q009",
+    "question": "¿Qué sanciones aplican por no presentar la rendición de viáticos a tiempo?",
+    "category": "sanciones",
+    "ground_truth_answer": "Descuento en planilla, impedimento para nuevas comisiones y proceso administrativo disciplinario",
+    "supporting_chunks": [
+      "chunk_135",
+      "chunk_136"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "consequence",
+      "entities_required": [
+        "sanciones",
+        "rendición",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q010",
+    "question": "¿Cuándo se considera una comisión de servicio de carácter urgente?",
+    "category": "definiciones",
+    "ground_truth_answer": "Cuando es imprevista y no programada con una anticipación mínima de 24 horas",
+    "supporting_chunks": [
+      "chunk_142"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "definition",
+      "entities_required": [
+        "comisión",
+        "urgente"
+      ]
+    }
+  },
+  {
+    "query_id": "Q011",
+    "question": "¿Qué porcentaje del viático corresponde si la comisión dura menos de 4 horas?",
+    "category": "montos_limites",
+    "ground_truth_answer": "No corresponde asignación de viáticos para comisiones menores a 4 horas",
+    "supporting_chunks": [
+      "chunk_150"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "factual",
+      "entities_required": [
+        "porcentaje",
+        "viático",
+        "horas"
+      ]
+    }
+  },
+  {
+    "query_id": "Q012",
+    "question": "¿Qué requisitos debe cumplir una declaración jurada de gastos?",
+    "category": "procedimientos",
+    "ground_truth_answer": "Debe estar debidamente firmada, no exceder el 30% del monto total asignado y sustentar gastos donde no sea posible obtener comprobantes",
+    "supporting_chunks": [
+      "chunk_162",
+      "chunk_163"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "procedural",
+      "entities_required": [
+        "requisitos",
+        "declaración jurada",
+        "gastos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q013",
+    "question": "¿Qué instancia resuelve las controversias sobre viáticos?",
+    "category": "roles",
+    "ground_truth_answer": "La Oficina de Administración en primera instancia y la Secretaría General en segunda instancia",
+    "supporting_chunks": [
+      "chunk_175"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "responsibility",
+      "entities_required": [
+        "instancia",
+        "controversias",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q014",
+    "question": "¿Cuál es el horario oficial de trabajo en el MINEDU?",
+    "category": "procedimientos",
+    "ground_truth_answer": "De lunes a viernes de 8:30 a.m. a 5:30 p.m.",
+    "supporting_chunks": [
+      "chunk_180"
+    ],
+    "metadata": {
+      "difficulty": "easy",
+      "query_type": "factual",
+      "entities_required": [
+        "horario",
+        "trabajo",
+        "MINEDU"
+      ]
+    }
+  },
+  {
+    "query_id": "Q015",
+    "question": "¿Cuál es el plazo para presentar recursos de reconsideración?",
+    "category": "plazos",
+    "ground_truth_answer": "15 días hábiles contados desde la notificación del acto administrativo",
+    "supporting_chunks": [
+      "chunk_192"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "procedural",
+      "entities_required": [
+        "plazo",
+        "recurso",
+        "reconsideración"
+      ]
+    }
+  },
+  {
+    "query_id": "Q016",
+    "question": "¿Qué documentos se requieren para solicitar licencia por paternidad?",
+    "category": "procedimientos",
+    "ground_truth_answer": "Solicitud dirigida a Recursos Humanos, copia del certificado de nacimiento y declaración jurada de convivencia con la madre",
+    "supporting_chunks": [
+      "chunk_205",
+      "chunk_206"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "procedural",
+      "entities_required": [
+        "documentos",
+        "licencia",
+        "paternidad"
+      ]
+    }
+  },
+  {
+    "query_id": "Q017",
+    "question": "¿Cuál es el monto máximo para caja chica por dependencia?",
+    "category": "montos_limites",
+    "ground_truth_answer": "S/ 5,000.00 para oficinas administrativas y S/ 8,000.00 para despachos ministeriales",
+    "supporting_chunks": [
+      "chunk_215"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "factual",
+      "entities_required": [
+        "monto",
+        "caja chica",
+        "dependencia"
+      ]
+    }
+  },
+  {
+    "query_id": "Q018",
+    "question": "¿Qué norma regula el procedimiento administrativo disciplinario en el MINEDU?",
+    "category": "normativa",
+    "ground_truth_answer": "Ley N° 30057, Ley del Servicio Civil y su Reglamento aprobado por Decreto Supremo N° 040-2014-PCM",
+    "supporting_chunks": [
+      "chunk_225"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "reference",
+      "entities_required": [
+        "norma",
+        "procedimiento administrativo disciplinario",
+        "MINEDU"
+      ]
+    }
+  },
+  {
+    "query_id": "Q019",
+    "question": "¿Cuál es el plazo de prescripción para iniciar un procedimiento administrativo disciplinario?",
+    "category": "plazos",
+    "ground_truth_answer": "3 años contados desde la comisión de la falta y 1 año desde que la oficina de recursos humanos toma conocimiento",
+    "supporting_chunks": [
+      "chunk_235"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "procedural",
+      "entities_required": [
+        "plazo",
+        "prescripción",
+        "procedimiento administrativo disciplinario"
+      ]
+    }
+  },
+  {
+    "query_id": "Q020",
+    "question": "¿Qué autoridades son competentes para sancionar faltas disciplinarias?",
+    "category": "roles",
+    "ground_truth_answer": "El jefe inmediato (amonestación), jefe de recursos humanos (suspensión) y el titular de la entidad (destitución)",
+    "supporting_chunks": [
+      "chunk_245",
+      "chunk_246"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "responsibility",
+      "entities_required": [
+        "autoridades",
+        "sancionar",
+        "faltas disciplinarias"
+      ]
+    }
+  },
+  {
+    "query_id": "Q021",
+    "question": "¿Qué sanciones se aplican por no presentar la rendición de cuentas a tiempo?",
+    "category": "sanciones",
+    "ground_truth_answer": "Las sanciones incluyen amonestación escrita, suspensión sin goce de haber y posible apertura de proceso administrativo disciplinario según la gravedad y reincidencia.",
+    "supporting_chunks": [
+      "chunk_090",
+      "chunk_091"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "consequence",
+      "entities_required": [
+        "sanciones",
+        "rendición",
+        "plazo"
+      ]
+    }
+  },
+  {
+    "query_id": "Q022",
+    "question": "¿Cuáles son las consecuencias de declarar gastos falsos en una comisión de servicios?",
+    "category": "sanciones",
+    "ground_truth_answer": "Constituye falta grave que puede derivar en proceso administrativo disciplinario, devolución del íntegro del monto y posibles acciones penales por falsedad documental.",
+    "supporting_chunks": [
+      "chunk_092",
+      "chunk_093"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "consequence",
+      "entities_required": [
+        "consecuencias",
+        "gastos falsos",
+        "comisión"
+      ]
+    }
+  },
+  {
+    "query_id": "Q023",
+    "question": "¿Qué norma establece las sanciones por mal uso de viáticos?",
+    "category": "sanciones",
+    "ground_truth_answer": "Ley N° 30057, Ley del Servicio Civil y su Reglamento, en concordancia con la Directiva de Tesorería y la Directiva específica de viáticos del MINEDU.",
+    "supporting_chunks": [
+      "chunk_094"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "reference",
+      "entities_required": [
+        "norma",
+        "sanciones",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q024",
+    "question": "¿Quién es responsable de aplicar sanciones por incumplimiento en rendiciones de viáticos?",
+    "category": "sanciones",
+    "ground_truth_answer": "El jefe inmediato inicia el proceso y la Secretaría Técnica de Procedimientos Administrativos Disciplinarios evalúa y recomienda la sanción, que es aplicada por el órgano competente según la gravedad.",
+    "supporting_chunks": [
+      "chunk_095",
+      "chunk_096"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "responsibility",
+      "entities_required": [
+        "responsable",
+        "sanciones",
+        "rendición",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q025",
+    "question": "¿Qué se considera como 'comisión de servicios' según la normativa del MINEDU?",
+    "category": "definiciones",
+    "ground_truth_answer": "Es el desplazamiento temporal del servidor fuera de la sede habitual de trabajo, dispuesto por la autoridad competente, para realizar funciones según la necesidad institucional y que estén relacionadas con los objetivos del MINEDU.",
+    "supporting_chunks": [
+      "chunk_097"
+    ],
+    "metadata": {
+      "difficulty": "easy",
+      "query_type": "definition",
+      "entities_required": [
+        "comisión de servicios",
+        "definición"
+      ]
+    }
+  },
+  {
+    "query_id": "Q026",
+    "question": "¿Cómo se define 'viático' en la normativa de viajes oficiales?",
+    "category": "definiciones",
+    "ground_truth_answer": "Asignación económica que se otorga al servidor para cubrir gastos de alimentación, hospedaje y movilidad (hacia y desde el lugar de embarque), así como la movilidad utilizada para el desplazamiento en el lugar donde se realiza la comisión.",
+    "supporting_chunks": [
+      "chunk_098"
+    ],
+    "metadata": {
+      "difficulty": "easy",
+      "query_type": "definition",
+      "entities_required": [
+        "viático",
+        "definición"
+      ]
+    }
+  },
+  {
+    "query_id": "Q027",
+    "question": "¿Qué se entiende por 'rendición de cuentas documentada' en el contexto de viáticos?",
+    "category": "definiciones",
+    "ground_truth_answer": "Presentación de comprobantes de pago (facturas, boletas, tickets) y declaración jurada que sustentan los gastos realizados durante la comisión de servicios, debidamente firmados por el comisionado y visados por el jefe inmediato.",
+    "supporting_chunks": [
+      "chunk_099"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "definition",
+      "entities_required": [
+        "rendición de cuentas documentada",
+        "definición"
+      ]
+    }
+  },
+  {
+    "query_id": "Q028",
+    "question": "¿Cuál es la definición de 'declaración jurada de gastos' según la normativa?",
+    "category": "definiciones",
+    "ground_truth_answer": "Documento mediante el cual el comisionado declara bajo juramento haber efectuado gastos en lugares donde no es posible obtener comprobantes de pago reconocidos, hasta por un máximo del 30% del monto total asignado para viáticos.",
+    "supporting_chunks": [
+      "chunk_100"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "definition",
+      "entities_required": [
+        "declaración jurada",
+        "definición"
+      ]
+    }
+  },
+  {
+    "query_id": "Q029",
+    "question": "¿Qué directiva interna del MINEDU regula el uso de viáticos?",
+    "category": "normativa",
+    "ground_truth_answer": "Directiva N° 003-2020-MINEDU/SG-OGA 'Disposiciones para la autorización de viajes, asignación y rendición de viáticos y pasajes en comisión de servicios'.",
+    "supporting_chunks": [
+      "chunk_101"
+    ],
+    "metadata": {
+      "difficulty": "medium",
+      "query_type": "reference",
+      "entities_required": [
+        "directiva",
+        "MINEDU",
+        "viáticos"
+      ]
+    }
+  },
+  {
+    "query_id": "Q030",
+    "question": "¿Qué norma establece los procedimientos para comisiones de servicio internacionales?",
+    "category": "normativa",
+    "ground_truth_answer": "Decreto Supremo N° 047-2002-PCM y sus modificatorias, que regulan la autorización de viajes al exterior de servidores y funcionarios públicos.",
+    "supporting_chunks": [
+      "chunk_102"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "reference",
+      "entities_required": [
+        "norma",
+        "procedimientos",
+        "comisión",
+        "internacional"
+      ]
+    }
+  },
+  {
+    "query_id": "Q031",
+    "question": "¿Cuándo fue la última actualización de la normativa de viáticos del MINEDU?",
+    "category": "normativa",
+    "ground_truth_answer": "La última actualización significativa fue en marzo de 2020 con la Directiva N° 003-2020-MINEDU/SG-OGA, con modificaciones menores posteriores en 2022.",
+    "supporting_chunks": [
+      "chunk_103"
+    ],
+    "metadata": {
+      "difficulty": "hard",
+      "query_type": "factual",
+      "entities_required": [
+        "actualización",
+        "normativa",
+        "viáticos"
+      ]
+    }
+  }
+]
