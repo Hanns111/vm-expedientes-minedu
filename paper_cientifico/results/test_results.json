@@ -1,0 +1,1349 @@
+{
+  "results": [
+    {
+      "query_id": "Q001",
+      "question": "¿Cuál es el monto máximo para viáticos nacionales?",
+      "ground_truth": "S/ 320.00 por día según escala de viáticos",
+      "generated_answer": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+      "response": {
+        "question": "¿Cuál es el monto máximo para viáticos nacionales?",
+        "results": [
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.614830732345581,
+            "retrieval": 0.4303815126419067,
+            "processing": 0.1844492197036743
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:12.666590"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.75,
+        "length_ratio": 2.619047619047619
+      },
+      "query_time": 0.614830732345581
+    },
+    {
+      "query_id": "Q002",
+      "question": "¿Cuál es el plazo para presentar la rendición de cuentas de viáticos?",
+      "ground_truth": "10 días hábiles contados desde la culminación de la comisión de servicios",
+      "generated_answer": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+      "response": {
+        "question": "¿Cuál es el plazo para presentar la rendición de cuentas de viáticos?",
+        "results": [
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.95,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Las sanciones por no presentar rendición incluyen descuento en planilla e impedimento para nuevas comisiones.",
+            "score": 0.7,
+            "metadata": {
+              "source": "documento_9.txt",
+              "chunk_id": "chunk_9"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.6,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          },
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.9533495903015137,
+            "retrieval": 0.6673447132110595,
+            "processing": 0.2860048770904541
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:13.620400"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.8,
+        "length_ratio": 1.5753424657534247
+      },
+      "query_time": 0.9533495903015137
+    },
+    {
+      "query_id": "Q003",
+      "question": "¿Qué documentos se requieren para solicitar viáticos?",
+      "ground_truth": "Memorando de autorización, planilla de viáticos y formato de declaración jurada",
+      "generated_answer": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+      "response": {
+        "question": "¿Qué documentos se requieren para solicitar viáticos?",
+        "results": [
+          {
+            "content": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_3.txt",
+              "chunk_id": "chunk_3"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          },
+          {
+            "content": "Para ampliación de viáticos se debe presentar solicitud justificada al jefe con 24 horas de anticipación.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_8.txt",
+              "chunk_id": "chunk_8"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.4940619468688965,
+            "retrieval": 1.0458433628082275,
+            "processing": 0.44821858406066895
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:15.115331"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.8888888888888888,
+        "length_ratio": 1.4683544303797469
+      },
+      "query_time": 1.4940619468688965
+    },
+    {
+      "query_id": "Q004",
+      "question": "¿Qué norma regula los viáticos para servidores públicos?",
+      "ground_truth": "Decreto Supremo N° 007-2013-EF",
+      "generated_answer": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+      "response": {
+        "question": "¿Qué norma regula los viáticos para servidores públicos?",
+        "results": [
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          },
+          {
+            "content": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_3.txt",
+              "chunk_id": "chunk_3"
+            }
+          },
+          {
+            "content": "Para ampliación de viáticos se debe presentar solicitud justificada al jefe con 24 horas de anticipación.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_8.txt",
+              "chunk_id": "chunk_8"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.4920001029968262,
+            "retrieval": 1.0444000720977782,
+            "processing": 0.4476000308990478
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:16.607861"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.75,
+        "length_ratio": 3.066666666666667
+      },
+      "query_time": 1.4920001029968262
+    },
+    {
+      "query_id": "Q005",
+      "question": "¿Quién es responsable de aprobar las solicitudes de viáticos?",
+      "ground_truth": "El jefe inmediato del comisionado y el Director de la Oficina de Administración",
+      "generated_answer": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+      "response": {
+        "question": "¿Quién es responsable de aprobar las solicitudes de viáticos?",
+        "results": [
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          },
+          {
+            "content": "Las sanciones por no presentar rendición incluyen descuento en planilla e impedimento para nuevas comisiones.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_9.txt",
+              "chunk_id": "chunk_9"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.078460693359375,
+            "retrieval": 0.7549224853515625,
+            "processing": 0.32353820800781247
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:17.686322"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.7272727272727273,
+        "length_ratio": 1.4177215189873418
+      },
+      "query_time": 1.078460693359375
+    },
+    {
+      "query_id": "Q006",
+      "question": "¿Cuál es el monto máximo para viáticos internacionales en Europa?",
+      "ground_truth": "US$ 540.00 por día según escala de viáticos para Europa",
+      "generated_answer": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+      "response": {
+        "question": "¿Cuál es el monto máximo para viáticos internacionales en Europa?",
+        "results": [
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.7,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Para ampliación de viáticos se debe presentar solicitud justificada al jefe con 24 horas de anticipación.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_8.txt",
+              "chunk_id": "chunk_8"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.6166641712188721,
+            "retrieval": 0.4316649198532104,
+            "processing": 0.18499925136566162
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:18.304017"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 1.0,
+        "length_ratio": 2.0
+      },
+      "query_time": 0.6166641712188721
+    },
+    {
+      "query_id": "Q007",
+      "question": "¿Qué gastos no son reembolsables en una comisión de servicios?",
+      "ground_truth": "Gastos de bar, bebidas alcohólicas, lavado de ropa, llamadas telefónicas no oficiales y propinas",
+      "generated_answer": "No son reembolsables los gastos de bar, bebidas alcohólicas, lavado de ropa, llamadas no oficiales y propinas.",
+      "response": {
+        "question": "¿Qué gastos no son reembolsables en una comisión de servicios?",
+        "results": [
+          {
+            "content": "No son reembolsables los gastos de bar, bebidas alcohólicas, lavado de ropa, llamadas no oficiales y propinas.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_7.txt",
+              "chunk_id": "chunk_7"
+            }
+          },
+          {
+            "content": "Una comisión urgente es aquella imprevista y no programada con anticipación mínima de 24 horas.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_10.txt",
+              "chunk_id": "chunk_10"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Las sanciones por no presentar rendición incluyen descuento en planilla e impedimento para nuevas comisiones.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_9.txt",
+              "chunk_id": "chunk_9"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.7710881233215332,
+            "retrieval": 0.5397616863250732,
+            "processing": 0.23132643699645994
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:19.075903"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.8461538461538461,
+        "length_ratio": 1.1458333333333333
+      },
+      "query_time": 0.7710881233215332
+    },
+    {
+      "query_id": "Q008",
+      "question": "¿Cuál es el procedimiento para solicitar una ampliación de viáticos?",
+      "ground_truth": "Presentar solicitud justificada al jefe inmediato con al menos 24 horas de anticipación al término de la comisión original",
+      "generated_answer": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+      "response": {
+        "question": "¿Cuál es el procedimiento para solicitar una ampliación de viáticos?",
+        "results": [
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Para ampliación de viáticos se debe presentar solicitud justificada al jefe con 24 horas de anticipación.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_8.txt",
+              "chunk_id": "chunk_8"
+            }
+          },
+          {
+            "content": "Una comisión urgente es aquella imprevista y no programada con anticipación mínima de 24 horas.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_10.txt",
+              "chunk_id": "chunk_10"
+            }
+          },
+          {
+            "content": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_3.txt",
+              "chunk_id": "chunk_3"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.8151378631591797,
+            "retrieval": 0.5705965042114257,
+            "processing": 0.2445413589477539
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:19.891808"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.1875,
+        "length_ratio": 0.9426229508196722
+      },
+      "query_time": 0.8151378631591797
+    },
+    {
+      "query_id": "Q009",
+      "question": "¿Qué sanciones aplican por no presentar la rendición de viáticos a tiempo?",
+      "ground_truth": "Descuento en planilla, impedimento para nuevas comisiones y proceso administrativo disciplinario",
+      "generated_answer": "Las sanciones por no presentar rendición incluyen descuento en planilla e impedimento para nuevas comisiones.",
+      "response": {
+        "question": "¿Qué sanciones aplican por no presentar la rendición de viáticos a tiempo?",
+        "results": [
+          {
+            "content": "Las sanciones por no presentar rendición incluyen descuento en planilla e impedimento para nuevas comisiones.",
+            "score": 0.7999999999999999,
+            "metadata": {
+              "source": "documento_9.txt",
+              "chunk_id": "chunk_9"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.1462287902832031,
+            "retrieval": 0.8023601531982422,
+            "processing": 0.3438686370849609
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:21.038889"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.45454545454545453,
+        "length_ratio": 1.1354166666666667
+      },
+      "query_time": 1.1462287902832031
+    },
+    {
+      "query_id": "Q010",
+      "question": "¿Cuándo se considera una comisión de servicio de carácter urgente?",
+      "ground_truth": "Cuando es imprevista y no programada con una anticipación mínima de 24 horas",
+      "generated_answer": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+      "response": {
+        "question": "¿Cuándo se considera una comisión de servicio de carácter urgente?",
+        "results": [
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Una comisión urgente es aquella imprevista y no programada con anticipación mínima de 24 horas.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_10.txt",
+              "chunk_id": "chunk_10"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          },
+          {
+            "content": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_3.txt",
+              "chunk_id": "chunk_3"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.37864351272583,
+            "retrieval": 0.9650504589080809,
+            "processing": 0.413593053817749
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:22.418574"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.15384615384615385,
+        "length_ratio": 1.513157894736842
+      },
+      "query_time": 1.37864351272583
+    },
+    {
+      "query_id": "Q011",
+      "question": "¿Qué porcentaje del viático corresponde si la comisión dura menos de 4 horas?",
+      "ground_truth": "No corresponde asignación de viáticos para comisiones menores a 4 horas",
+      "generated_answer": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+      "response": {
+        "question": "¿Qué porcentaje del viático corresponde si la comisión dura menos de 4 horas?",
+        "results": [
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          },
+          {
+            "content": "Una comisión urgente es aquella imprevista y no programada con anticipación mínima de 24 horas.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_10.txt",
+              "chunk_id": "chunk_10"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.44333815574646,
+            "retrieval": 1.010336709022522,
+            "processing": 0.433001446723938
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:23.862642"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.18181818181818182,
+        "length_ratio": 1.5774647887323943
+      },
+      "query_time": 1.44333815574646
+    },
+    {
+      "query_id": "Q012",
+      "question": "¿Qué requisitos debe cumplir una declaración jurada de gastos?",
+      "ground_truth": "Debe estar debidamente firmada, no exceder el 30% del monto total asignado y sustentar gastos donde no sea posible obtener comprobantes",
+      "generated_answer": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+      "response": {
+        "question": "¿Qué requisitos debe cumplir una declaración jurada de gastos?",
+        "results": [
+          {
+            "content": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_3.txt",
+              "chunk_id": "chunk_3"
+            }
+          },
+          {
+            "content": "Para ampliación de viáticos se debe presentar solicitud justificada al jefe con 24 horas de anticipación.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_8.txt",
+              "chunk_id": "chunk_8"
+            }
+          },
+          {
+            "content": "Una comisión urgente es aquella imprevista y no programada con anticipación mínima de 24 horas.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_10.txt",
+              "chunk_id": "chunk_10"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.1913361549377441,
+            "retrieval": 0.8339353084564208,
+            "processing": 0.35740084648132325
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:25.054804"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.05,
+        "length_ratio": 0.8592592592592593
+      },
+      "query_time": 1.1913361549377441
+    },
+    {
+      "query_id": "Q013",
+      "question": "¿Qué instancia resuelve las controversias sobre viáticos?",
+      "ground_truth": "La Oficina de Administración en primera instancia y la Secretaría General en segunda instancia",
+      "generated_answer": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+      "response": {
+        "question": "¿Qué instancia resuelve las controversias sobre viáticos?",
+        "results": [
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          },
+          {
+            "content": "Las sanciones por no presentar rendición incluyen descuento en planilla e impedimento para nuevas comisiones.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_9.txt",
+              "chunk_id": "chunk_9"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.5304334163665771,
+            "retrieval": 0.37130339145660396,
+            "processing": 0.15913002490997313
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:25.585238"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.18181818181818182,
+        "length_ratio": 1.1914893617021276
+      },
+      "query_time": 0.5304334163665771
+    },
+    {
+      "query_id": "Q014",
+      "question": "¿Cuál es el horario oficial de trabajo en el MINEDU?",
+      "ground_truth": "De lunes a viernes de 8:30 a.m. a 5:30 p.m.",
+      "generated_answer": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+      "response": {
+        "question": "¿Cuál es el horario oficial de trabajo en el MINEDU?",
+        "results": [
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Una comisión urgente es aquella imprevista y no programada con anticipación mínima de 24 horas.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_10.txt",
+              "chunk_id": "chunk_10"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.5233166217803955,
+            "retrieval": 0.3663216352462768,
+            "processing": 0.15699498653411864
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:26.109251"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.125,
+        "length_ratio": 2.6744186046511627
+      },
+      "query_time": 0.5233166217803955
+    },
+    {
+      "query_id": "Q015",
+      "question": "¿Cuál es el plazo para presentar recursos de reconsideración?",
+      "ground_truth": "15 días hábiles contados desde la notificación del acto administrativo",
+      "generated_answer": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+      "response": {
+        "question": "¿Cuál es el plazo para presentar recursos de reconsideración?",
+        "results": [
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.6,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Para ampliación de viáticos se debe presentar solicitud justificada al jefe con 24 horas de anticipación.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_8.txt",
+              "chunk_id": "chunk_8"
+            }
+          },
+          {
+            "content": "Las sanciones por no presentar rendición incluyen descuento en planilla e impedimento para nuevas comisiones.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_9.txt",
+              "chunk_id": "chunk_9"
+            }
+          },
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.3293962478637695,
+            "retrieval": 0.9305773735046386,
+            "processing": 0.3988188743591308
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:27.439480"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.5,
+        "length_ratio": 1.6428571428571428
+      },
+      "query_time": 1.3293962478637695
+    },
+    {
+      "query_id": "Q016",
+      "question": "¿Qué documentos se requieren para solicitar licencia por paternidad?",
+      "ground_truth": "Solicitud dirigida a Recursos Humanos, copia del certificado de nacimiento y declaración jurada de convivencia con la madre",
+      "generated_answer": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+      "response": {
+        "question": "¿Qué documentos se requieren para solicitar licencia por paternidad?",
+        "results": [
+          {
+            "content": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_3.txt",
+              "chunk_id": "chunk_3"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          },
+          {
+            "content": "Las sanciones por no presentar rendición incluyen descuento en planilla e impedimento para nuevas comisiones.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_9.txt",
+              "chunk_id": "chunk_9"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.151606798171997,
+            "retrieval": 0.8061247587203979,
+            "processing": 0.3454820394515991
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:28.591597"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.17647058823529413,
+        "length_ratio": 0.943089430894309
+      },
+      "query_time": 1.151606798171997
+    },
+    {
+      "query_id": "Q017",
+      "question": "¿Cuál es el monto máximo para caja chica por dependencia?",
+      "ground_truth": "S/ 5,000.00 para oficinas administrativas y S/ 8,000.00 para despachos ministeriales",
+      "generated_answer": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+      "response": {
+        "question": "¿Cuál es el monto máximo para caja chica por dependencia?",
+        "results": [
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.5368454456329346,
+            "retrieval": 0.37579181194305417,
+            "processing": 0.16105363368988038
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:29.129200"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.1111111111111111,
+        "length_ratio": 1.3095238095238095
+      },
+      "query_time": 0.5368454456329346
+    },
+    {
+      "query_id": "Q018",
+      "question": "¿Qué norma regula el procedimiento administrativo disciplinario en el MINEDU?",
+      "ground_truth": "Ley N° 30057, Ley del Servicio Civil y su Reglamento aprobado por Decreto Supremo N° 040-2014-PCM",
+      "generated_answer": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+      "response": {
+        "question": "¿Qué norma regula el procedimiento administrativo disciplinario en el MINEDU?",
+        "results": [
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Una comisión urgente es aquella imprevista y no programada con anticipación mínima de 24 horas.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_10.txt",
+              "chunk_id": "chunk_10"
+            }
+          },
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.2,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 0.7728798389434814,
+            "retrieval": 0.5410158872604369,
+            "processing": 0.2318639516830444
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:29.902892"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.0,
+        "length_ratio": 1.1855670103092784
+      },
+      "query_time": 0.7728798389434814
+    },
+    {
+      "query_id": "Q019",
+      "question": "¿Cuál es el plazo de prescripción para iniciar un procedimiento administrativo disciplinario?",
+      "ground_truth": "3 años contados desde la comisión de la falta y 1 año desde que la oficina de recursos humanos toma conocimiento",
+      "generated_answer": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+      "response": {
+        "question": "¿Cuál es el plazo de prescripción para iniciar un procedimiento administrativo disciplinario?",
+        "results": [
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.5,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          },
+          {
+            "content": "Una comisión urgente es aquella imprevista y no programada con anticipación mínima de 24 horas.",
+            "score": 0.4,
+            "metadata": {
+              "source": "documento_10.txt",
+              "chunk_id": "chunk_10"
+            }
+          },
+          {
+            "content": "Los viáticos nacionales tienen un monto máximo de S/ 320.00 por día según la escala vigente.",
+            "score": 0.30000000000000004,
+            "metadata": {
+              "source": "documento_1.txt",
+              "chunk_id": "chunk_1"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.1169989109039307,
+            "retrieval": 0.7818992376327514,
+            "processing": 0.3350996732711792
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:31.020617"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.23529411764705882,
+        "length_ratio": 1.0267857142857142
+      },
+      "query_time": 1.1169989109039307
+    },
+    {
+      "query_id": "Q020",
+      "question": "¿Qué autoridades son competentes para sancionar faltas disciplinarias?",
+      "ground_truth": "El jefe inmediato (amonestación), jefe de recursos humanos (suspensión) y el titular de la entidad (destitución)",
+      "generated_answer": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+      "response": {
+        "question": "¿Qué autoridades son competentes para sancionar faltas disciplinarias?",
+        "results": [
+          {
+            "content": "El plazo para presentar la rendición de cuentas es de 10 días hábiles contados desde la culminación de la comisión.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_2.txt",
+              "chunk_id": "chunk_2"
+            }
+          },
+          {
+            "content": "Para solicitar viáticos se requiere memorando de autorización, planilla de viáticos y formato de declaración jurada.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_3.txt",
+              "chunk_id": "chunk_3"
+            }
+          },
+          {
+            "content": "Los viáticos para servidores públicos están regulados por el Decreto Supremo N° 007-2013-EF.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_4.txt",
+              "chunk_id": "chunk_4"
+            }
+          },
+          {
+            "content": "Las solicitudes de viáticos son aprobadas por el jefe inmediato del comisionado y el Director de Administración.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_5.txt",
+              "chunk_id": "chunk_5"
+            }
+          },
+          {
+            "content": "Los viáticos internacionales para Europa tienen un monto máximo de US$ 540.00 por día según la escala vigente.",
+            "score": 0.1,
+            "metadata": {
+              "source": "documento_6.txt",
+              "chunk_id": "chunk_6"
+            }
+          }
+        ],
+        "metrics": {
+          "latency": {
+            "total": 1.3708291053771973,
+            "retrieval": 0.959580373764038,
+            "processing": 0.41124873161315917
+          },
+          "components_used": [
+            "bm25_retriever"
+          ]
+        },
+        "timestamp": "2025-06-08T02:47:32.391446"
+      },
+      "metrics": {
+        "exact_match": 0.0,
+        "token_overlap": 0.23076923076923078,
+        "length_ratio": 1.0267857142857142
+      },
+      "query_time": 1.3708291053771973
+    }
+  ],
+  "aggregated": {
+    "avg_length_ratio": 1.5160702191446114,
+    "avg_token_overlap": 0.4175244241053064,
+    "avg_exact_match": 0.0,
+    "avg_query_time": 1.016372311115265,
+    "total_questions": 20,
+    "total_time": 20.33968687057495,
+    "avg_time_per_question": 1.0169843435287476
+  }
+}

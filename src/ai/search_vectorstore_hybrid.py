@@ -5,7 +5,11 @@ import logging
 from typing import Dict, List, Any
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from entities_extractor import EntitiesExtractor
+try:
+    from src.ai.entities_extractor import EntitiesExtractor
+except ImportError:
+    # Intentar importación relativa como fallback
+    from .entities_extractor import EntitiesExtractor
 
 # Configuración de logging
 logging.basicConfig(

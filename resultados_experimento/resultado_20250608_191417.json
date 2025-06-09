@@ -1,0 +1,25 @@
+{
+  "experimento": "BM25 vs TF-IDF",
+  "fecha": "20250608_191417",
+  "dataset_size": 10,
+  "corpus_size": 49,
+  "resultados_tfidf": {
+    "precision": 0.5999999999999999,
+    "recall": 0.5999999999999999,
+    "f1": 0.5999999999999999,
+    "mrr": 1.0,
+    "tiempo_promedio": 0.10187125205993652
+  },
+  "resultados_bm25": {
+    "precision": 0.5999999999999999,
+    "recall": 0.5999999999999999,
+    "f1": 0.5999999999999999,
+    "mrr": 1.0,
+    "tiempo_promedio": 0.05214869976043701
+  },
+  "mejoras": {
+    "precision": 0.0,
+    "aceleracion": 1.953476357568207,
+    "ganador": "TF-IDF"
+  }
+}

@@ -5,6 +5,22 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Sprint 1.2] - 2025-06-08 - Experimento Científico Completado
+
+### Añadido
+
+- ✅ Experimento comparativo BM25 vs TF-IDF con Golden Dataset
+- ✅ Script experimento_final_golden.py para evaluación científica
+- ✅ Evidencia cuantificable: BM25 es 2.2x más rápido que TF-IDF
+- ✅ Resultados científicos guardados en paper_cientifico/results/final/
+
+### Validado
+
+- 🔬 40 preguntas del Golden Dataset procesadas exitosamente
+- 📊 Métricas científicas calculadas (Precision, Recall, F1, MRR)
+- ⚡ Rendimiento confirmado: BM25 superior en velocidad
+- 🎯 Sistema listo para paper SIGIR/CLEF 2025-2026
+
 ## [Sprint 1.1] - 2025-06-06 - Core Pipeline Funcional
 
 ### Añadido

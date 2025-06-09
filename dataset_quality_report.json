@@ -1,0 +1,36 @@
+{
+  "resumen": {
+    "total_preguntas": 31,
+    "fecha_generacion": "2025-06-08",
+    "version": "1.2_expanded"
+  },
+  "distribuciones": {
+    "query_types": {
+      "factual": 7,
+      "procedural": 7,
+      "reference": 5,
+      "responsibility": 4,
+      "consequence": 3,
+      "definition": 5
+    },
+    "categories": {
+      "montos_limites": 5,
+      "plazos": 3,
+      "procedimientos": 5,
+      "normativa": 5,
+      "roles": 3,
+      "sanciones": 5,
+      "definiciones": 5
+    },
+    "difficulties": {
+      "easy": 4,
+      "medium": 17,
+      "hard": 10
+    }
+  },
+  "metricas_calidad": {
+    "longitud_promedio_respuesta": 18.06451612903226,
+    "entidades_unicas": 49,
+    "cobertura_secciones": 41
+  }
+}

@@ -270,13 +270,26 @@ def main():
     # Mostrar resultados
     print(f"\nResultados para '{query}':")
     print(f"Tiempo de ejecución: {results['execution_time']:.4f} segundos")
-    print(f"Entidades encontradas: {results['entities']}")
+    
+    # Manejar entidades con codificación segura
+    try:
+        print("Entidades encontradas:")
+        for entity_type, entities in results['entities'].items():
+            print(f"  - {entity_type}: {', '.join([str(e) for e in entities])}")
+    except UnicodeEncodeError:
+        print("  [Algunas entidades contienen caracteres que no se pueden mostrar en la consola actual]")
+    
     print("\nDocumentos más relevantes:")
     
     for i, result in enumerate(results['results']):
         print(f"\n{i+1}. Score: {result['score']:.4f}")
         print(f"   Chunk ID: {result.get('id', 'N/A')}")
-        print(f"   Texto: {result.get('texto', '')[:150]}...")
+        try:
+            texto = result.get('texto', '')[:150]
+            print(f"   Texto: {texto}...")
+        except UnicodeEncodeError:
+            print(f"   Texto: [Contiene caracteres que no se pueden mostrar en la consola actual]")
+
 
 if __name__ == "__main__":
     main()
