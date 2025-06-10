@@ -1,0 +1,37 @@
+{
+  "consultas_errores_tipeo": [
+    "Cuál es el mont máximo para viaticos nacionales",
+    "Reqisitos para solictar viatcos",
+    "Plaso para rendir cuentas de vije",
+    "Documntos para justificar gastos de hospedaj",
+    "Autorisación de comisón de servisios"
+  ],
+  "consultas_muy_largas": [
+    "Necesito saber detalladamente cuál es el procedimiento completo, incluyendo todos los formularios, aprobaciones, autorizaciones y documentos que debo presentar para solicitar viáticos para un viaje oficial que realizaré la próxima semana a una provincia alejada donde debo asistir a una reunión importante con autoridades locales para coordinar la implementación de un nuevo programa educativo que requiere mi presencia física durante aproximadamente tres días, considerando que necesitaré hospedaje, alimentación y transporte tanto aéreo como terrestre para llegar al destino final",
+    "Me gustaría conocer exhaustivamente todas las normativas, artículos, incisos y especificaciones que regulan el proceso de rendición de cuentas posterior a una comisión de servicios, incluyendo los plazos máximos permitidos, los formatos específicos que deben utilizarse, los tipos de comprobantes que son aceptados y rechazados, las consecuencias administrativas y disciplinarias en caso de incumplimiento, las excepciones contempladas para casos especiales, y los procedimientos de subsanación en caso de que la documentación presentada inicialmente sea observada por el área correspondiente",
+    "Solicito información completa y detallada sobre los montos máximos autorizados para viáticos tanto nacionales como internacionales según la escala jerárquica del servidor comisionado, incluyendo las variaciones según la zona geográfica de destino, los ajustes por inflación que pudieran haberse aplicado en los últimos años, las excepciones para casos especiales como zonas de difícil acceso o alto costo de vida, los porcentajes aplicables cuando la comisión no comprende un día completo sino fracciones del mismo, y las consideraciones especiales cuando el hospedaje o alimentación son proporcionados por la entidad receptora u organizadora del evento motivo de la comisión",
+    "Requiero conocer con el máximo nivel de detalle el procedimiento administrativo completo para solicitar una ampliación de plazo y presupuesto para una comisión de servicios que inicialmente fue aprobada por tres días pero que, debido a circunstancias imprevistas relacionadas con la complejidad de las coordinaciones interinstitucionales que estoy realizando, necesita extenderse por dos días adicionales, considerando que ya me encuentro en la localidad de destino y necesito que se autorice tanto la ampliación del tiempo como los recursos adicionales para cubrir hospedaje, alimentación y otros gastos asociados a mi permanencia extendida en esta ciudad",
+    "Estoy interesado en comprender completamente todas las implicancias legales, administrativas y presupuestales relacionadas con la asignación, uso y rendición de viáticos para comisiones de servicio que involucran a múltiples servidores de diferentes unidades orgánicas y niveles jerárquicos, que deben trasladarse a diversas localidades en un itinerario complejo que incluye tanto destinos nacionales como internacionales, con duraciones variables según el rol de cada participante, considerando además que algunos gastos serán cubiertos por entidades cooperantes externas mientras que otros deberán ser asumidos directamente por nuestra institución según convenios específicos de colaboración interinstitucional"
+  ],
+  "consultas_muy_cortas": [
+    "Viáticos",
+    "Rendición",
+    "Montos",
+    "Plazos",
+    "Hospedaje"
+  ],
+  "consultas_mayusculas": [
+    "CUÁL ES EL MONTO MÁXIMO PARA VIÁTICOS NACIONALES",
+    "PROCEDIMIENTO PARA SOLICITAR COMISIÓN DE SERVICIOS",
+    "PLAZO PARA RENDICIÓN DE CUENTAS",
+    "DOCUMENTOS REQUERIDOS PARA JUSTIFICAR GASTOS",
+    "REQUISITOS PARA VIAJES INTERNACIONALES"
+  ],
+  "consultas_caracteres_especiales": [
+    "¿Cuál es el monto máximo para viáticos? (urgente)",
+    "Procedimiento para solicitar viáticos [versión 2023]",
+    "Plazo para rendición de cuentas: ¿7 o 10 días?",
+    "Documentos requeridos: factura + boleta + *informe*",
+    "Viáticos internacionales: USD$ vs. €"
+  ]
+}

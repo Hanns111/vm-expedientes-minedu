@@ -1,0 +1,85 @@
+{
+  "query": "¿Cuánto tiempo antes debo solicitar viáticos?",
+  "top_k": 5,
+  "timestamp": "2025-06-05T17:15:25.578630",
+  "systems": {
+    "tfidf": {
+      "results": [
+        {
+          "titulo": "9. El comisionado deberá cautelar \nque el uso de los pasajes o tickets aéreos",
+          "texto": ", se efectúen en los horarios y condiciones \nestablecidos en ellos, de ser el caso que no fueran utilizados, deberá solicitar la \nreprogramación o reembolso según corresponda, antes de la fecha de vencimiento \nconsignada en el boleto de viaje o ticket aéreo, asumiendo el costo de las penalidades \nque hubiere lugar (salvo causas debidamente justiﬁcadas). 8.3.",
+          "score": 1.0
+        },
+        {
+          "titulo": "6. Para efectos del cálculo \ndel inicio y culminación de la duración de las horas de la comisión de servicios",
+          "texto": ", se debe \nconsignar el tiempo efectivo de la misma; considerándose: a) Para el caso de traslado \naéreo, tres (3) horas antes del inicio de viaje y dos (2) horas después de la culminación del \nviaje, teniendo en cuenta lo indicado en el itinerario de la reserva (tarjetas de embarque o \nticket electrónico). b) Para el caso de traslado terrestre, dos (2) horas antes del inicio del \nviaje y una (1) hora después de la culminación del viaje, teniendo en cuenta el horario de \npartida y de llegada del bus señalado en el boleto de viaje. c) Para el caso de los traslados \nterrestres en una movilidad del MINEDU, el cálculo del inicio y culminación de la duración \nde las horas de comisión de servicios se computará desde que la unidad móvil sale de las \ninstalaciones del MINEDU y retorna a las instalaciones del MINEDU (Se tomará en cuenta \nel horario de la papeleta de salida de la Coordinación de Transportes). 8.1.",
+          "score": 0.9
+        },
+        {
+          "titulo": "3. Los horarios \ncomprendidos en el Cuadro de Listado de Comisionados",
+          "texto": ", (Anexo N° 7), estarán sujetos a \nvariación en un rango de (03) tres horas antes o después del horario solicitado. En caso de \n\n\nexistir casos extraordinarios en los cuales los horarios especiﬁcados sean inamovibles, \nel(la) Jefe(a) del órgano o unidad orgánica usuaria deberá consignar el sustento \ncorrespondiente en el documento requerido en el numeral 8.3.2, literal a) de la presente \ndirectiva. 8.3.",
+          "score": 0.8
+        },
+        {
+          "titulo": "4. La",
+          "texto": "\"Solicitud de Viáticos\", la \"Planilla de Viáticos\" y la \"Solicitud de Seguro\", deberán ser \nregistradas y emitidas por el (la) Coordinador(a) Administrativo(a) del órgano o unidad \norgánica en el Sistema SIGA-VIÁTICOS, con los datos del \"Plan de Trabajo Diario\". 8.1.",
+          "score": 0.7
+        },
+        {
+          "titulo": "8. Para los casos de la \nautorización de las comisiones de servicio",
+          "texto": ", en función al tiempo previsto de \nduración, esta se otorgará de la siguiente manera: a) Hasta por quince (15) días de \ncomisión de servicio, deberán contar con la autorización del(de la) Jefe(a) del \nórgano o unidad orgánica. b) Las comisiones de servicios excepcionalmente \npodrán ser programadas para una duración de entre dieciséis (16) a treinta (30) \ndías, para lo cual se deberá contar además, con la autorización del(de la) \nMinistro(a) de Educación, Viceministro(a) o Secretario(a) General, según el Órgano \nde Alta Dirección a la que pertenezca el órgano o unidad orgánica. La Secretaría \nde Planiﬁcación Estratégica autoriza estas comisiones para los servidores de sus \nórganos o unidades orgánicas. 7.",
+          "score": 0.6
+        }
+      ],
+      "time": 0.20622587203979492
+    },
+    "bm25": {
+      "results": [
+        {
+          "titulo": "9. El comisionado deberá cautelar \nque el uso de los pasajes o tickets aéreos",
+          "texto": ", se efectúen en los horarios y condiciones \nestablecidos en ellos, de ser el caso que no fueran utilizados, deberá solicitar la \nreprogramación o reembolso según corresponda, antes de la fecha de vencimiento \nconsignada en el boleto de viaje o ticket aéreo, asumiendo el costo de las penalidades \nque hubiere lugar (salvo causas debidamente justiﬁcadas). 8.3.",
+          "score": 6.995092565290998
+        }
+      ],
+      "time": 0.10049748420715332
+    }
+  },
+  "metrics": {
+    "result_count": {
+      "tfidf": 5,
+      "bm25": 1,
+      "difference": -4
+    },
+    "overlap": {
+      "common_results": 1,
+      "percentage": 20.0,
+      "avg_position_difference": 0.0
+    },
+    "scores": {
+      "tfidf_avg": 0.8,
+      "bm25_avg": 6.995092565290998
+    },
+    "time_performance": {
+      "tfidf_time": 0.20622587203979492,
+      "bm25_time": 0.10049748420715332,
+      "difference_ms": 105.7283878326416,
+      "percentage_improvement": 51.26824621318098
+    }
+  },
+  "analysis": {
+    "unique_results": {
+      "tfidf_only": 0,
+      "bm25_only": 0
+    },
+    "content_analysis": {
+      "tfidf_avg_length": 532.6,
+      "bm25_avg_length": 360.0,
+      "length_difference": -172.60000000000002
+    },
+    "top_result_comparison": {
+      "tfidf_top": ", se efectúen en los horarios y condiciones \nestablecidos en ellos, de ser el caso que no fueran utilizados, deberá solicitar la \nreprogramación o ree...",
+      "bm25_top": ", se efectúen en los horarios y condiciones \nestablecidos en ellos, de ser el caso que no fueran utilizados, deberá solicitar la \nreprogramación o ree...",
+      "same_top_result": true
+    }
+  }
+}
