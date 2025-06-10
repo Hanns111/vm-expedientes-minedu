@@ -1,0 +1,66 @@
+{
+  "total_questions": 20,
+  "categories": {
+    "montos_limites": 5,
+    "plazos": 3,
+    "procedimientos": 5,
+    "normativa": 2,
+    "roles": 3,
+    "sanciones": 1,
+    "definiciones": 1
+  },
+  "query_types": {
+    "factual": 6,
+    "procedural": 7,
+    "reference": 2,
+    "responsibility": 3,
+    "consequence": 1,
+    "definition": 1
+  },
+  "difficulties": {
+    "easy": 2,
+    "medium": 11,
+    "hard": 7
+  },
+  "top_10_entities": {
+    "viáticos": 9,
+    "monto": 3,
+    "plazo": 3,
+    "rendición": 2,
+    "documentos": 2,
+    "norma": 2,
+    "gastos": 2,
+    "comisión": 2,
+    "MINEDU": 2,
+    "procedimiento administrativo disciplinario": 2
+  },
+  "underrepresented": {
+    "categories": [
+      "sanciones",
+      "definiciones"
+    ],
+    "query_types": [
+      "reference",
+      "consequence",
+      "definition"
+    ]
+  },
+  "recommendations": {
+    "new_categories": [
+      "sanciones",
+      "definiciones"
+    ],
+    "focus_query_types": [
+      "reference",
+      "consequence",
+      "definition"
+    ],
+    "suggested_entities": [
+      "nacional",
+      "servidores",
+      "responsable",
+      "aprobar",
+      "internacional"
+    ]
+  }
+}

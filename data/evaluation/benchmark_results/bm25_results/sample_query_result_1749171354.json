@@ -1,0 +1,29 @@
+{
+  "query": "¿Cuál es el monto máximo para viáticos nacionales?",
+  "results": [
+    {
+      "titulo": "11. Declaración Jurada de Gastos",
+      "texto": ".- \nDocumento anexo que el comisionado está facultado a presentar en forma detallada y \ncronológica, para sustentar gastos por los cuales no es posible obtener comprobantes de \npago autorizados y emitidos de acuerdo a lo establecido en el Reglamento de \nComprobantes de Pago de la SUNAT; este documento se presenta hasta por un monto \nque no podrá exceder del treinta por ciento (30%) del monto total de los viáticos \nasignados para el viaje en comisión de servicios dentro del territorio nacional. 6.",
+      "score": 9.663908627928476
+    }
+  ],
+  "entities": {
+    "porcentajes": [
+      "30%",
+      "6"
+    ]
+  },
+  "context": {
+    "porcentajes": {
+      "30%": "ceder del treinta por ciento ([30%]) del monto total de los viáti",
+      "6": "ntro del territorio nacional. [6]."
+    }
+  },
+  "metadata": {
+    "search_method": "BM25",
+    "top_k": 5,
+    "total_results": 1,
+    "search_time": 0.1515951156616211,
+    "timestamp": "2025-06-05T19:55:54.942523"
+  }
+}

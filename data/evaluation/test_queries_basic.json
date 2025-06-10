@@ -1,0 +1,30 @@
+{
+  "consultas_montos": [
+    "¿Cuál es el monto máximo para viáticos nacionales?",
+    "Límite de gastos para viajes al extranjero",
+    "Monto mínimo reembolsable por alimentación",
+    "¿Cuánto se puede gastar en hospedaje?",
+    "Tope de viáticos diarios"
+  ],
+  "consultas_procedimientos": [
+    "¿Qué documentos requiere la solicitud de viáticos?",
+    "Procedimiento para autorización de viajes",
+    "Pasos para reembolso de gastos de viaje",
+    "Requisitos para aprobación de comisión de servicios",
+    "Documentación necesaria para rendición de cuentas"
+  ],
+  "consultas_plazos": [
+    "¿Cuánto tiempo antes debo solicitar viáticos?",
+    "Plazo para presentar rendición de cuentas",
+    "Tiempo máximo de procesamiento de solicitudes",
+    "Días permitidos para comisión de servicios",
+    "Fecha límite para justificar gastos"
+  ],
+  "consultas_semanticas": [
+    "Responsabilidades del servidor en viajes oficiales",
+    "Excepciones a las reglas de viáticos",
+    "Casos especiales de autorización",
+    "Consecuencias de no presentar rendición a tiempo",
+    "Situaciones que justifican mayor asignación de viáticos"
+  ]
+}

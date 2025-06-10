@@ -1,0 +1,33 @@
+{
+  "query": "¿Cuál es el procedimiento para solicitar viáticos?",
+  "timestamp": "2025-06-05 19:36:45",
+  "systems_compared": [
+    "tfidf",
+    "bm25"
+  ],
+  "metrics": {
+    "execution_time": {
+      "tfidf": 0.14955592155456543,
+      "bm25": 0.004058361053466797
+    },
+    "result_count": {
+      "tfidf": 3,
+      "bm25": 1
+    },
+    "overlap": {
+      "tfidf_vs_bm25": {
+        "common_count": 1,
+        "percentage": 33.33333333333333,
+        "avg_position_diff": 0.0
+      }
+    },
+    "top_result_match": {
+      "tfidf_vs_bm25": true
+    },
+    "unique_results": {
+      "unique_to_tfidf": 2,
+      "unique_to_bm25": 0
+    }
+  },
+  "detailed_results": {}
+}
