@@ -1,7 +1,8 @@
 import pickle
 from sentence_transformers import SentenceTransformer
+from src.core.config.security_config import SecurityConfig
 
-VECTORSTORE = "data/processed/vectorstore_semantic.pkl"
+VECTORSTORE = str(SecurityConfig.VECTORSTORE_PATH)
 
 def load_vectorstore():
     with open(VECTORSTORE, "rb") as f:

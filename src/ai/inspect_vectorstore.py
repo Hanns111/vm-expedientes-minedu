@@ -1,13 +1,21 @@
+#!/usr/bin/env python
+"""
+Inspección segura de vectorstore usando rutas centralizadas
+"""
+from src.core.config.security_config import SecurityConfig
 import pickle
+from pathlib import Path
 
-with open('data/processed/vectorstore_semantic_full_v2.pkl', 'rb') as f:
-    vectorstore = pickle.load(f)
+def main():
+    path = SecurityConfig.VECTORSTORE_PATH
+    print(f"Inspeccionando vectorstore seguro: {path}")
+    if not Path(path).exists():
+        print("❌ Vectorstore no encontrado.")
+        return
+    with open(path, 'rb') as f:
+        data = pickle.load(f)
+    print(f"Claves en el vectorstore: {list(data.keys())}")
+    print(f"Total de elementos: {len(data.get('chunks', []))}")
 
-print("Claves disponibles en el vectorstore:")
-print(vectorstore.keys())
-
-# Mostrar los primeros 5 chunks
-print("\nPrimeros 5 chunks:")
-for i, chunk in enumerate(vectorstore['chunks'][:5]):
-    print(f"\nChunk {i+1}:")
-    print(chunk['texto'][:200] + '...')
+if __name__ == "__main__":
+    main()

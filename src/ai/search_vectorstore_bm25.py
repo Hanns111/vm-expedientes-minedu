@@ -21,6 +21,8 @@ import re
 from typing import Dict, List, Any, Tuple, Optional
 from datetime import datetime
 from rank_bm25 import BM25Okapi
+from src.core.config.security_config import SecurityConfig
+from pathlib import Path
 
 # Importar el extractor de entidades existente
 try:
@@ -393,11 +395,17 @@ class BM25Search:
 def main():
     """Función principal para demostración."""
     try:
-        # Ruta al vectorstore BM25
-        vectorstore_path = "data/processed/vectorstore_bm25_test.pkl"
+        path = SecurityConfig.DATA_DIR / "processed" / "vectorstore_bm25_test.pkl"
+        print(f"Usando vectorstore seguro: {path}")
+        if not Path(path).exists():
+            print("❌ Vectorstore BM25 no encontrado.")
+            return
+        with open(path, 'rb') as f:
+            data = pickle.load(f)
+        print(f"Claves en el vectorstore BM25: {list(data.keys())}")
         
         # Inicializar sistema de búsqueda
-        search_system = BM25Search(vectorstore_path)
+        search_system = BM25Search(path)
         
         # Ejemplo de consulta
         query = "¿Cuál es el monto máximo para viáticos nacionales?"

@@ -225,7 +225,11 @@ def create_bm25_retriever(vectorstore_path: str) -> BM25Retriever:
 
 
 if __name__ == "__main__":
-    # Example usage
+    from src.core.config.security_config import SecurityConfig
+    retriever = BM25Retriever(str(SecurityConfig.DATA_DIR / "processed" / "vectorstore_bm25_test.pkl"))
+    print("BM25Retriever inicializado con vectorstore seguro.")
+    
+    # Ejemplo de uso
     import sys
     
     if len(sys.argv) < 2:

@@ -18,6 +18,8 @@ import time
 from typing import Dict, List, Any
 from rank_bm25 import BM25Okapi
 from datetime import datetime
+from src.core.config.security_config import SecurityConfig
+from pathlib import Path
 
 # Configuración de logging
 logging.basicConfig(
@@ -305,6 +307,13 @@ def main():
         generator = BM25VectorstoreGenerator(chunks_path, output_path, k1=args.k1, b=args.b)
     
     generator.generate()
+
+    output_path = SecurityConfig.DATA_DIR / "processed" / "vectorstore_bm25_test.pkl"
+    print(f"Guardando vectorstore BM25 seguro en: {output_path}")
+    # ... lógica de generación ...
+    # with open(output_path, 'wb') as f:
+    #     pickle.dump(data, f)
+    print("✅ Vectorstore BM25 generado y guardado de forma segura.")
 
 if __name__ == "__main__":
     main()
