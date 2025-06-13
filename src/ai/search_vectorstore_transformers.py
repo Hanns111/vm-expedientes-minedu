@@ -20,6 +20,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 import spacy
 from sklearn.metrics.pairwise import cosine_similarity
+from src.core.config.security_config import SecurityConfig
 
 # Configurar logging
 logging.basicConfig(
@@ -245,19 +246,17 @@ def parse_args():
 
 def main():
     """Función principal"""
-    args = parse_args()
-    
-    # Definir rutas
-    base_dir = Path(__file__).resolve().parent.parent.parent
-    vectorstore_path = base_dir / args.vectorstore
-    
-    # Verificar existencia de archivo de vectorstore
-    if not vectorstore_path.exists():
-        logger.error(f"Archivo de vectorstore no encontrado: {vectorstore_path}")
-        sys.exit(1)
+    path = SecurityConfig.DATA_DIR / "processed" / "vectorstore_transformers_test.pkl"
+    print(f"Usando vectorstore seguro: {path}")
+    if not Path(path).exists():
+        print("❌ Vectorstore Transformers no encontrado.")
+        return
+    with open(path, 'rb') as f:
+        data = pickle.load(f)
+    print(f"Claves en el vectorstore Transformers: {list(data.keys())}")
     
     # Crear sistema de búsqueda
-    search_system = TransformersSearch(str(vectorstore_path))
+    search_system = TransformersSearch(str(path))
     
     # Si no se proporciona consulta, solicitarla
     query = args.query

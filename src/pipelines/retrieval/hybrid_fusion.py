@@ -20,6 +20,7 @@ from typing import Dict, List, Any, Optional, Union, Tuple
 # Importar adaptadores locales
 from src.pipelines.retrieval.bm25_retriever import BM25Retriever
 from src.pipelines.retrieval.dense_retriever_e5 import DenseRetrieverE5Adapter
+from src.core.config.security_config import SecurityConfig
 
 # Configuración de logging
 logging.basicConfig(
@@ -300,7 +301,7 @@ class HybridFusion:
 # Ejemplo de uso
 if __name__ == "__main__":
     # Crear retrievers
-    bm25 = BM25Retriever('data/processed/vectorstore_bm25_test.pkl')
+    bm25 = BM25Retriever(str(SecurityConfig.DATA_DIR / "processed" / "vectorstore_bm25_test.pkl"))
     dense = DenseRetrieverE5Adapter(device="cpu")
     
     # Crear fusión híbrida

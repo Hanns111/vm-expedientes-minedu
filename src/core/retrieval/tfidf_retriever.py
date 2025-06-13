@@ -16,6 +16,7 @@ from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+from src.core.config.security_config import SecurityConfig
 
 
 class TFIDFRetriever:
@@ -252,6 +253,10 @@ def create_tfidf_retriever(vectorstore_path: str) -> TFIDFRetriever:
 
 
 if __name__ == "__main__":
+    # Ejemplo de uso seguro
+    retriever = TFIDFRetriever(str(SecurityConfig.VECTORSTORE_PATH))
+    print("TFIDFRetriever inicializado con vectorstore seguro.")
+    
     # Example usage
     import sys
     

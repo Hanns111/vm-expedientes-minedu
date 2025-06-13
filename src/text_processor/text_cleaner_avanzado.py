@@ -2,12 +2,13 @@ import re
 import unicodedata
 import json
 import os
+from src.core.config.security_config import SecurityConfig
 
 # Rutas de archivos
 ruta_chunks_original = "data/processed/chunks_v2.json"
 ruta_chunks_limpios = "data/processed/chunks_limpios.json"
-ruta_vectorstore = "data/processed/vectorstore_semantic_full_v2.pkl"
-ruta_vectorstore_limpio = "data/processed/vectorstore_semantic_full_limpio.pkl"
+ruta_vectorstore = str(SecurityConfig.VECTORSTORE_PATH)
+ruta_vectorstore_limpio = str(SecurityConfig.DATA_DIR / "processed" / "vectorstore_semantic_full_limpio.pkl")
 
 def normalizar_texto(texto):
     """

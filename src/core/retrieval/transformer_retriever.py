@@ -262,9 +262,11 @@ def create_transformer_retriever(
 
 
 if __name__ == "__main__":
-    # Example usage
-    import sys
+    from src.core.config.security_config import SecurityConfig
+    retriever = TransformerRetriever(str(SecurityConfig.DATA_DIR / "processed" / "vectorstore_transformers_test.pkl"))
+    print("TransformerRetriever inicializado con vectorstore seguro.")
     
+    # Ejemplo de uso
     if len(sys.argv) < 2:
         print("Usage: python transformer_retriever.py <vectorstore_path> [query]")
         sys.exit(1)
