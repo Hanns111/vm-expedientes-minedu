@@ -1,0 +1,145 @@
+{
+  "timestamp": "2025-06-13T01:56:59.996820",
+  "consultas": {
+    "tfidf": {
+      "consulta_1": {
+        "status": "RESPONDIDA",
+        "time": 0.1282334327697754,
+        "results_count": 3,
+        "response": "No se encontraron datos clave en el texto.",
+        "sistema": "TF-IDF"
+      },
+      "consulta_2": {
+        "status": "RESPONDIDA",
+        "time": 0.027531147003173828,
+        "results_count": 3,
+        "response": "No se encontraron datos clave en el texto.",
+        "sistema": "TF-IDF"
+      },
+      "consulta_3": {
+        "status": "RESPONDIDA",
+        "time": 0.019983291625976562,
+        "results_count": 3,
+        "response": "Numerales encontrados: 8.4",
+        "sistema": "TF-IDF"
+      },
+      "consulta_4": {
+        "status": "RESPONDIDA",
+        "time": 0.09297633171081543,
+        "results_count": 3,
+        "response": "Numerales encontrados: 8.3",
+        "sistema": "TF-IDF"
+      },
+      "consulta_5": {
+        "status": "RESPONDIDA",
+        "time": 0.08166360855102539,
+        "results_count": 3,
+        "response": "No se encontraron datos clave en el texto.",
+        "sistema": "TF-IDF"
+      },
+      "consulta_6": {
+        "status": "RESPONDIDA",
+        "time": 0.07539844512939453,
+        "results_count": 3,
+        "response": "No se encontraron datos clave en el texto.",
+        "sistema": "TF-IDF"
+      },
+      "consulta_7": {
+        "status": "RESPONDIDA",
+        "time": 0.08980059623718262,
+        "results_count": 3,
+        "response": "Numerales encontrados: 8.1.1, numeral 8.1.1",
+        "sistema": "TF-IDF"
+      },
+      "consulta_8": {
+        "status": "RESPONDIDA",
+        "time": 0.064300537109375,
+        "results_count": 3,
+        "response": "No se encontraron datos clave en el texto.",
+        "sistema": "TF-IDF"
+      }
+    },
+    "transformers": {
+      "consulta_1": {
+        "status": "RESPONDIDA",
+        "time": 0.674065113067627,
+        "results_count": 3,
+        "top_score": 0.4880705773830414,
+        "sistema": "Transformers"
+      },
+      "consulta_2": {
+        "status": "RESPONDIDA",
+        "time": 0.1719202995300293,
+        "results_count": 3,
+        "top_score": 0.5967856645584106,
+        "sistema": "Transformers"
+      },
+      "consulta_3": {
+        "status": "RESPONDIDA",
+        "time": 0.1742551326751709,
+        "results_count": 3,
+        "top_score": 0.5652008056640625,
+        "sistema": "Transformers"
+      },
+      "consulta_4": {
+        "status": "RESPONDIDA",
+        "time": 0.40436482429504395,
+        "results_count": 3,
+        "top_score": 0.5795067548751831,
+        "sistema": "Transformers"
+      },
+      "consulta_5": {
+        "status": "RESPONDIDA",
+        "time": 0.2875685691833496,
+        "results_count": 3,
+        "top_score": 0.6316861510276794,
+        "sistema": "Transformers"
+      },
+      "consulta_6": {
+        "status": "RESPONDIDA",
+        "time": 0.1773841381072998,
+        "results_count": 3,
+        "top_score": 0.7445412278175354,
+        "sistema": "Transformers"
+      },
+      "consulta_7": {
+        "status": "RESPONDIDA",
+        "time": 0.15999507904052734,
+        "results_count": 3,
+        "top_score": 0.3178391754627228,
+        "sistema": "Transformers"
+      },
+      "consulta_8": {
+        "status": "RESPONDIDA",
+        "time": 0.15924763679504395,
+        "results_count": 3,
+        "top_score": 0.4521055221557617,
+        "sistema": "Transformers"
+      }
+    }
+  },
+  "sistemas_funcionando": [
+    "TF-IDF",
+    "Transformers"
+  ],
+  "estadisticas": {
+    "TF-IDF": {
+      "respondidas": 8,
+      "total": 8,
+      "porcentaje": 100.0,
+      "tiempo_promedio": 0.07248592376708984
+    },
+    "Transformers": {
+      "respondidas": 8,
+      "total": 8,
+      "porcentaje": 100.0,
+      "tiempo_promedio": 0.2761000990867615
+    },
+    "general": {
+      "sistemas_funcionando": 2,
+      "total_consultas": 8,
+      "total_respondidas": 16,
+      "porcentaje_general": 100.0
+    }
+  }
+}
