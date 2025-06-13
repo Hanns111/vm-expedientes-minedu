@@ -1,0 +1,22 @@
+{
+  "paths": {
+    "chunks": "data/processed/chunks.json",
+    "vectorstores": {
+      "tfidf": "data/vectorstores/tfidf.pkl",
+      "bm25": "data/vectorstores/bm25.pkl",
+      "transformers": "data/vectorstores/transformers.pkl"
+    }
+  },
+  "models": {
+    "transformer_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "spacy_model": "es_core_news_sm"
+  },
+  "search": {
+    "default_top_k": 5,
+    "fusion_strategy": "weighted"
+  },
+  "logging": {
+    "level": "INFO",
+    "file_logging": true
+  }
+}

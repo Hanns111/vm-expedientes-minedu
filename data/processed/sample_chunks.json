@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "texto": "El monto máximo diario para viáticos nacionales es de S/ 320.00 según la escala vigente.",
+    "titulo": "Escala de Viáticos Nacionales",
+    "metadatos": {
+      "page": 1,
+      "type": "normativa",
+      "section": "viáticos"
+    }
+  },
+  {
+    "id": 2,
+    "texto": "Los viáticos deben ser solicitados con diez (10) días hábiles de anticipación a la fecha programada para el viaje.",
+    "titulo": "Plazo de Solicitud de Viáticos",
+    "metadatos": {
+      "page": 2,
+      "type": "normativa",
+      "section": "solicitud"
+    }
+  },
+  {
+    "id": 3,
+    "texto": "El comisionado debe presentar una Declaración Jurada de Gastos para sustentar los gastos realizados.",
+    "titulo": "Declaración Jurada de Gastos",
+    "metadatos": {
+      "page": 3,
+      "type": "normativa",
+      "section": "rendición"
+    }
+  },
+  {
+    "id": 4,
+    "texto": "La autorización de viáticos corresponde al Jefe del órgano o unidad orgánica correspondiente.",
+    "titulo": "Autorización de Viáticos",
+    "metadatos": {
+      "page": 4,
+      "type": "normativa",
+      "section": "autorización"
+    }
+  },
+  {
+    "id": 5,
+    "texto": "Los gastos de viáticos se rinden dentro de los cinco (5) días hábiles posteriores al término de la comisión.",
+    "titulo": "Plazo de Rendición",
+    "metadatos": {
+      "page": 5,
+      "type": "normativa",
+      "section": "rendición"
+    }
+  }
+]
