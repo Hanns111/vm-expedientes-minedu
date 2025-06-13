@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-06-13T01:32:04.363459",
+  "correcciones": {
+    "tfidf": {
+      "status": "ERROR"
+    },
+    "transformers": {
+      "status": "ERROR"
+    },
+    "bm25": {
+      "status": "DATOS_INCOMPATIBLES"
+    }
+  },
+  "pruebas_sistemas": {
+    "bm25": {
+      "status": "OK",
+      "time": 0.0010020732879638672,
+      "results": 0
+    }
+  },
+  "consultas_directiva": {
+    "consulta_1": {
+      "pregunta": "¿Cuál es el monto máximo diario para viáticos nacionales?",
+      "resultados": {
+        "status": "SIN_RESPUESTA"
+      }
+    },
+    "consulta_2": {
+      "pregunta": "¿Quién autoriza los viáticos en el MINEDU?",
+      "resultados": {
+        "status": "SIN_RESPUESTA"
+      }
+    },
+    "consulta_3": {
+      "pregunta": "¿Qué documentos se requieren para solicitar viáticos?",
+      "resultados": {
+        "status": "SIN_RESPUESTA"
+      }
+    },
+    "consulta_4": {
+      "pregunta": "¿Cuántos días antes debo solicitar viáticos?",
+      "resultados": {
+        "status": "SIN_RESPUESTA"
+      }
+    },
+    "consulta_5": {
+      "pregunta": "¿Cómo se rinden los gastos de viáticos?",
+      "resultados": {
+        "status": "SIN_RESPUESTA"
+      }
+    },
+    "consulta_6": {
+      "pregunta": "¿Cuáles son las responsabilidades del comisionado?",
+      "resultados": {
+        "status": "SIN_RESPUESTA"
+      }
+    },
+    "consulta_7": {
+      "pregunta": "¿Qué sucede si no rindo mis viáticos a tiempo?",
+      "resultados": {
+        "status": "SIN_RESPUESTA"
+      }
+    },
+    "consulta_8": {
+      "pregunta": "¿Se pueden solicitar viáticos para viajes internacionales?",
+      "resultados": {
+        "status": "SIN_RESPUESTA"
+      }
+    }
+  },
+  "estado_final": "REQUIERE MEJORAS"
+}
