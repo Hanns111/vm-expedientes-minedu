@@ -1,0 +1,247 @@
+{
+  "timestamp": "20250612_225320",
+  "test_queries": [
+    "¿Cuál es el monto máximo para viáticos?",
+    "¿Qué documentos se requieren para viáticos?",
+    "¿Cuál es el procedimiento para solicitar viáticos?",
+    "¿Quién autoriza los viáticos en el MINEDU?",
+    "¿Cuáles son las responsabilidades del comisionado?"
+  ],
+  "sample_result": {
+    "results": [
+      {
+        "texto": "(Anexo N° 4), únicamente \ncuando no le resulte posible obtener comprobantes de pago autorizados y \nemitidos de acuerdo a lo establecido en el Reglamento de Comprobantes de Pago \nde la SUNAT, por un monto que no podrá exceder el treinta por ciento (30%) del \nmonto total de los viáticos asignados para viajes en comisión de servicios dentro \ndel territorio nacional. 8.4.",
+        "titulo": "TF-IDF Result 2",
+        "combined_score": 0.39553769946098327,
+        "contributing_systems": [
+          "tfidf",
+          "transformers"
+        ],
+        "individual_scores": {
+          "tfidf": 0.9,
+          "transformers": 0.4184589982032776
+        },
+        "fusion_details": {
+          "tfidf": {
+            "original_score": 0.9,
+            "weight_applied": 0.3,
+            "weighted_contribution": 0.27
+          },
+          "transformers": {
+            "original_score": 0.4184589982032776,
+            "weight_applied": 0.3,
+            "weighted_contribution": 0.12553769946098328
+          }
+        },
+        "final_score": 0.8045264564241683,
+        "rerank_factors": {
+          "original_combined": 0.39553769946098327,
+          "diversity_bonus": 0.2,
+          "consensus_bonus": 0.15184589982032778,
+          "relevance_bonus": 0.05714285714285714,
+          "final_score": 0.8045264564241683
+        }
+      },
+      {
+        "texto": ".- \nDocumento anexo que el comisionado está facultado a presentar en forma detallada y \ncronológica, para sustentar gastos por los cuales no es posible obtener comprobantes de \npago autorizados y emitidos de acuerdo a lo establecido en el Reglamento de \nComprobantes de Pago de la SUNAT; este documento se presenta hasta por un monto \nque no podrá exceder del treinta por ciento (30%) del monto total de los viáticos \nasignados para el viaje en comisión de servicios dentro del territorio nacional. 6.",
+        "titulo": "TF-IDF Result 1",
+        "combined_score": 0.3,
+        "contributing_systems": [
+          "tfidf"
+        ],
+        "individual_scores": {
+          "tfidf": 1.0
+        },
+        "fusion_details": {
+          "tfidf": {
+            "original_score": 1.0,
+            "weight_applied": 0.3,
+            "weighted_contribution": 0.3
+          }
+        },
+        "final_score": 0.4571428571428572,
+        "rerank_factors": {
+          "original_combined": 0.3,
+          "diversity_bonus": 0.1,
+          "consensus_bonus": 0,
+          "relevance_bonus": 0.05714285714285714,
+          "final_score": 0.4571428571428572
+        }
+      },
+      {
+        "texto": "(la) Jefe(a) del órgano o \nunidad orgánica que autoriza los viáticos, es \"responsable solidario\" para la devolución \neconómica, cuando el comisionado no cumpla con presentar las rendiciones de cuentas \nde gastos oportunamente. 9.",
+        "titulo": "TF-IDF Result 3",
+        "combined_score": 0.24,
+        "contributing_systems": [
+          "tfidf"
+        ],
+        "individual_scores": {
+          "tfidf": 0.8
+        },
+        "fusion_details": {
+          "tfidf": {
+            "original_score": 0.8,
+            "weight_applied": 0.3,
+            "weighted_contribution": 0.24
+          }
+        },
+        "final_score": 0.38285714285714284,
+        "rerank_factors": {
+          "original_combined": 0.24,
+          "diversity_bonus": 0.1,
+          "consensus_bonus": 0,
+          "relevance_bonus": 0.04285714285714286,
+          "final_score": 0.38285714285714284
+        }
+      },
+      {
+        "texto": ", deben registrarse en el Aplicativo SIGA-VIÁTICOS que tiene establecido \npara estos efectos el MINEDU. 7.",
+        "titulo": "TF-IDF Result 4",
+        "combined_score": 0.21,
+        "contributing_systems": [
+          "tfidf"
+        ],
+        "individual_scores": {
+          "tfidf": 0.7
+        },
+        "fusion_details": {
+          "tfidf": {
+            "original_score": 0.7,
+            "weight_applied": 0.3,
+            "weighted_contribution": 0.21
+          }
+        },
+        "final_score": 0.35285714285714287,
+        "rerank_factors": {
+          "original_combined": 0.21,
+          "diversity_bonus": 0.1,
+          "consensus_bonus": 0,
+          "relevance_bonus": 0.04285714285714286,
+          "final_score": 0.35285714285714287
+        }
+      },
+      {
+        "texto": "(la) \n\n\nCoordinador(a) Administrativo(a) del órgano o unidad orgánica deberá registrar y emitir en \nel Sistema SIGA-VIÁTICOS, el \"Compromiso de Devolución de Viáticos por Comisión al \nInterior del País\", para ser ﬁrmado por el comisionado, a efectos de que autorice la \naplicación de las sanciones que correspondan, en caso de no cumplir en los plazos \nestablecidos con la rendición de cuenta documentada de los viáticos recibidos. 8.1.",
+        "titulo": "TF-IDF Result 5",
+        "combined_score": 0.18,
+        "contributing_systems": [
+          "tfidf"
+        ],
+        "individual_scores": {
+          "tfidf": 0.6
+        },
+        "fusion_details": {
+          "tfidf": {
+            "original_score": 0.6,
+            "weight_applied": 0.3,
+            "weighted_contribution": 0.18
+          }
+        },
+        "final_score": 0.3228571428571429,
+        "rerank_factors": {
+          "original_combined": 0.18,
+          "diversity_bonus": 0.1,
+          "consensus_bonus": 0,
+          "relevance_bonus": 0.04285714285714286,
+          "final_score": 0.3228571428571429
+        }
+      }
+    ],
+    "metadata": {
+      "individual_times": {
+        "tfidf": 0.2090778350830078,
+        "bm25": 0.0,
+        "transformers": 0.7036399841308594
+      },
+      "total_time": 0.9127178192138672,
+      "systems_used": [
+        "tfidf",
+        "bm25",
+        "transformers"
+      ],
+      "fusion_method": "weighted_combination",
+      "query": "¿Cuál es el monto máximo para viáticos?",
+      "timestamp": "2025-06-12T22:53:16.666955"
+    }
+  },
+  "performance_comparison": {
+    "hybrid": {
+      "times": [
+        0.30225157737731934,
+        0.4836752414703369,
+        0.39580774307250977,
+        0.2481389045715332,
+        0.5713253021240234
+      ],
+      "result_counts": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    "individual": {
+      "tfidf": {
+        "times": [
+          0.05364990234375,
+          0.04532790184020996,
+          0.07200789451599121,
+          0.026680707931518555,
+          0.06394314765930176
+        ],
+        "result_counts": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      "bm25": {
+        "times": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "result_counts": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "transformers": {
+        "times": [
+          0.26633214950561523,
+          0.39589786529541016,
+          0.24777865409851074,
+          0.19180870056152344,
+          0.4360849857330322
+        ],
+        "result_counts": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      }
+    }
+  },
+  "system_config": {
+    "weights": {
+      "tfidf": 0.3,
+      "bm25": 0.4,
+      "transformers": 0.3
+    },
+    "systems_available": [
+      "tfidf",
+      "bm25",
+      "transformers"
+    ]
+  }
+}
