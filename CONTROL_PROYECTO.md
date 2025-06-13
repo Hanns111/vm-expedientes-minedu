@@ -64,7 +64,25 @@ test_script.py: script de prueba de ejecución básico ("Hello World")
 
 💡 ESTADO ACTUAL DEL PROYECTO
 
+✅ **Sprint 1.1 Completado** (8 de junio de 2025)
+- Implementación y validación de BM25Search
+- Creación de dataset dorado (20 preguntas)
+- Implementación de métricas de evaluación (token_overlap, exact_match, length_ratio)
+- Validación del pipeline completo
 
+✅ **Sprint 1.2 Completado** (8 de junio de 2025)
+- Experimento científico BM25 vs TF-IDF
+- Validación científica con dataset dorado
+- Documentación de resultados en paper_cientifico/
+
+✅ **Sprint 1.3 Completado** (12 de junio de 2025)
+- Implementación de Sentence Transformers
+- Comparación completa TF-IDF vs BM25 vs Transformers
+- Resultados de rendimiento:
+  - TF-IDF: 2.24 segundos
+  - BM25: Error de formato (necesita corrección)
+  - Transformers: 9.08 segundos (incluye carga del modelo)
+- Sistema funcional con embeddings semánticos
 
 🛠️ ENTORNO Y CONFIGURACIÓN
 
@@ -90,35 +108,34 @@ python src/ai/search_vectorstore_hybrid.py
 
 python src/ai/inspect_vectorstore.py
 
+4. Comparar todos los sistemas (Sprint 1.3):
+
+python src/ai/test_sprint_1_3.py
+
 🌌 ESTADO ACTUAL DEL PROYECTO
 
-✅ **Sprint 1.1 Completado** (8 de junio de 2025)
-- Implementación y validación de BM25Search
-- Creación de dataset dorado (20 preguntas)
-- Implementación de métricas de evaluación (token_overlap, exact_match, length_ratio)
-- Validación del pipeline completo
+✅ **FASE 1 COMPLETADA** (12 de junio de 2025)
+- Sprint 1.1: BM25 implementado y validado
+- Sprint 1.2: Experimento científico completado
+- Sprint 1.3: Sentence Transformers implementado y comparado
 
-📋 **Documentación Actualizada**
-- Resultados científicos: `paper_cientifico/results/visualization/sprint_1_1_results.md`
-- Informe de finalización: `docs/sprint_1_1_completion.md`
+📋 **PRÓXIMOS PASOS (FASE 2)**
 
-🌌 **PRÓXIMOS PASOS (Sprint 1.2)**
+1. **Corrección de BM25**:
+   - Arreglar error de formato en resultados
+   - Optimizar rendimiento
 
-1. **Expansión del dataset dorado**:
-   - Agregar al menos 30 preguntas adicionales
-   - Incluir más variedad de tipos de consultas
-
-2. **Mejoras en TF-IDF**:
-   - Optimizar algoritmo para comparación justa con BM25
-   - Implementar factores de boost similares a BM25
-
-3. **Implementación de Sentence Transformers**:
-   - Integrar modelos de embeddings semánticos
-   - Evaluar rendimiento comparativo
-
-4. **Sistema híbrido**:
-   - Desarrollar prototipo de sistema híbrido BM25 + embeddings
+2. **Sistema Híbrido**:
+   - Desarrollar prototipo que combine los 3 métodos
    - Evaluar mejoras en métricas
 
-Actualizado: 8 de junio de 2025
+3. **Optimizaciones**:
+   - Reducir tiempo de carga de Transformers
+   - Implementar caching de embeddings
+
+4. **Paper Científico**:
+   - Escribir paper con resultados de los 3 métodos
+   - Preparar para SIGIR/CLEF 2025-2026
+
+Actualizado: 12 de junio de 2025
 Autor: Hanns (usuario) con apoyo de LLM (modo escaneo inteligente)
