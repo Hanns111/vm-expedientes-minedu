@@ -1,6 +1,6 @@
 """
-Configuración segura para producción MINEDU
-Variables de entorno y configuraciones de seguridad
+Configuración segura de ejemplo para MINEDU
+COPIA ESTE ARCHIVO COMO settings_secure.py Y CONFIGURA TUS VALORES
 """
 
 import os
@@ -11,15 +11,15 @@ from typing import Dict, Any
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
-# Configuración de seguridad
+# ⚠️ CONFIGURACIÓN SENSIBLE - CAMBIAR EN PRODUCCIÓN
 SECURITY_CONFIG = {
-    'SECRET_KEY': os.getenv('SECRET_KEY', 'your-secret-key-change-in-production'),
+    'SECRET_KEY': os.getenv('SECRET_KEY', 'CHANGE_THIS_IN_PRODUCTION'),
     'DEBUG': os.getenv('DEBUG', 'False').lower() == 'true',
     'ALLOWED_HOSTS': os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(','),
     'CSRF_TRUSTED_ORIGINS': os.getenv('CSRF_TRUSTED_ORIGINS', 'http://localhost:8000').split(','),
 }
 
-# Configuración de base de datos (si se implementa)
+# Configuración de base de datos
 DATABASE_CONFIG = {
     'ENGINE': os.getenv('DB_ENGINE', 'sqlite'),
     'NAME': os.getenv('DB_NAME', BASE_DIR / 'data' / 'minedu.db'),
@@ -171,7 +171,7 @@ def validate_config() -> bool:
         
         # Verificar variables críticas
         if config['environment'] == 'production':
-            if config['security']['SECRET_KEY'] == 'your-secret-key-change-in-production':
+            if config['security']['SECRET_KEY'] == 'CHANGE_THIS_IN_PRODUCTION':
                 print("⚠️ ADVERTENCIA: SECRET_KEY no configurada para producción")
                 return False
             
@@ -204,4 +204,11 @@ if __name__ == "__main__":
     if validate_config():
         print("Configuración de seguridad lista")
     else:
-        print("Configuración de seguridad requiere ajustes") 
+        print("Configuración de seguridad requiere ajustes")
+
+# ⚠️ INSTRUCCIONES DE INSTALACIÓN:
+# 1. Copia este archivo como settings_secure.py
+# 2. Configura las variables de entorno en tu sistema
+# 3. Modifica los valores por defecto según tu entorno
+# 4. NUNCA subas settings_secure.py al repositorio
+# 5. Usa variables de entorno para información sensible 
