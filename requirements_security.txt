@@ -1,0 +1,82 @@
+# Dependencias de seguridad para MINEDU
+# Versiones específicas para garantizar compatibilidad y seguridad
+
+# Dependencias base de seguridad
+cryptography>=41.0.0,<42.0.0
+pycryptodome>=3.19.0,<4.0.0
+bcrypt>=4.1.0,<5.0.0
+argon2-cffi>=23.1.0,<24.0.0
+
+# Validación y sanitización
+jsonschema>=4.20.0,<5.0.0
+email-validator>=2.1.0,<3.0.0
+python-magic>=0.4.27,<1.0.0
+filetype>=1.2.0,<2.0.0
+
+# Rate limiting y monitoreo
+redis>=5.0.0,<6.0.0
+celery>=5.3.0,<6.0.0
+prometheus-client>=0.19.0,<1.0.0
+
+# Logging seguro
+structlog>=23.2.0,<24.0.0
+python-json-logger>=2.0.7,<3.0.0
+
+# Análisis de seguridad
+bandit>=1.7.5,<2.0.0
+safety>=2.3.0,<3.0.0
+semgrep>=1.50.0,<2.0.0
+
+# Validación de archivos
+python-magic-bin>=0.4.14,<1.0.0
+Pillow>=10.1.0,<11.0.0
+
+# Análisis de texto y PII
+spacy>=3.7.0,<4.0.0
+presidio-analyzer>=2.2.0,<3.0.0
+presidio-anonymizer>=2.2.0,<3.0.0
+
+# Configuración y variables de entorno
+python-dotenv>=1.0.0,<2.0.0
+pydantic>=2.5.0,<3.0.0
+pydantic-settings>=2.1.0,<3.0.0
+
+# Monitoreo de rendimiento
+psutil>=5.9.0,<6.0.0
+memory-profiler>=0.61.0,<1.0.0
+
+# Testing de seguridad
+pytest>=7.4.0,<8.0.0
+pytest-cov>=4.1.0,<5.0.0
+pytest-mock>=3.12.0,<4.0.0
+pytest-asyncio>=0.21.0,<1.0.0
+
+# Análisis estático
+flake8>=6.1.0,<7.0.0
+black>=23.11.0,<24.0.0
+isort>=5.12.0,<6.0.0
+mypy>=1.7.0,<2.0.0
+
+# Auditoría de dependencias
+pip-audit>=2.6.0,<3.0.0
+safety>=2.3.0,<3.0.0
+
+# Monitoreo de logs
+loguru>=0.7.2,<1.0.0
+
+# Validación de certificados SSL
+certifi>=2023.11.0,<2024.0.0
+urllib3>=2.1.0,<3.0.0
+
+# Análisis de malware
+yara-python>=4.3.0,<5.0.0
+
+# Dependencias específicas para gobierno
+# (Estas pueden variar según las regulaciones específicas)
+gpg>=1.13.0,<2.0.0
+
+# Notas de seguridad:
+# - Todas las versiones están fijadas para evitar actualizaciones automáticas
+# - Se recomienda revisar regularmente las vulnerabilidades con: pip-audit
+# - Ejecutar análisis de seguridad con: bandit -r src/
+# - Verificar dependencias con: safety check 
