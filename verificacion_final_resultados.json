@@ -1,0 +1,191 @@
+{
+  "files": [
+    [
+      true,
+      "✅ src/core/config/security_config.py (11002 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/secure_search.py (6342 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/__init__.py (1095 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/input_validator.py (4051 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/rate_limiter.py (5446 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/privacy.py (6195 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/file_validator.py (6208 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/compliance.py (17627 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/monitor.py (7328 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/logger.py (3711 bytes)"
+    ],
+    [
+      true,
+      "✅ src/core/security/safe_pickle.py (5446 bytes)"
+    ],
+    [
+      true,
+      "✅ demo_secure.py (10912 bytes)"
+    ],
+    [
+      true,
+      "✅ security_audit.py (18182 bytes)"
+    ],
+    [
+      true,
+      "✅ config/settings_secure.py (7230 bytes)"
+    ],
+    [
+      true,
+      "✅ requirements_security.txt (2027 bytes)"
+    ]
+  ],
+  "classes": [
+    [
+      true,
+      "✅ src.core.config.security_config.SecurityConfig (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.secure_search.SecureHybridSearch (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.security.input_validator.InputValidator (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.security.rate_limiter.RateLimiter (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.security.privacy.PrivacyProtector (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.security.file_validator.FileValidator (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.security.compliance.ComplianceChecker (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.security.monitor.SecurityMonitor (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.security.logger.SecureLogger (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ src.core.security.safe_pickle.SafePickleLoader (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ demo_secure.SecureRAGDemo (Clase encontrada)"
+    ],
+    [
+      true,
+      "✅ security_audit.SecurityAuditor (Clase encontrada)"
+    ]
+  ],
+  "methods": [
+    [
+      true,
+      "✅ src.core.config.security_config.SecurityConfig.validate_path (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ src.core.config.security_config.SecurityConfig.sanitize_input (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ src.core.config.security_config.SecurityConfig.get_config_summary (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ src.core.config.security_config.SecurityConfig.log_security_event (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ src.core.config.security_config.SecurityConfig.get_safe_path (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ demo_secure.SecureRAGDemo.validate_query (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ demo_secure.SecureRAGDemo.search (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ demo_secure.SecureRAGDemo.get_system_status (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ demo_secure.SecureRAGDemo.run_interactive_demo (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ security_audit.SecurityAuditor.audit_paths (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ security_audit.SecurityAuditor.audit_pickle_files (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ security_audit.SecurityAuditor.audit_security_modules (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ security_audit.SecurityAuditor.audit_configuration (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ security_audit.SecurityAuditor.audit_input_validation (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ security_audit.SecurityAuditor.run_full_audit (Método encontrado)"
+    ],
+    [
+      true,
+      "✅ security_audit.SecurityAuditor.print_audit_report (Método encontrado)"
+    ]
+  ],
+  "summary": {
+    "timestamp": "2025-06-14T02:41:41.752301",
+    "total_files": 15,
+    "files_ok": 15,
+    "total_classes": 12,
+    "classes_ok": 12,
+    "total_methods": 16,
+    "methods_ok": 16,
+    "completion_percentage": 100.0,
+    "status": "COMPLETO"
+  }
+}
