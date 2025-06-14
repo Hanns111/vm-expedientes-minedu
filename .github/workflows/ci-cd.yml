@@ -1,3 +1,4 @@
+# CI/CD workflow actualizado para forzar recarga y evitar uso de versiones obsoletas de actions/upload-artifact
 name: CI/CD Pipeline - MINEDU RAG System
 
 on:
@@ -49,7 +50,7 @@ jobs:
         semgrep --config=auto --json --output semgrep-report.json src/ || true
         
     - name: 📊 Upload security reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: security-reports
         path: |
@@ -94,7 +95,7 @@ jobs:
         python security_audit.py
         
     - name: 📊 Upload test reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-reports
         path: |
@@ -159,7 +160,7 @@ jobs:
         python -m build
         
     - name: 📦 Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: build-package
         path: dist/
