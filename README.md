@@ -1,40 +1,26 @@
 # 🔒 vm-expedientes-minedu: Sistema RAG Seguro para MINEDU Perú
 
-> **Sistema de búsqueda semántica e híbrida con implementación de seguridad completa para normativas del Ministerio de Educación del Perú**
+> **Portal de Bienvenida e Índice Central del Proyecto**
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
-[![Security](https://img.shields.io/badge/Security-100%25-green.svg)](https://github.com/your-repo/vm-expedientes-minedu)
-[![Version](https://img.shields.io/badge/Version-v1.2.0--security--complete-orange.svg)](https://github.com/your-repo/vm-expedientes-minedu/releases)
+[![Security](https://img.shields.io/badge/Security-100%25-green.svg)](https://github.com/Hanns111/vm-expedientes-minedu)
+[![Version](https://img.shields.io/badge/Version-v1.3.0--devops--complete-orange.svg)](https://github.com/Hanns111/vm-expedientes-minedu/releases)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI/CD](https://img.shields.io/badge/CI/CD-Automated-blue.svg)](https://github.com/Hanns111/vm-expedientes-minedu/actions)
 
-## 🎯 Objetivo
+## 🎯 Descripción del Proyecto
 
-Desarrollar un asistente inteligente que permita realizar búsquedas semánticas e híbridas sobre normativas del Ministerio de Educación del Perú, utilizando procesamiento de texto y embeddings generados localmente con TF-IDF, BM25 y Sentence Transformers, **con implementación completa de seguridad gubernamental**.
+**vm-expedientes-minedu** es un sistema de búsqueda semántica e híbrida avanzado diseñado específicamente para el Ministerio de Educación del Perú. El sistema implementa múltiples algoritmos de recuperación de información (TF-IDF, BM25, Sentence Transformers) con medidas de seguridad gubernamental completas.
 
-## ✨ Características Principales
+### ✨ Características Principales
 
-### 🔍 **Sistemas de Búsqueda**
-- **TF-IDF**: Búsqueda vectorial tradicional optimizada
-- **BM25**: Algoritmo de ranking probabilístico
-- **Sentence Transformers**: Embeddings semánticos avanzados
-- **Sistema Híbrido**: Combinación inteligente de todos los métodos
+- **🔍 Búsqueda Híbrida**: Combinación inteligente de TF-IDF, BM25 y Sentence Transformers
+- **🛡️ Seguridad Gubernamental**: Implementación completa de medidas de seguridad (100%)
+- **📊 Validación Científica**: Metodología rigurosa para paper SIGIR/CLEF 2025-2026
+- **🏛️ Cumplimiento Normativo**: ISO27001, NIST Cybersecurity, Estándares MINEDU
+- **🚀 DevOps Profesional**: CI/CD automatizado, gestión de secretos, documentación consolidada
 
-### 🛡️ **Seguridad Gubernamental Completa** *(NUEVO v1.2.0)*
-- **Validación de Entradas**: Sanitización y validación robusta
-- **Rate Limiting**: Control de acceso y prevención de abuso
-- **Protección de Datos**: Enmascaramiento automático de PII
-- **Auditoría Completa**: Logging y monitoreo de seguridad
-- **Cumplimiento Normativo**: Verificación de estándares gubernamentales
-- **Pickle Seguro**: Carga y validación segura de archivos
-- **Configuración Centralizada**: Gestión unificada de seguridad
-
-### 📊 **Validación Científica**
-- Dataset dorado con 20 preguntas validadas
-- Métricas de evaluación: token_overlap, exact_match, length_ratio
-- Experimentos comparativos documentados
-- Resultados reproducibles para paper científico
-
-## 🚀 Instalación Rápida
+## 🚀 Instalación
 
 ### Prerrequisitos
 ```bash
@@ -46,132 +32,148 @@ conda create -n minedu-env python=3.11
 conda activate minedu-env
 ```
 
-### Instalación
+### Instalación Completa
 ```bash
 # Clonar repositorio
-git clone https://github.com/your-repo/vm-expedientes-minedu.git
+git clone https://github.com/Hanns111/vm-expedientes-minedu.git
 cd vm-expedientes-minedu
 
-# Instalar dependencias
+# Instalar dependencias consolidadas
 pip install -r requirements.txt
 
-# Para dependencias de seguridad adicionales
-pip install -r requirements_security.txt
+# Configurar variables de entorno (opcional)
+cp config/settings_secure.example.py config/settings_secure.py
+# Editar config/settings_secure.py con tus valores
 ```
 
-## 🔧 Uso Básico
+## 🔧 Cómo Usar
 
-### Búsqueda Segura (Recomendado)
+### Demo Principal (Recomendado)
 ```bash
-# Demo interactivo seguro
-python demo_secure.py
+# Demo interactivo con todas las medidas de seguridad
+python demo.py
 
-# Búsqueda directa
-python demo_secure.py "tu consulta aquí"
+# Demo con consulta específica
+python demo.py "tu consulta aquí"
+
+# Demo en modo seguro (validación completa)
+python demo.py --secure "consulta segura"
 ```
 
 ### Generación de Vectorstore
 ```bash
-# Generar vectorstore completo
+# Generar vectorstore completo para búsquedas
 python src/ai/generate_vectorstore_full_v2.py
 ```
 
 ### Auditoría de Seguridad
 ```bash
-# Verificación completa de seguridad
-python security_audit.py
-
-# Verificación final del sistema
+# Verificación completa del sistema
 python verificacion_final_seguridad.py
+
+# Auditoría de seguridad detallada
+python security_audit.py
 ```
+
+### Testing y Validación
+```bash
+# Ejecutar tests unitarios
+pytest tests/
+
+# Ejecutar tests con cobertura
+pytest tests/ --cov=src --cov-report=html
+```
+
+## 📚 Índice de Documentación
+
+### 🏗️ **Arquitectura del Sistema**
+- **[Arquitectura General](docs/architecture/README.md)** - Diseño y componentes del sistema
+- **[Arquitectura de Seguridad](docs/security/README.md)** - Implementación de seguridad gubernamental
+- **[Flujos de Datos](docs/architecture/data-flows.md)** - Flujos de procesamiento
+- **[Decisiones de Diseño](docs/architecture/design-decisions.md)** - Justificación de decisiones técnicas
+
+### 🔬 **Investigación Científica**
+- **[Paper Principal](paper_cientifico/paper_final/paper_sistema_hibrido.md)** - Documentación para SIGIR/CLEF 2025-2026
+- **[Metodología](paper_cientifico/methodology.md)** - Metodología de investigación
+- **[Resultados Experimentales](paper_cientifico/results/)** - Resultados y análisis
+- **[Reproducibilidad](paper_cientifico/reproducibility.md)** - Cómo replicar experimentos
+- **[Dataset Dorado](paper_cientifico/dataset/)** - Dataset de validación (20 preguntas)
+
+### 🛡️ **Seguridad y Cumplimiento**
+- **[Guía de Seguridad](docs/security/README.md)** - Documentación completa de seguridad
+- **[Configuración Segura](docs/security/configuration.md)** - Configuración de producción
+- **[Auditoría](docs/security/audit.md)** - Procedimientos de auditoría
+- **[Cumplimiento Gubernamental](docs/security/compliance.md)** - Estándares y normativas
+
+### 🚀 **Despliegue y Operaciones**
+- **[Guía de Despliegue](docs/deployment/README.md)** - Instalación en producción
+- **[Configuración de Producción](docs/deployment/production.md)** - Configuración para MINEDU
+- **[Monitoreo](docs/deployment/monitoring.md)** - Monitoreo y alertas
+- **[Troubleshooting](docs/deployment/troubleshooting.md)** - Solución de problemas
+
+### 📋 **Guías de Usuario**
+- **[Guía de Usuario](docs/user-guides/README.md)** - Cómo usar el sistema
+- **[Tutoriales](docs/user-guides/tutorials.md)** - Tutoriales paso a paso
+- **[FAQ](docs/user-guides/faq.md)** - Preguntas frecuentes
+- **[Casos de Uso](docs/user-guides/use-cases.md)** - Ejemplos prácticos
+
+### 📊 **Resultados y Evaluación**
+- **[Métricas de Evaluación](docs/results/metrics.md)** - Métricas implementadas
+- **[Comparación de Sistemas](docs/results/comparison.md)** - TF-IDF vs BM25 vs Transformers
+- **[Análisis de Rendimiento](docs/results/performance.md)** - Análisis de rendimiento
+- **[Validación de Calidad](docs/results/validation.md)** - Validación de resultados
+
+### 🔧 **Desarrollo**
+- **[Guía de Desarrollo](docs/development/README.md)** - Cómo contribuir al proyecto
+- **[Estándares de Código](docs/development/coding-standards.md)** - Convenciones y mejores prácticas
+- **[Testing](docs/development/testing.md)** - Estrategia de testing
+- **[CI/CD](docs/development/ci-cd.md)** - Pipeline de integración continua
 
 ## 📁 Estructura del Proyecto
 
 ```
 vm-expedientes-minedu/
-├── src/
-│   ├── core/
-│   │   ├── config/          # Configuración centralizada
-│   │   ├── security/        # Módulos de seguridad completos
-│   │   └── retrieval/       # Sistemas de búsqueda
-│   ├── ai/                  # Scripts de IA y vectorstores
-│   └── text_processor/      # Procesamiento de texto
-├── data/
-│   └── processed/           # Archivos generados
-├── config/                  # Configuraciones seguras
-├── logs/                    # Logs de auditoría y seguridad
-├── tests/                   # Tests unitarios
-└── docs/                    # Documentación
+├── .github/workflows/        # CI/CD Pipeline automatizado
+├── config/                   # Configuraciones seguras
+├── data/                     # Datos y resultados
+│   ├── evaluation/           # Resultados de evaluación
+│   └── processed/            # Archivos procesados
+├── docs/                     # 📚 Documentación consolidada
+│   ├── architecture/         # Arquitectura del sistema
+│   ├── security/             # Seguridad y cumplimiento
+│   ├── deployment/           # Despliegue y operaciones
+│   ├── user-guides/          # Guías de usuario
+│   ├── results/              # Resultados y evaluación
+│   └── development/          # Guías de desarrollo
+├── paper_cientifico/         # 🔬 Investigación científica
+├── src/                      # Código fuente
+│   ├── core/                 # Módulos centrales
+│   ├── ai/                   # Scripts de IA
+│   └── text_processor/       # Procesamiento de texto
+├── tests/                    # Tests unitarios y de integración
+├── demo.py                   # Demo principal unificado
+├── requirements.txt          # Dependencias consolidadas
+└── README.md                 # Este archivo
 ```
 
-## 🛡️ Características de Seguridad
+## 📈 Estado del Proyecto
 
-### Validación y Sanitización
-- **Input Validation**: Validación robusta de todas las entradas
-- **Path Validation**: Verificación de rutas seguras
-- **File Validation**: Validación de tipos y tamaños de archivo
-- **SQL Injection Protection**: Prevención de ataques de inyección
+### ✅ **Completado**
+- Sistema de seguridad 100% implementado y verificado
+- Validación científica completa con dataset dorado
+- CI/CD pipeline automatizado
+- Documentación consolidada y organizada
+- Cumplimiento gubernamental verificado
 
-### Monitoreo y Auditoría
-- **Security Logging**: Logging seguro de eventos
-- **Audit Trail**: Trazabilidad completa de acciones
-- **Rate Limiting**: Control de acceso por tiempo
-- **Compliance Checking**: Verificación de normativas gubernamentales
+### 🚧 **En Desarrollo**
+- Optimizaciones de rendimiento
+- API REST segura
+- Interfaz web gubernamental
 
-### Protección de Datos
-- **PII Protection**: Enmascaramiento automático de datos personales
-- **Safe Pickle Loading**: Carga segura de archivos serializados
-- **Privacy Controls**: Controles de privacidad avanzados
-
-## 📊 Resultados Experimentales
-
-### Rendimiento de Sistemas
-- **TF-IDF**: 0.052s promedio, 5.0 resultados
-- **Sentence Transformers**: 0.308s promedio, 5.0 resultados
-- **Sistema Híbrido**: 0.400s promedio, 100% tasa de éxito
-
-### Validación Científica
-- Dataset dorado: 20 preguntas validadas
-- Métricas implementadas: token_overlap, exact_match, length_ratio
-- Experimentos documentados en `paper_cientifico/`
-
-## 🔬 Investigación Científica
-
-Este proyecto está diseñado para:
-- **Paper SIGIR/CLEF 2025-2026**: Investigación en sistemas de recuperación
-- **Reproducibilidad**: Código y datos completamente documentados
-- **Validación Rigurosa**: Metodología científica aplicada
-- **Comparación Sistemática**: Evaluación de múltiples enfoques
-
-## 🏛️ Cumplimiento Gubernamental
-
-El sistema cumple con:
-- **ISO27001**: Estándares de seguridad de información
-- **NIST Cybersecurity Framework**: Marco de ciberseguridad
-- **Normativas MINEDU**: Estándares específicos del ministerio
-- **Protección de Datos**: Cumplimiento de privacidad
-
-## 📈 Roadmap
-
-### ✅ Completado (v1.2.0)
-- [x] Implementación completa de seguridad gubernamental
-- [x] Sistema de auditoría y monitoreo
-- [x] Validación científica con dataset dorado
-- [x] Comparación de sistemas TF-IDF, BM25, Transformers
-- [x] Sistema híbrido optimizado
-- [x] Documentación completa para paper científico
-
-### 🚧 En Desarrollo
-- [ ] Optimización de rendimiento para producción
-- [ ] API REST segura
-- [ ] Interfaz web gubernamental
-- [ ] Integración con sistemas MINEDU
-
-### 📋 Próximos Pasos
-- [ ] Paper científico para SIGIR/CLEF 2025-2026
-- [ ] Despliegue en producción gubernamental
-- [ ] Validación con usuarios reales
-- [ ] Escalabilidad para grandes volúmenes
+### 📋 **Próximos Pasos**
+- Paper científico SIGIR/CLEF 2025-2026
+- Despliegue en producción MINEDU
+- Validación con usuarios reales
 
 ## 🤝 Contribución
 
@@ -211,4 +213,5 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 **🔒 Sistema de Seguridad: 100% Implementado y Verificado**  
 **📊 Estado: Listo para Producción y Paper Científico**  
-**🏛️ Cumplimiento: Normativas Gubernamentales Aprobadas**
+**🏛️ Cumplimiento: Normativas Gubernamentales Aprobadas**  
+**🚀 DevOps: Pipeline Automatizado y Documentación Consolidada**

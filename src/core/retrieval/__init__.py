@@ -1,14 +1,24 @@
 """
-Retrieval methods for document search.
+Módulos centralizados de recuperación de información para el sistema RAG MINEDU.
 
-This package contains different retrieval algorithms:
-- BM25: Lexical search using BM25 algorithm
-- TF-IDF: Term frequency-inverse document frequency search
-- Transformers: Semantic search using sentence transformers
+Este paquete contiene las implementaciones centralizadas de:
+- TF-IDF Retriever
+- BM25 Retriever  
+- Transformer Retriever
+- Hybrid Fusion
+
+Autor: Hanns
+Fecha: 2025-06-14
 """
 
-from .bm25_retriever import BM25Retriever
 from .tfidf_retriever import TFIDFRetriever
+from .bm25_retriever import BM25Retriever
 from .transformer_retriever import TransformerRetriever
+from .hybrid_fusion import HybridFusion
 
-__all__ = ['BM25Retriever', 'TFIDFRetriever', 'TransformerRetriever'] 
+__all__ = [
+    'TFIDFRetriever',
+    'BM25Retriever', 
+    'TransformerRetriever',
+    'HybridFusion'
+] 
