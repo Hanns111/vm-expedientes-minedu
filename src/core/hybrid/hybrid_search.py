@@ -7,6 +7,7 @@ This module provides a hybrid search system that combines multiple retrieval
 methods (BM25, TF-IDF, and Transformers) for optimal document search results.
 """
 
+import re
 import time
 import logging
 from typing import List, Dict, Any, Optional
@@ -35,6 +36,7 @@ class HybridSearch:
         transformer_retriever (TransformerRetriever): Transformer-based retriever
         logger (logging.Logger): Logger instance for debugging
     """
+    AMOUNT_KEYWORDS = ["monto", "máximo", "cantidad", "valor", "importe", "viático"]
     
     def __init__(
         self,
@@ -99,6 +101,12 @@ class HybridSearch:
             raise ValueError("No retrievers could be initialized")
         
         self.logger.info(f"Hybrid search system initialized with {available_retrievers} retrievers")
+
+    def _contains_numbers(self, text: str) -> bool:
+        """
+        Check if the given text string contains any digits.
+        """
+        return bool(re.search(r'\d', text))
     
     def _setup_logging(self) -> logging.Logger:
         """
@@ -177,7 +185,7 @@ class HybridSearch:
         
         # Combine results using the specified fusion strategy
         if self.fusion_strategy == 'weighted':
-            final_results = self._weighted_fusion(all_results, top_k)
+            final_results = self._weighted_fusion(query, all_results, top_k)
         elif self.fusion_strategy == 'rank_fusion':
             final_results = self._rank_fusion(all_results, top_k)
         else:  # simple
@@ -250,6 +258,82 @@ class HybridSearch:
             
             final_results.append(final_result)
         
+        # Sort by final score and return top_k
+        final_results.sort(key=lambda x: x['score'], reverse=True)
+        return final_results[:top_k]
+
+    def _weighted_fusion(self, query: str, results: List[Dict[str, Any]], top_k: int) -> List[Dict[str, Any]]:
+        """
+        Combine results using weighted fusion strategy.
+
+        Args:
+            query (str): The search query.
+            results (List[Dict[str, Any]]): Results from all methods
+            top_k (int): Number of top results to return
+
+        Returns:
+            List[Dict[str, Any]]: Combined results with weighted scores
+        """
+        # Check if the query contains amount-related keywords
+        query_contains_amount_keyword = any(
+            keyword in query.lower() for keyword in self.AMOUNT_KEYWORDS
+        )
+
+        # Group results by document index
+        doc_scores = {}
+
+        for result in results:
+            doc_id = result.get('index', result.get('texto', ''))
+
+            if doc_id not in doc_scores:
+                doc_scores[doc_id] = {
+                    'doc': result,
+                    'scores': [],
+                    'methods': []
+                }
+
+            doc_scores[doc_id]['scores'].append(result['score'])
+            doc_scores[doc_id]['methods'].append(result['method'])
+
+        # Calculate weighted scores
+        final_results = []
+        for doc_id, data in doc_scores.items():
+            # Weight by method (can be customized)
+            weights = {
+                'BM25': 0.3,
+                'TF-IDF': 0.3,
+                'Transformer': 0.4
+            }
+
+            weighted_score = 0
+            total_weight = 0
+
+            for score, method in zip(data['scores'], data['methods']):
+                weight = weights.get(method, 0.33)
+                weighted_score += score * weight
+                total_weight += weight
+
+            if total_weight > 0:
+                final_score = weighted_score / total_weight
+            else:
+                final_score = max(data['scores'])
+
+            # Apply boost if query contains amount keywords and doc contains numbers
+            if query_contains_amount_keyword:
+                doc_text = data['doc'].get('text', data['doc'].get('texto', ''))
+                if self._contains_numbers(doc_text):
+                    final_score += 0.2  # Additive boost
+                    self.logger.info(f"Applied boost to doc_id: {doc_id} for query: '{query}'")
+
+            # Create final result
+            final_result = data['doc'].copy()
+            final_result['score'] = final_score
+            final_result['hybrid_score'] = final_score
+            final_result['methods_used'] = data['methods']
+            final_result['source'] = 'hybrid'
+
+            final_results.append(final_result)
+
         # Sort by final score and return top_k
         final_results.sort(key=lambda x: x['score'], reverse=True)
         return final_results[:top_k]
