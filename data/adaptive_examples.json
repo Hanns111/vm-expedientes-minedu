@@ -1,0 +1,17 @@
+{
+  "detector_inteligente": {
+    "descripcion": "Uso del detector inteligente de montos",
+    "codigo": "\n# Importar detector\nfrom src.ocr_pipeline.extractors.smart_money_detector import SmartMoneyDetector\n\n# Crear detector con aprendizaje\ndetector = SmartMoneyDetector(learning_mode=True)\n\n# Extraer montos de cualquier texto\ntexto = \"Los viáticos son S/ 380.00 para ministros y USD 150.50 para viajes\"\nmontos = detector.extract_all_amounts(texto)\n\n# Mostrar resultados\nfor monto in montos:\n    print(f\"{monto['raw_text']} → {monto['amount']} {monto['currency']}\")\n    print(f\"Confianza: {monto['confidence']:.2f}\")\n",
+    "resultado_esperado": "Detecta S/ 380.00 PEN y USD 150.50 USD automáticamente"
+  },
+  "configuracion_adaptativa": {
+    "descripcion": "Sistema de configuración que se auto-optimiza",
+    "codigo": "\n# Importar optimizador\nfrom src.ocr_pipeline.config.adaptive_config import ConfigOptimizer\n\n# Crear optimizador\noptimizer = ConfigOptimizer()\n\n# Características del documento\ncaracteristicas = {\n    'is_scanned': True,\n    'has_complex_tables': True,\n    'text_quality': 'good',\n    'page_count': 33\n}\n\n# Obtener configuración óptima\nconfig = optimizer.get_optimal_config(caracteristicas)\n\nprint(f\"Timeout: {config.extraction_timeout}s\")\nprint(f\"Line scale: {config.camelot_lattice_line_scale}\")\n",
+    "resultado_esperado": "Configuración optimizada para documento escaneado complejo"
+  },
+  "extractor_completo": {
+    "descripcion": "Extractor adaptativo completo (cuando esté disponible)",
+    "codigo": "\n# Importar extractor (requiere dependencias completas)\nfrom src.ocr_pipeline.extractors.adaptive_table_extractor import create_adaptive_extractor\n\n# Crear extractor adaptativo\nextractor = create_adaptive_extractor(adaptive_mode=True, learning_enabled=True)\n\n# Extraer de PDF - se auto-optimiza\nresultados = extractor.extract_from_pdf(\"documento.pdf\")\n\n# Ver resultados\nprint(f\"Estrategia usada: {resultados['strategy_used']}\")\nprint(f\"Confianza: {resultados['confidence']:.2f}\")\nprint(f\"Montos encontrados: {len(resultados['amounts'])}\")\n",
+    "resultado_esperado": "Extracción automática con estrategia óptima seleccionada"
+  }
+}
