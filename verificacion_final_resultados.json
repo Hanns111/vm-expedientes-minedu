@@ -6,7 +6,7 @@
     ],
     [
       true,
-      "✅ src/core/secure_search.py (6342 bytes)"
+      "✅ src/core/secure_search.py (10343 bytes)"
     ],
     [
       true,
@@ -53,12 +53,12 @@
       "✅ security_audit.py (18182 bytes)"
     ],
     [
-      true,
-      "✅ config/settings_secure.py (7230 bytes)"
+      false,
+      "❌ config/settings_secure.py (NO EXISTE)"
     ],
     [
-      true,
-      "✅ requirements_security.txt (2027 bytes)"
+      false,
+      "❌ requirements_security.txt (NO EXISTE)"
     ]
   ],
   "classes": [
@@ -178,14 +178,14 @@
     ]
   ],
   "summary": {
-    "timestamp": "2025-06-14T02:41:41.752301",
+    "timestamp": "2025-06-21T18:32:39.512765",
     "total_files": 15,
-    "files_ok": 15,
+    "files_ok": 13,
     "total_classes": 12,
     "classes_ok": 12,
     "total_methods": 16,
     "methods_ok": 16,
-    "completion_percentage": 100.0,
+    "completion_percentage": 95.34883720930233,
     "status": "COMPLETO"
   }
 }

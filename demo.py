@@ -1,43 +1,48 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-Demo clásico del Sistema de Búsqueda Híbrido MINEDU (ahora con rutas seguras)
+Demo del Sistema de Búsqueda Híbrido MINEDU
+
+Uso: python demo.py "tu consulta aquí"
 """
 import sys
-from pathlib import Path
-
-# Agregar el directorio src al path
-sys.path.insert(0, str(Path(__file__).parent))
-
-from src.core.config.security_config import SecurityConfig
-from src.core.secure_search import SecureHybridSearch
+from src.core.hybrid import HybridSearch
 
 def main():
+    # Verificar argumentos
     if len(sys.argv) < 2:
         print("Uso: python demo.py 'tu consulta aquí'")
+        print("Ejemplo: python demo.py '¿Cuál es el monto máximo para viáticos?'")
         return
+    
     query = " ".join(sys.argv[1:])
-    user_id = "demo_user_001"
-    ip_address = "127.0.0.1"
-    session_id = "demo_session_001"
-    print(f"\n🔒 Búsqueda SEGURA: {query}")
+    
+    print(f"\n🔍 Buscando: {query}")
     print("-" * 50)
-    searcher = SecureHybridSearch()
-    results, error_msg = searcher.search(
-        query=query,
-        user_id=user_id,
-        ip_address=ip_address,
-        session_id=session_id,
-        top_k=3
-    )
-    if error_msg:
-        print(f"\n❌ Error: {error_msg}")
-        return
-    print(f"\n📊 Encontrados {len(results)} resultados seguros:\n")
-    for i, result in enumerate(results, 1):
-        print(f"{i}. Score: {result['score']:.3f} | Método: {result['method']}")
-        print(f"   {result['text'][:200]}...")
-        print()
-    print("✅ Búsqueda completada de forma segura")
+    
+    try:
+        # Inicializar búsqueda híbrida
+        searcher = HybridSearch(
+            bm25_vectorstore_path="data/vectorstores/bm25.pkl",
+            tfidf_vectorstore_path="data/vectorstores/tfidf.pkl",
+            transformer_vectorstore_path="data/vectorstores/transformers.pkl"
+        )
+        
+        # Realizar búsqueda
+        results = searcher.search(query, top_k=3)
+        
+        # Mostrar resultados
+        print(f"\n📊 Encontrados {len(results)} resultados:\n")
+        
+        for i, result in enumerate(results, 1):
+            print(f"{i}. Score: {result['score']:.3f}")
+            print(f"   {result['texto'][:200]}...")
+            print(f"   Método: {result.get('method', 'Híbrido')}")
+            print()
+            
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        print("💡 Asegúrate de que los vectorstores estén generados primero.")
 
 if __name__ == "__main__":
     main()

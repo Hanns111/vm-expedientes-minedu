@@ -1,0 +1,103 @@
+{
+  "document_info": {
+    "filename": "documento_gastos_administrativos.pdf",
+    "size_mb": 0.0,
+    "pages": 10,
+    "type": "documento_general"
+  },
+  "processing_info": {
+    "strategy_used": "camelot_lattice_normal",
+    "processing_time": 0.019723176956176758,
+    "timestamp": "2025-06-21T18:46:38.539626"
+  },
+  "extraction_results": {
+    "amounts_found": 4,
+    "amounts_detail": [
+      {
+        "raw_text": "S/ 500.00",
+        "amount": 500.0,
+        "context": "DOCUMENTO MINISTERIAL\n            \n            Montos aprobados:\n            - Categoría A: S/ 500.00\n            - Categoría B: S/ 350.00\n            - Categoría C: S/ 200.00",
+        "position": [
+          105,
+          114
+        ],
+        "pattern_index": 0,
+        "confidence": 0.8,
+        "currency": "PEN",
+        "is_learned": false
+      },
+      {
+        "raw_text": "S/ 350.00",
+        "amount": 350.0,
+        "context": "Montos aprobados:\n            - Categoría A: S/ 500.00\n            - Categoría B: S/ 350.00\n            - Categoría C: S/ 200.00\n            \n            Presupuesto total: S/ 50,000.00",
+        "position": [
+          142,
+          151
+        ],
+        "pattern_index": 0,
+        "confidence": 0.8,
+        "currency": "PEN",
+        "is_learned": false
+      },
+      {
+        "raw_text": "S/ 50,000.00",
+        "amount": 50000.0,
+        "context": "goría B: S/ 350.00\n            - Categoría C: S/ 200.00\n            \n            Presupuesto total: S/ 50,000.00",
+        "position": [
+          233,
+          245
+        ],
+        "pattern_index": 0,
+        "confidence": 0.7999999999999999,
+        "currency": "PEN",
+        "is_learned": false
+      },
+      {
+        "raw_text": "S/ 200.00",
+        "amount": 200.0,
+        "context": "- Categoría A: S/ 500.00\n            - Categoría B: S/ 350.00\n            - Categoría C: S/ 200.00\n            \n            Presupuesto total: S/ 50,000.00",
+        "position": [
+          179,
+          188
+        ],
+        "pattern_index": 0,
+        "confidence": 0.7,
+        "currency": "PEN",
+        "is_learned": false
+      }
+    ],
+    "tables_found": 1,
+    "tables_detail": [
+      {
+        "page": 5,
+        "rows": 4,
+        "cols": 3,
+        "type": "tabla_montos_generales",
+        "confidence": 0.85,
+        "data_preview": [
+          [
+            "Categoría",
+            "Monto",
+            "Observaciones"
+          ],
+          [
+            "A",
+            "S/ 500.00",
+            "Nivel superior"
+          ],
+          [
+            "B",
+            "S/ 350.00",
+            "Nivel medio"
+          ]
+        ]
+      }
+    ],
+    "confidence_average": 0.775
+  },
+  "performance_metrics": {
+    "amounts_per_second": 202.80708371109097,
+    "success_rate": 1.0,
+    "quality_score": 0.875
+  }
+}
