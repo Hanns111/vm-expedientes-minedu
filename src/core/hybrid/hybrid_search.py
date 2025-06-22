@@ -37,6 +37,7 @@ class HybridSearch:
         logger (logging.Logger): Logger instance for debugging
     """
     AMOUNT_KEYWORDS = ["monto", "máximo", "cantidad", "valor", "importe", "viático"]
+    MINISTER_KEYWORDS = ["ministro", "ministros", "ministro de estado", "funcionario de nivel", "alto funcionario"]
     
     def __init__(
         self,
@@ -318,12 +319,26 @@ class HybridSearch:
             else:
                 final_score = max(data['scores'])
 
-            # Apply boost if query contains amount keywords and doc contains numbers
-            if query_contains_amount_keyword:
-                doc_text = data['doc'].get('text', data['doc'].get('texto', ''))
-                if self._contains_numbers(doc_text):
-                    final_score += 0.2  # Additive boost
-                    self.logger.info(f"Applied boost to doc_id: {doc_id} for query: '{query}'")
+            # Apply boosts based on query and document content
+            doc_text = data['doc'].get('text', data['doc'].get('texto', ''))
+            doc_metadata = data['doc'].get('metadatos', {})
+            
+            # Base amount boost
+            if query_contains_amount_keyword and self._contains_numbers(doc_text):
+                final_score += 0.2
+                self.logger.info(f"Applied amount boost to doc_id: {doc_id}")
+            
+            # Minister-specific boost for high-level roles
+            query_mentions_minister = any(keyword in query.lower() for keyword in self.MINISTER_KEYWORDS)
+            doc_is_minister_content = (
+                doc_metadata.get('role_level') == 'minister' or
+                any(keyword in doc_text.lower() for keyword in self.MINISTER_KEYWORDS) or
+                'S/ 380' in doc_text
+            )
+            
+            if query_mentions_minister and doc_is_minister_content:
+                final_score += 0.5  # Strong boost for minister-specific queries
+                self.logger.info(f"Applied minister boost to doc_id: {doc_id} for query: '{query}'")
 
             # Create final result
             final_result = data['doc'].copy()

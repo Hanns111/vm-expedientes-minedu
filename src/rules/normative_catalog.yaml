@@ -1,0 +1,231 @@
+# Catálogo Declarativo de Normas MINEDU
+# =====================================
+# 
+# Este archivo define todas las reglas normativas de forma declarativa.
+# NO contiene código - solo configuración.
+
+metadata:
+  version: "1.0"
+  directive: "Directiva N° 011-2020-MINEDU"
+  last_updated: "2024-06-22"
+  description: "Normas para el otorgamiento de viáticos, gastos de viaje y movilidad local"
+
+# Límites globales por ubicación
+global_limits:
+  lima:
+    daily_limit: 45.00
+    currency: "PEN"
+    percentage_of_daily: null
+  regiones:
+    daily_limit: 30.00
+    currency: "PEN" 
+    percentage_of_daily: null
+
+# Definiciones por numeral
+numerals:
+  # ================================
+  # TRASLADOS - Sección 8.4.17
+  # ================================
+  
+  8.4.17.1:
+    concepto: "Traslado del domicilio, hotel u hospedaje al aeropuerto y viceversa"
+    scope: "transport"
+    ubicacion:
+      lima:
+        procede: false
+        tarifa: 0.00
+        justificacion: "No procede en Lima"
+      regiones:
+        procede: true
+        tarifa: 35.00
+        justificacion: "Permitido en regiones"
+    unidad: "por servicio"
+    limite_diario: null  # Sin límite específico, sujeto a límite global
+    porcentaje_global: 0.30  # 30% del límite diario global
+    acumulable: true
+    observaciones: 
+      - "Cada traslado constituye un servicio independiente"
+      - "En diferentes provincias = servicios diferentes"
+      - "Sujeto a límite diario global"
+
+  8.4.17.2:
+    concepto: "Traslado del domicilio, hotel u hospedaje al terrapuerto y viceversa"
+    scope: "transport"
+    ubicacion:
+      lima:
+        procede: false
+        tarifa: 0.00
+        justificacion: "No procede en Lima"
+      regiones:
+        procede: true
+        tarifa: 25.00
+        justificacion: "Permitido en regiones"
+    unidad: "por servicio"
+    limite_diario: null
+    porcentaje_global: 0.30
+    acumulable: true
+    observaciones:
+      - "Diferente del traslado al aeropuerto (8.4.17.1)"
+      - "Pueden sumarse ambos conceptos si no exceden límite diario"
+
+  8.4.17.3:
+    concepto: "Movilidad local para el desarrollo de actividades oficiales"
+    scope: "transport"
+    ubicacion:
+      lima:
+        procede: true
+        tarifa: 45.00
+        justificacion: "Límite máximo en Lima"
+      regiones:
+        procede: true  
+        tarifa: 30.00
+        justificacion: "Límite máximo en regiones"
+    unidad: "por día"
+    limite_diario: 
+      lima: 45.00
+      regiones: 30.00
+    porcentaje_global: 1.00  # 100% del límite diario
+    acumulable: false
+    observaciones:
+      - "Este monto representa el límite máximo diario total"
+      - "Incluye todos los traslados locales del día"
+
+  # ================================
+  # ALOJAMIENTO - Sección 8.4.X  
+  # ================================
+  
+  8.4.15:
+    concepto: "Alojamiento"
+    scope: "accommodation"
+    ubicacion:
+      lima:
+        procede: true
+        tarifa: 150.00
+        justificacion: "Alojamiento estándar Lima"
+      regiones:
+        procede: true
+        tarifa: 120.00
+        justificacion: "Alojamiento estándar regiones"
+    unidad: "por noche"
+    limite_diario: null
+    porcentaje_global: null
+    acumulable: false
+    observaciones:
+      - "Una noche = un concepto"
+      - "No acumulable con otros conceptos de alojamiento"
+
+  # ================================
+  # ALIMENTACIÓN - Sección 8.4.X
+  # ================================
+  
+  8.4.16:
+    concepto: "Alimentación"
+    scope: "meals"
+    ubicacion:
+      lima:
+        procede: true
+        tarifa: 80.00
+        justificacion: "Alimentación diaria Lima"
+      regiones:
+        procede: true
+        tarifa: 60.00 
+        justificacion: "Alimentación diaria regiones"
+    unidad: "por día"
+    limite_diario:
+      lima: 80.00
+      regiones: 60.00
+    porcentaje_global: null
+    acumulable: false
+    observaciones:
+      - "Cubre todas las comidas del día"
+      - "No fraccionable por comida individual"
+
+# Reglas de validación
+validation_rules:
+  
+  # Regla 1: Límite diario global
+  daily_global_limit:
+    description: "Suma de todos los conceptos no puede exceder límite diario"
+    condition: "sum(all_daily_concepts) <= global_daily_limit"
+    applies_to: ["transport", "accommodation", "meals"]
+    action_if_violated: "reject_and_suggest_alternatives"
+
+  # Regla 2: Conceptos mutuamente excluyentes
+  mutual_exclusions:
+    - group: ["8.4.17.3"]  # Movilidad local
+      description: "Si se usa movilidad local, no se pueden usar traslados específicos"
+      exclusions: ["8.4.17.1", "8.4.17.2"]
+      
+  # Regla 3: Ubicación debe coincidir
+  location_consistency:
+    description: "Todos los conceptos deben ser para la misma ubicación (Lima o regiones)"
+    condition: "all_concepts_same_location"
+    action_if_violated: "request_clarification"
+
+  # Regla 4: Servicios múltiples mismo día
+  same_day_services:
+    description: "Múltiples servicios del mismo concepto en diferentes ubicaciones"
+    condition: "different_locations_allowed_same_concept"
+    applies_to: ["8.4.17.1", "8.4.17.2"]
+    max_per_day: 3
+    action_if_exceeded: "require_justification"
+
+# Configuración de diálogo interactivo
+dialog_prompts:
+  
+  daily_limit_exceeded:
+    message: "El total solicitado (S/ {total}) excede el límite diario para {location} (S/ {limit})."
+    options:
+      - id: "distribute_days"
+        text: "Distribuir servicios en varios días"
+        action: "redistribute_across_days"
+      - id: "reduce_amounts"
+        text: "Reducir montos para cumplir límite"
+        action: "suggest_reductions"
+      - id: "show_breakdown"
+        text: "Mostrar desglose detallado"
+        action: "detailed_breakdown"
+
+  concept_conflict:
+    message: "Detecté conflicto entre {concept1} y {concept2}."
+    options:
+      - id: "clarify_priority"
+        text: "¿Cuál concepto tiene prioridad?"
+        action: "request_priority_selection"
+      - id: "separate_days"
+        text: "Separar en días diferentes"
+        action: "suggest_day_separation"
+
+  location_mismatch:
+    message: "Los conceptos corresponden a ubicaciones diferentes."
+    options:
+      - id: "specify_location"
+        text: "Especificar ubicación principal"
+        action: "request_location_clarification"
+      - id: "split_by_location"
+        text: "Dividir por ubicación"
+        action: "create_location_groups"
+
+# Mensajes de error y sugerencias
+error_messages:
+  unknown_numeral: "No existe definición para el numeral {numeral}. Actualizar normative_catalog.yaml"
+  invalid_location: "Ubicación '{location}' no válida. Usar 'lima' o 'regiones'"
+  negative_amount: "El monto no puede ser negativo"
+  zero_amount: "El monto debe ser mayor a cero"
+
+# Sugerencias automáticas
+auto_suggestions:
+  
+  when_limit_exceeded:
+    - "Considere dividir los servicios en {suggested_days} días"
+    - "Reduzca el concepto {highest_amount_concept} en S/ {reduction_needed}"
+    - "Use movilidad local (8.4.17.3) que incluye todos los traslados"
+
+  when_concepts_conflict:
+    - "Use 8.4.17.3 (movilidad local) en lugar de traslados específicos"
+    - "Separe los conceptos en jornadas diferentes"
+
+  optimization_hints:
+    - "Para viajes largos, considere usar límites por día"
+    - "Agrupe conceptos similares para mayor eficiencia"
+    - "Revise si algunos conceptos pueden ser opcionales"

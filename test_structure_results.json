@@ -1,0 +1,129 @@
+{
+  "elements": [
+    {
+      "type": "section",
+      "number": "8",
+      "text": "8. DISPOSICIONES ESPECÍFICAS PARA VIÁTICOS",
+      "level": 1,
+      "confidence": 0.9
+    },
+    {
+      "type": "section",
+      "number": "8.4",
+      "text": "8.4. Para gastos de movilidad el monto máximo es S/ 30.00 por día.",
+      "level": 2,
+      "confidence": 0.85
+    },
+    {
+      "type": "section",
+      "number": "30.00",
+      "text": "8.4. Para gastos de movilidad el monto máximo es S/ 30.00 por día.",
+      "level": 2,
+      "confidence": 0.85
+    },
+    {
+      "type": "numeral",
+      "number": "8.4.17",
+      "text": "8.4.17. Los comisionados deberán presentar Declaración Jurada cuando no puedan obtener comprobantes de pago.",
+      "level": 3,
+      "confidence": 0.88
+    },
+    {
+      "type": "section",
+      "number": "8.4",
+      "text": "8.4.17. Los comisionados deberán presentar Declaración Jurada cuando no puedan obtener comprobantes de pago.",
+      "level": 2,
+      "confidence": 0.88
+    },
+    {
+      "type": "section",
+      "number": "380.00",
+      "text": "Los Ministros de Estado tienen asignado S/ 380.00 para viáticos nacionales según Decreto Supremo N° 007-2013-EF.",
+      "level": 2,
+      "confidence": 0.92
+    }
+  ],
+  "content_analysis": {
+    "types_found": [
+      "amount",
+      "requirement"
+    ],
+    "type_distribution": {
+      "general": 1,
+      "amount": 2,
+      "requirement": 1
+    }
+  },
+  "entities": {
+    "amount": [
+      "S/ 30.00",
+      "S/ 380.00"
+    ],
+    "role": [
+      "comisionado",
+      "Ministro"
+    ],
+    "reference": [
+      "Decreto"
+    ]
+  },
+  "chunks": [
+    {
+      "id": 2,
+      "texto": "8.4. Para gastos de movilidad el monto máximo es S/ 30.00 por día.",
+      "titulo": "Sección 2",
+      "metadatos": {
+        "entities": {
+          "amount": [
+            "S/ 30.00"
+          ]
+        },
+        "has_amounts": true,
+        "has_references": false,
+        "role_level": null,
+        "confidence": 0.85,
+        "source": "structure_analyzer_test"
+      }
+    },
+    {
+      "id": 3,
+      "texto": "8.4.17. Los comisionados deberán presentar Declaración Jurada cuando no puedan obtener comprobantes de pago.",
+      "titulo": "Sección 3",
+      "metadatos": {
+        "entities": {
+          "role": [
+            "comisionado"
+          ]
+        },
+        "has_amounts": false,
+        "has_references": false,
+        "role_level": null,
+        "confidence": 0.88,
+        "source": "structure_analyzer_test"
+      }
+    },
+    {
+      "id": 4,
+      "texto": "Los Ministros de Estado tienen asignado S/ 380.00 para viáticos nacionales según Decreto Supremo N° 007-2013-EF.",
+      "titulo": "Sección 4",
+      "metadatos": {
+        "entities": {
+          "amount": [
+            "S/ 380.00"
+          ],
+          "reference": [
+            "Decreto"
+          ],
+          "role": [
+            "Ministro"
+          ]
+        },
+        "has_amounts": true,
+        "has_references": true,
+        "role_level": "minister",
+        "confidence": 0.92,
+        "source": "structure_analyzer_test"
+      }
+    }
+  ]
+}
