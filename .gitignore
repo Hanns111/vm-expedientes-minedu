@@ -183,3 +183,6 @@ embeddings_*.pkl
 # Research data
 paper_cientifico/data/
 resultados_experimento/raw/
+# Archivos grandes de Next.js que exceden el límite de GitHub
+frontend-new/node_modules/@next/swc-*/*.node
+frontend-new/node_modules/**/*.node
