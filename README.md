@@ -1,6 +1,6 @@
-# 🔒 vm-expedientes-minedu: Sistema RAG Seguro para MINEDU Perú
+# 🏛️ Sistema de IA Gubernamental - MINEDU
 
-> **Sistema de búsqueda semántica e híbrida con implementación de seguridad completa para normativas del Ministerio de Educación del Perú**
+> **Sistema completo de IA para procesamiento de documentos gubernamentales con arquitectura híbrida Next.js + FastAPI + Multi-LLM Router**
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![Security](https://img.shields.io/badge/Security-100%25-green.svg)](https://github.com/your-repo/vm-expedientes-minedu)

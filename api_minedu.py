@@ -19,6 +19,7 @@ import json
 from datetime import datetime
 import logging
 import uuid
+import time
 
 # Importar el procesador adaptativo
 from adaptive_processor_minedu import AdaptiveProcessorMINEDU
@@ -41,24 +42,93 @@ app = FastAPI(
 # Configurar CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # En producción, especificar dominios
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001", 
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3001",
+        "https://ai.minedu.gob.pe",
+        "*"  # Permitir todos durante desarrollo
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
-# Inicializar procesador global
+# Inicializar procesador global y sistema de búsqueda
 processor = None
+hybrid_search = None
 
 @app.on_event("startup")
 async def startup_event():
     """Inicializar componentes al arrancar la API"""
-    global processor
+    global processor, hybrid_search
     logger.info("🚀 Inicializando API MINEDU...")
     processor = AdaptiveProcessorMINEDU(learning_mode=True)
+    
+    # Inicializar sistema de búsqueda híbrida
+    try:
+        from src.core.hybrid.hybrid_search import HybridSearch
+        vectorstore_path = Path("data/vectorstores")
+        
+        if all([
+            (vectorstore_path / "bm25.pkl").exists(),
+            (vectorstore_path / "tfidf.pkl").exists(),
+            (vectorstore_path / "transformers.pkl").exists()
+        ]):
+            hybrid_search = HybridSearch(
+                bm25_vectorstore_path=str(vectorstore_path / "bm25.pkl"),
+                tfidf_vectorstore_path=str(vectorstore_path / "tfidf.pkl"),
+                transformer_vectorstore_path=str(vectorstore_path / "transformers.pkl"),
+                fusion_strategy='weighted'
+            )
+            logger.info("✅ Sistema de búsqueda híbrida inicializado")
+        else:
+            logger.warning("⚠️ Vectorstores no encontrados, solo funciones de análisis disponibles")
+            
+    except Exception as e:
+        logger.warning(f"⚠️ No se pudo inicializar búsqueda híbrida: {e}")
+    
     logger.info("✅ API MINEDU lista")
 
-# Modelos Pydantic
+# Modelos Pydantic para el frontend
+class SearchRequest(BaseModel):
+    """Solicitud de búsqueda"""
+    query: str
+    method: Optional[str] = 'hybrid'
+    top_k: Optional[int] = 10
+    fusion_method: Optional[str] = 'weighted'
+
+class SearchResult(BaseModel):
+    """Resultado individual de búsqueda"""
+    content: str
+    score: float
+    metadata: Dict[str, Any]
+
+class SearchResponse(BaseModel):
+    """Respuesta de búsqueda"""
+    results: List[SearchResult]
+    query: str
+    method: str
+    processing_time: float
+    total_results: int
+    metrics: Optional[Dict[str, float]] = None
+
+class DocumentUploadResponse(BaseModel):
+    """Respuesta de subida de documento"""
+    document_id: str
+    filename: str
+    status: str
+    message: str
+
+class SystemStatus(BaseModel):
+    """Estado del sistema"""
+    status: str
+    version: str
+    uptime: float
+    active_searches: int
+    vectorstores: Dict[str, bool]
+
 class DocumentAnalysisResponse(BaseModel):
     """Respuesta del análisis de documento"""
     success: bool
@@ -93,18 +163,28 @@ async def root():
         "health": "/health"
     }
 
-@app.get("/health", response_model=HealthResponse)
+@app.get("/health", response_model=SystemStatus)
 async def health_check():
-    """Verificar salud del sistema"""
-    return HealthResponse(
-        status="healthy",
-        version="1.0.0",
-        components={
-            "adaptive_processor": "✅ Activo",
-            "money_detector": "✅ Activo",
-            "config_optimizer": "✅ Activo"
-        },
-        uptime="Sistema funcionando"
+    """Verificar salud del sistema compatible con frontend"""
+    global hybrid_search
+    
+    # Verificar estado de vectorstores
+    vectorstore_path = Path("data/vectorstores")
+    vectorstores_status = {
+        "bm25": (vectorstore_path / "bm25.pkl").exists(),
+        "tfidf": (vectorstore_path / "tfidf.pkl").exists(),
+        "transformers": (vectorstore_path / "transformers.pkl").exists()
+    }
+    
+    # Determinar estado general
+    system_status = "healthy" if any(vectorstores_status.values()) else "degraded"
+    
+    return SystemStatus(
+        status=system_status,
+        version="2.0.0",
+        uptime=time.time(),  # Simplicado para demo
+        active_searches=0,  # En producción sería un contador real
+        vectorstores=vectorstores_status
     )
 
 @app.post("/analyze", response_model=DocumentAnalysisResponse)
@@ -244,13 +324,90 @@ async def get_system_stats():
     else:
         return {"error": "Procesador no inicializado"}
 
+@app.post("/search", response_model=SearchResponse)
+async def search_documents(search_request: SearchRequest):
+    """
+    Realizar búsqueda híbrida en documentos MINEDU
+    
+    Args:
+        search_request: Solicitud de búsqueda con parámetros
+        
+    Returns:
+        Resultados de búsqueda formateados para frontend
+    """
+    global hybrid_search
+    
+    if not hybrid_search:
+        raise HTTPException(
+            status_code=503,
+            detail="Sistema de búsqueda no disponible. Verifica que los vectorstores existan."
+        )
+    
+    # Validar entrada
+    if not InputValidator.validate_query(search_request.query):
+        raise HTTPException(status_code=400, detail="Consulta contiene caracteres no válidos")
+    
+    try:
+        start_time = time.time()
+        logger.info(f"🔍 Búsqueda: '{search_request.query}' con método {search_request.method}")
+        
+        # Realizar búsqueda según el método especificado
+        if search_request.method == 'hybrid':
+            results = hybrid_search.search(
+                query=search_request.query,
+                top_k=search_request.top_k,
+                use_methods=['bm25', 'tfidf', 'transformer']
+            )
+        elif search_request.method == 'bm25' and hybrid_search.bm25_retriever:
+            results = hybrid_search.bm25_retriever.search(search_request.query, search_request.top_k)
+        elif search_request.method == 'tfidf' and hybrid_search.tfidf_retriever:
+            results = hybrid_search.tfidf_retriever.search(search_request.query, search_request.top_k)
+        elif search_request.method == 'transformers' and hybrid_search.transformer_retriever:
+            results = hybrid_search.transformer_retriever.search(search_request.query, search_request.top_k)
+        else:
+            # Fallback a híbrido
+            results = hybrid_search.search(search_request.query, search_request.top_k)
+        
+        processing_time = time.time() - start_time
+        
+        # Formatear resultados para el frontend
+        formatted_results = []
+        for result in results:
+            formatted_results.append(SearchResult(
+                content=result.get('texto', result.get('text', str(result))),
+                score=float(result.get('score', 0.0)),
+                metadata={
+                    'chunk_id': result.get('index', ''),
+                    'source_document': result.get('metadatos', {}).get('source', 'documento_minedu'),
+                    'page_number': result.get('metadatos', {}).get('page', None),
+                    'section': result.get('metadatos', {}).get('section', None),
+                    'method': result.get('method', search_request.method)
+                }
+            ))
+        
+        return SearchResponse(
+            results=formatted_results,
+            query=search_request.query,
+            method=search_request.method,
+            processing_time=processing_time,
+            total_results=len(formatted_results),
+            metrics={
+                'processing_time_ms': processing_time * 1000,
+                'avg_score': sum(r.score for r in formatted_results) / len(formatted_results) if formatted_results else 0.0
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"❌ Error en búsqueda: {e}")
+        raise HTTPException(status_code=500, detail=f"Error en búsqueda: {str(e)}")
+
 @app.post("/query")
 async def query_document(
     query: str,
     document_id: Optional[str] = None
 ):
     """
-    Hacer consulta sobre documento procesado
+    Hacer consulta sobre documento procesado (endpoint legacy)
     
     Args:
         query: Consulta en lenguaje natural
@@ -259,18 +416,62 @@ async def query_document(
     Returns:
         Respuesta a la consulta
     """
-    # Validar entrada
-    if not InputValidator.validate_query(query):
-        raise HTTPException(status_code=400, detail="Consulta inválida")
+    # Redirigir al nuevo endpoint de búsqueda
+    search_request = SearchRequest(query=query, method='hybrid', top_k=5)
+    return await search_documents(search_request)
+
+@app.post("/documents/upload", response_model=DocumentUploadResponse)
+async def upload_document_frontend(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...),
+    title: Optional[str] = None,
+    description: Optional[str] = None
+):
+    """
+    Subir documento para procesamiento (endpoint para frontend)
     
-    # Aquí se integraría con el sistema de búsqueda híbrida
-    # Por ahora, respuesta simulada
-    return {
-        "query": query,
-        "response": "Funcionalidad de consulta en desarrollo",
-        "document_id": document_id,
-        "timestamp": datetime.now().isoformat()
-    }
+    Args:
+        file: Archivo a subir
+        title: Título opcional del documento
+        description: Descripción opcional
+        
+    Returns:
+        Respuesta de subida formateada para frontend
+    """
+    try:
+        # Procesar documento usando el endpoint existente
+        analysis_result = await analyze_document(background_tasks, file)
+        
+        # Formatear respuesta para frontend
+        if analysis_result.success:
+            status = "completed"
+            message = f"Documento '{file.filename}' procesado exitosamente"
+        else:
+            status = "error"
+            message = f"Error procesando '{file.filename}'"
+        
+        return DocumentUploadResponse(
+            document_id=analysis_result.document_id,
+            filename=file.filename,
+            status=status,
+            message=message
+        )
+        
+    except HTTPException as e:
+        return DocumentUploadResponse(
+            document_id=str(uuid.uuid4()),
+            filename=file.filename,
+            status="error",
+            message=f"Error: {e.detail}"
+        )
+    except Exception as e:
+        logger.error(f"❌ Error en upload de frontend: {e}")
+        return DocumentUploadResponse(
+            document_id=str(uuid.uuid4()),
+            filename=file.filename,
+            status="error",
+            message=f"Error interno: {str(e)}"
+        )
 
 # Funciones auxiliares
 async def cleanup_temp_file(file_path: Path):

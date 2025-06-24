@@ -7,7 +7,17 @@
       "Bash(pip3 install:*)",
       "Bash(grep:*)",
       "Bash(pip install:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(chmod:*)",
+      "Bash(./deploy.sh:*)",
+      "Bash(sudo apt:*)",
+      "Bash(./deploy_clean.sh:*)",
+      "Bash(docker system prune:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(npm --version)",
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(docker-compose down:*)"
     ],
     "deny": []
   }

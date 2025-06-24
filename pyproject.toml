@@ -1,0 +1,415 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "government-ai-platform"
+version = "2.0.0"
+description = "Sistema de IA para procesamiento de documentos gubernamentales"
+authors = [
+    {name = "Government AI Team", email = "admin@government-ai.gov"},
+]
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Government",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "redis>=5.0.0",
+    "prometheus-client>=0.17.0",
+    "pyyaml>=6.0.1",
+    "aiofiles>=23.2.1",
+    "python-multipart>=0.0.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.1.6",
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "mypy>=1.7.0",
+    "pre-commit>=3.5.0",
+]
+performance = [
+    "faiss-cpu>=1.7.4",
+    "sentence-transformers>=2.2.2",
+]
+ai = [
+    "openai>=1.3.0",
+    "anthropic>=0.8.0",
+    "cohere>=4.37.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/government/ai-platform"
+Repository = "https://github.com/government/ai-platform.git"
+Documentation = "https://docs.government-ai.gov"
+Changelog = "https://github.com/government/ai-platform/blob/main/CHANGELOG.md"
+
+# ============================================================================
+# RUFF CONFIGURATION
+# ============================================================================
+
+[tool.ruff]
+# Configuración básica
+line-length = 88
+target-version = "py38"
+fix = true
+show-fixes = true
+output-format = "grouped"
+
+# Directorios a incluir/excluir
+include = ["*.py", "*.pyi", "**/pyproject.toml"]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "migrations",
+    "alembic",
+]
+
+# Selección de reglas a aplicar
+[tool.ruff.lint]
+# Reglas habilitadas
+select = [
+    # Pycodestyle
+    "E",     # Error
+    "W",     # Warning
+    
+    # Pyflakes
+    "F",     # Pyflakes
+    
+    # isort
+    "I",     # Import sorting
+    
+    # pep8-naming
+    "N",     # Naming conventions
+    
+    # pydocstyle
+    "D",     # Docstring conventions
+    
+    # pyupgrade
+    "UP",    # Upgrade syntax for newer Python versions
+    
+    # flake8-bugbear
+    "B",     # Bug and design problems
+    
+    # flake8-simplify
+    "SIM",   # Code simplification
+    
+    # flake8-comprehensions
+    "C4",    # List/set/dict comprehension improvements
+    
+    # flake8-pie
+    "PIE",   # Misc improvements
+    
+    # flake8-return
+    "RET",   # Return statement improvements
+    
+    # flake8-use-pathlib
+    "PTH",   # Use pathlib instead of os.path
+    
+    # flake8-logging-format
+    "G",     # Logging format improvements
+    
+    # flake8-quotes
+    "Q",     # Quote consistency
+    
+    # flake8-async
+    "ASYNC", # Async/await improvements
+    
+    # Ruff-specific
+    "RUF",   # Ruff-specific improvements
+]
+
+# Reglas deshabilitadas específicamente
+ignore = [
+    # Docstring en __init__ no requerido
+    "D107",
+    
+    # One-line docstring should fit on one line
+    "D200",
+    
+    # No blank line required before class docstring
+    "D203",
+    
+    # Multi-line docstring summary should start at the second line
+    "D213",
+    
+    # Missing docstring in magic method
+    "D105",
+    
+    # Line too long (manejado por el formateador)
+    "E501",
+    
+    # Ambiguous variable name (manejamos caso por caso)
+    "E741",
+    
+    # Uso de assert (común en testing)
+    "B011",
+    
+    # Mutable default arguments (manejamos explícitamente)
+    "B006",
+]
+
+# Configuración específica por archivo/directorio
+[tool.ruff.lint.per-file-ignores]
+# Tests pueden usar asserts y imports no utilizados
+"tests/*" = ["D", "B011", "F401", "F811"]
+"test_*.py" = ["D", "B011", "F401", "F811"]
+"**/test_*.py" = ["D", "B011", "F401", "F811"]
+
+# Scripts de configuración pueden ser más permisivos
+"setup.py" = ["D"]
+"conftest.py" = ["D"]
+"**/conftest.py" = ["D"]
+
+# Archivos de migración/configuración
+"migrations/*" = ["D", "N999"]
+"alembic/*" = ["D", "N999"]
+
+# Archivos temporales o demos
+"demo*.py" = ["D", "T201", "T203"]  # Permitir prints en demos
+"scripts/*" = ["D", "T201", "T203"]
+
+[tool.ruff.lint.isort]
+# Configuración de import sorting
+known-first-party = ["src", "backend", "core", "plugins"]
+known-third-party = ["fastapi", "pydantic", "redis", "prometheus_client"]
+section-order = [
+    "future",
+    "standard-library", 
+    "third-party",
+    "first-party",
+    "local-folder"
+]
+lines-after-imports = 2
+force-single-line = false
+force-sort-within-sections = true
+single-line-exclusions = ["typing"]
+
+[tool.ruff.lint.pydocstyle]
+# Usar convención Google para docstrings
+convention = "google"
+
+[tool.ruff.lint.pycodestyle]
+# Ignorar algunos warnings de longitud en comentarios
+ignore-overlong-task-comments = true
+max-doc-length = 100
+
+[tool.ruff.lint.flake8-quotes]
+# Usar comillas dobles consistentemente
+docstring-quotes = "double"
+inline-quotes = "double"
+multiline-quotes = "double"
+
+[tool.ruff.lint.flake8-bugbear]
+# Extender configuración de flake8-bugbear
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.Query", 
+    "fastapi.Path",
+    "fastapi.Body",
+]
+
+[tool.ruff.format]
+# Configuración del formateador (equivalente a Black)
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+preview = false
+
+# Respeta el line-length configurado globalmente
+# docstring-code-format = true  # Formatear código en docstrings
+# docstring-code-line-length = 72  # Líneas más cortas en ejemplos de código
+
+# ============================================================================
+# MYPY CONFIGURATION
+# ============================================================================
+
+[tool.mypy]
+# Configuración básica de MyPy
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+show_error_codes = true
+
+# Directorios a verificar
+files = ["src", "backend", "tests"]
+
+# Módulos sin tipos
+[[tool.mypy.overrides]]
+module = [
+    "redis.*",
+    "prometheus_client.*",
+    "faiss.*",
+    "sentence_transformers.*",
+]
+ignore_missing_imports = true
+
+# ============================================================================
+# PYTEST CONFIGURATION  
+# ============================================================================
+
+[tool.pytest.ini_options]
+# Configuración de pytest
+minversion = "7.0"
+addopts = [
+    "--strict-markers",
+    "--strict-config", 
+    "--verbose",
+    "--tb=short",
+    "--cov=src",
+    "--cov=backend",
+    "--cov-report=term-missing",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml",
+    "--cov-fail-under=80",
+]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "smoke: marks tests as smoke tests",
+]
+
+# ============================================================================
+# COVERAGE CONFIGURATION
+# ============================================================================
+
+[tool.coverage.run]
+# Configuración de coverage
+source = ["src", "backend"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__init__.py",
+    "*/migrations/*",
+    "*/alembic/*",
+    "setup.py",
+    "*/venv/*",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+# Reportes de coverage
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+show_missing = true
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+# ============================================================================
+# BANDIT SECURITY CONFIGURATION
+# ============================================================================
+
+[tool.bandit]
+# Configuración de seguridad con Bandit
+targets = ["src", "backend"]
+exclude_dirs = ["tests", "migrations", "alembic", "venv", ".venv"]
+skips = [
+    # B101: Test for use of assert (común en testing)
+    "B101",
+    # B601: shell=True en subprocess (verificamos caso por caso)
+    # "B601",
+]
+
+[tool.bandit.assert_used]
+# Permitir asserts en archivos de test
+skips = ["*test*.py", "**/tests/*"]
+
+# ============================================================================
+# SECRETS BASELINE CONFIGURATION
+# ============================================================================
+[tool.detect-secrets]
+baseline = ".secrets.baseline"
+exclude_files = "package-lock.json"
+plugins_used = [
+    {name = "ArtifactoryDetector"},
+    {name = "AWSKeyDetector"},
+    {name = "AzureStorageKeyDetector"},
+    {name = "Base64HighEntropyString", limit = 4.5},
+    {name = "BasicAuthDetector"},
+    {name = "CloudantDetector"},
+    {name = "DiscordBotTokenDetector"},
+    {name = "GitHubTokenDetector"},
+    {name = "HexHighEntropyString", limit = 3.0},
+    {name = "IbmCloudIamDetector"},
+    {name = "IbmCosHmacDetector"},
+    {name = "JwtTokenDetector"},
+    {name = "KeywordDetector", keyword_exclude = ""},
+    {name = "MailchimpDetector"},
+    {name = "NpmDetector"},
+    {name = "PrivateKeyDetector"},
+    {name = "SendGridDetector"},
+    {name = "SlackDetector"},
+    {name = "SoftlayerDetector"},
+    {name = "SquareOAuthDetector"},
+    {name = "StripeDetector"},
+    {name = "TwilioKeyDetector"},
+]
+version = "1.4.0"
+word_list_file = ""

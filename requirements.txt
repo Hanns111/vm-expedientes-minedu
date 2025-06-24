@@ -16,6 +16,11 @@ PyMuPDF>=1.23.0
 camelot-py[cv]>=0.11.0
 pdfplumber>=0.10.0
 
+# API Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
 # Utilities
 python-dotenv>=1.0.0
 tqdm>=4.65.0
@@ -47,7 +52,6 @@ numba>=0.58.0
 # Security dependencies (from AGENDA_SEGURIDAD_MINEDU.md)
 python-magic-bin==0.4.14; sys_platform == "win32"
 python-magic==0.4.27; sys_platform != "win32"
-hashlib-compat>=1.0.1
 
 # Optional security tools
 bandit>=1.7.5

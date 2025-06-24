@@ -123,7 +123,7 @@ class DialogManager:
         
         excess_amount = validation_result.total_amount - validation_result.daily_limit
         
-        message = f\"\"\"🚨 LÍMITE DIARIO EXCEDIDO
+        message = f"""🚨 LÍMITE DIARIO EXCEDIDO
         
 El total solicitado S/ {validation_result.total_amount:.2f} excede el límite diario para {validation_result.location} (S/ {validation_result.daily_limit:.2f}).
 
@@ -132,7 +132,7 @@ Exceso: S/ {excess_amount:.2f}
 Conceptos incluidos:
 {self._format_concepts_list(extracted_concepts)}
 
-¿Cómo desea proceder?\"\"\"
+¿Cómo desea proceder?"""
         
         options = [
             DialogOption(
@@ -180,7 +180,7 @@ Conceptos incluidos:
         # Identificar conceptos conflictivos
         conflict_info = self._analyze_concept_conflicts(validation_result.violations)
         
-        message = f\"\"\"⚠️ CONFLICTO ENTRE CONCEPTOS
+        message = f"""⚠️ CONFLICTO ENTRE CONCEPTOS
         
 {conflict_info['description']}
 
@@ -189,7 +189,7 @@ Conceptos en conflicto:
 
 Los conceptos mutuamente excluyentes no pueden usarse juntos en la misma solicitud.
 
-¿Cómo desea resolver el conflicto?\"\"\"
+¿Cómo desea resolver el conflicto?"""
         
         options = [
             DialogOption(
@@ -223,7 +223,7 @@ Los conceptos mutuamente excluyentes no pueden usarse juntos en la misma solicit
     def _create_location_mismatch_dialog(self, validation_result, extracted_concepts: List[Dict[str, Any]]) -> DialogPrompt:
         """Crear diálogo para inconsistencias de ubicación"""
         
-        message = f\"\"\"📍 INCONSISTENCIA DE UBICACIÓN
+        message = f"""📍 INCONSISTENCIA DE UBICACIÓN
         
 Los conceptos solicitados corresponden a ubicaciones diferentes o hay inconsistencias.
 
@@ -231,7 +231,7 @@ Ubicación actual: {validation_result.location}
 
 Algunos conceptos podrían no aplicar para esta ubicación.
 
-¿Desea especificar la ubicación correcta?\"\"\"
+¿Desea especificar la ubicación correcta?"""
         
         options = [
             DialogOption(
@@ -269,13 +269,13 @@ Algunos conceptos podrían no aplicar para esta ubicación.
         
         violations_text = "\\n".join(f"• {v}" for v in validation_result.violations)
         
-        message = f\"\"\"❓ CLARIFICACIÓN NECESARIA
+        message = f"""❓ CLARIFICACIÓN NECESARIA
         
 Se detectaron las siguientes inconsistencias:
 
 {violations_text}
 
-¿Cómo desea proceder?\"\"\"
+¿Cómo desea proceder?"""
         
         options = [
             DialogOption(

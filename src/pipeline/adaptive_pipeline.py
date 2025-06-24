@@ -17,13 +17,39 @@ from pathlib import Path
 
 # Importar componentes del sistema
 try:
-    from ..extractors.generic_table_extractor import GenericTableExtractor, ExtractedDocument
-    from ..rules.normative_rules import NormativeRulesEngine, ValidationResult
-    from ..dialog.dialog_manager import DialogManager, DialogPrompt, DialogResponse
+    # Intentar importación relativa primero
+    try:
+        from ..extractors.generic_table_extractor import GenericTableExtractor, ExtractedDocument
+        from ..rules.normative_rules import NormativeRulesEngine, ValidationResult
+        from ..dialog.dialog_manager import DialogManager, DialogPrompt, DialogResponse
+    except ImportError:
+        # Fallback a importación absoluta
+        import sys
+        from pathlib import Path
+        sys.path.append(str(Path(__file__).parent.parent))
+        from extractors.generic_table_extractor import GenericTableExtractor, ExtractedDocument
+        from rules.normative_rules import NormativeRulesEngine, ValidationResult
+        from dialog.dialog_manager import DialogManager, DialogPrompt, DialogResponse
     COMPONENTS_AVAILABLE = True
 except ImportError as e:
     logging.warning(f"Algunos componentes no disponibles: {e}")
     COMPONENTS_AVAILABLE = False
+    
+    # Crear clases mock para evitar errores de definición
+    class ExtractedDocument:
+        def __init__(self, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+    
+    class ValidationResult:
+        def __init__(self, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+    
+    class DialogPrompt:
+        def __init__(self, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
 
 logger = logging.getLogger(__name__)
 

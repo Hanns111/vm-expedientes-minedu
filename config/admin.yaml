@@ -1,0 +1,73 @@
+admin:
+  auth:
+    enabled: true
+    providers: ["oauth", "local"]
+    admin_roles: ["system_admin", "platform_admin", "content_moderator"]
+    session_timeout_minutes: 60
+    require_2fa: true
+    password_policy:
+      min_length: 12
+      require_uppercase: true
+      require_lowercase: true
+      require_numbers: true
+      require_symbols: true
+
+  features:
+    plugins:
+      can_toggle: true
+      can_configure: true
+      can_install: false  # Require system admin
+      can_delete: false   # Require system admin
+    models:
+      can_toggle: true
+      can_configure: true
+      can_add: false      # Require system admin
+      can_remove: false   # Require system admin
+    users:
+      can_view_usage: true
+      can_modify_limits: true
+      can_ban_users: true
+      can_view_logs: true
+    system:
+      can_view_metrics: true
+      can_modify_settings: false  # Require system admin
+      can_restart_services: false # Require system admin
+
+  ui:
+    theme: "government"
+    title: "Panel de Administración - IA Gubernamental"
+    logo_url: "/assets/logo-minedu.png"
+    footer_text: "Sistema de IA Gubernamental v2.0 - MINEDU"
+    support_email: "soporte@minedu.gob.pe"
+    documentation_url: "/docs"
+
+  monitoring:
+    metrics_retention_days: 90
+    log_retention_days: 365
+    alert_thresholds:
+      error_rate_percent: 5
+      response_time_ms: 5000
+      concurrent_users: 1000
+      disk_usage_percent: 80
+      memory_usage_percent: 85
+
+  security:
+    rate_limiting:
+      enabled: true
+      requests_per_minute: 100
+      burst_limit: 200
+    ip_whitelist:
+      enabled: false
+      allowed_ips: []
+    cors:
+      allowed_origins: ["http://localhost:3000", "https://ai.minedu.gob.pe"]
+      allowed_methods: ["GET", "POST", "PUT", "DELETE"]
+      allowed_headers: ["Content-Type", "Authorization"]
+
+  backup:
+    enabled: true
+    schedule: "0 2 * * *"  # Daily at 2 AM
+    retention_days: 30
+    include_logs: true
+    include_user_data: true
+    exclude_patterns: ["*.tmp", "cache/*"]

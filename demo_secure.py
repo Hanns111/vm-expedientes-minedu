@@ -29,20 +29,8 @@ except ImportError as e:
     print(f"⚠️ Algunos componentes de seguridad no disponibles: {e}")
     print("🔧 Usando modo de fallback...")
     SECURITY_COMPONENTS_AVAILABLE = False
-
-# Importar nuevos componentes del pipeline declarativo
-try:
-    from pipeline.adaptive_pipeline import AdaptivePipelineV2, PipelineResult
-    from extractors.generic_table_extractor import GenericTableExtractor
-    from rules.normative_rules import NormativeRulesEngine
-    from dialog.dialog_manager import DialogManager, DialogResponse
-    DECLARATIVE_PIPELINE_AVAILABLE = True
-except ImportError as e:
-    print(f"⚠️ Pipeline declarativo no disponible: {e}")
-    print("🔧 Continuando con búsqueda híbrida...")
-    DECLARATIVE_PIPELINE_AVAILABLE = False
     
-    # Clases mock simples
+    # Definir clases mock para seguridad
     class SecurityConfig:
         SECURITY_VERSION = "1.0.1"
         MAX_QUERY_LENGTH = 1000
@@ -182,6 +170,18 @@ except ImportError as e:
                     ],
                     'answer': answer
                 }
+
+# Importar nuevos componentes del pipeline declarativo
+try:
+    from pipeline.adaptive_pipeline import AdaptivePipelineV2, PipelineResult
+    from extractors.generic_table_extractor import GenericTableExtractor
+    from rules.normative_rules import NormativeRulesEngine
+    from dialog.dialog_manager import DialogManager, DialogResponse
+    DECLARATIVE_PIPELINE_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠️ Pipeline declarativo no disponible: {e}")
+    print("🔧 Continuando con búsqueda híbrida...")
+    DECLARATIVE_PIPELINE_AVAILABLE = False
 
 class SecureRAGDemo:
     """

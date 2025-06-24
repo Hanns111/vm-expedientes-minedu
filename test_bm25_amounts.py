@@ -1,29 +1,21 @@
 #!/usr/bin/env python3
 """
-Test BM25 Amounts - Demo de Sistema Declarativo MINEDU v2.0
-===========================================================
+Test de Integración Frontend-Backend MINEDU
+==========================================
 
-Demo que muestra las capacidades del nuevo sistema declarativo
-para procesar consultas específicas sobre numerales y montos.
+Pruebas para verificar la comunicación entre el frontend Next.js
+y el backend FastAPI con sistema híbrido de búsqueda.
 """
+import requests
+import json
+import time
+from typing import Dict, Any
 
-import sys
-from pathlib import Path
+# Configuración
+API_BASE_URL = "http://localhost:8000"
+FRONTEND_URL = "http://localhost:3000"
 
-# Agregar el directorio src al path
-sys.path.append(str(Path(__file__).parent / "src"))
-
-try:
-    from pipeline.adaptive_pipeline import AdaptivePipelineV2
-    from rules.normative_rules import NormativeRulesEngine
-    from extractors.generic_table_extractor import GenericTableExtractor
-    from dialog.dialog_manager import DialogManager, DialogResponse
-    DECLARATIVE_AVAILABLE = True
-except ImportError as e:
-    print(f"⚠️ Sistema declarativo no disponible: {e}")
-    DECLARATIVE_AVAILABLE = False
-
-def test_declarative_system():
+def test_backend_health():
     """Test completo del sistema declarativo"""
     
     print("🤖 SISTEMA DECLARATIVO MINEDU v2.0 - TEST COMPLETO")

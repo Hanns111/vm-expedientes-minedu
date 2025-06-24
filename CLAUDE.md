@@ -14,81 +14,117 @@ This is a secure hybrid RAG (Retrieval-Augmented Generation) system for Peru's M
 make install
 make setup
 
+# Development setup with pre-commit hooks
+make dev-setup
+
 # Full setup including vectorstore generation
 make full-setup
 ```
 
-### Testing and Linting
+### Code Quality (Ruff + MyPy)
+```bash
+# Format and fix code automatically
+make format
+
+# Check format without changes
+make format-check
+
+# Run linting
+make lint
+
+# Fix linting issues automatically
+make lint-fix
+
+# Type checking
+make type-check
+
+# Security analysis
+make security
+
+# All quality checks together
+make all
+```
+
+### Testing
 ```bash
 # Run tests with coverage
 make test
-pytest tests/ -v --cov=src --cov-report=html
 
-# Code formatting and linting
-make format  # black + isort
-make lint    # flake8 + mypy
+# Fast tests without coverage
+make test-fast
 
-# Complete quality check
-make all     # security-audit + format + lint + test
-```
+# Integration tests only
+make test-integration
 
-### Security Operations
-```bash
-# Comprehensive security audit
-make security-audit
-python security_audit.py
+# Unit tests only
+make test-unit
 
-# Security monitoring and fixes
-make security-fix
-make security-monitor
-
-# Vulnerability scanning
-make security-scan  # bandit + safety + pip-audit
+# Single test file
+pytest tests/test_specific.py -v
 ```
 
 ### Running the System
 ```bash
-# Secure demo (recommended)
+# Secure demo (recommended for production)
 make run-demo-secure
 python demo_secure.py "¿Cuál es el monto máximo para viáticos?"
 
-# Basic demo
+# Basic demo for development
 make run-demo
-python demo.py
+
+# Performance demo with Streamlit UI
+make run-performance
 
 # Generate vectorstores
 make generate-vectorstores
-python src/data_pipeline/generate_vectorstores.py
+```
+
+### Docker Deployment
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Production deployment with nginx and redis
+docker-compose --profile production up -d
+
+# Development deployment
+docker-compose up backend
 ```
 
 ## Architecture Overview
 
-### Core Components
-- **src/core/**: Base pipeline architecture and security framework
-  - `base_pipeline.py`: Abstract RAG pipeline with metrics and evaluation
-  - `security/`: Comprehensive security layer (input validation, rate limiting, PII protection)
-  - `retrieval/`: Multi-modal search implementations (BM25, TF-IDF, Transformers)
-  - `hybrid/`: Fusion strategies for combining search results
+### Core Pipeline Architecture
+The system follows an abstract base pipeline pattern defined in `src/core/base_pipeline.py`:
+- **BasePipeline**: Abstract class defining common RAG pipeline interface
+- All pipelines implement: `search()`, `generate()`, `evaluate()` methods
+- Built-in metrics collection (latency, tokens, memory usage)
+- Configurable through Pydantic models in `src/config/rag_config.py`
 
-### Search System Design
-The system uses a hybrid approach combining three retrieval methods:
-1. **BM25Retriever**: Fast lexical search optimized for Spanish
+### Hybrid Search System (`src/core/hybrid/hybrid_search.py`)
+Multi-retrieval fusion system combining:
+1. **BM25Retriever**: Fast lexical search with Spanish optimization
 2. **TFIDFRetriever**: Term frequency-based vectorial search  
 3. **TransformerRetriever**: Semantic search using multilingual-e5-large
-4. **HybridSearch**: Fusion system with configurable strategies (weighted, RRF)
+4. **HybridSearch**: Configurable fusion strategies (weighted, RRF)
+   - Amount-aware boosting for financial queries
+   - Query pattern recognition for domain-specific optimization
 
-### Security Architecture
-Government-grade security with multiple protection layers:
-- Input sanitization and validation (`InputValidator`)
-- Rate limiting (30/min, 500/hour, 2000/day)
-- PII protection and anonymization (`PrivacyProtector`)
-- Prompt injection protection (`LLMSecurityGuard`)
-- Comprehensive audit logging (`SecurityMonitor`)
+### Security Architecture (`src/core/security/`)
+Government-grade security with layered protection:
+- **InputValidator**: Query sanitization and validation
+- **RateLimiter**: Multi-level rate limiting (30/min, 500/hour, 2000/day)
+- **PrivacyProtector**: PII detection and anonymization
+- **LLMSecurityGuard**: Prompt injection protection
+- **SecurityMonitor**: Comprehensive audit logging
+- **FileValidator**: Safe file operations with path validation
+- **SafePickle**: Secure serialization/deserialization
 
-### Configuration Management
-- **config/settings.py**: Base project paths and environment variables
-- **src/config/rag_config.py**: Pydantic-based RAG pipeline configuration
-- **config/minedu_config*.yaml**: YAML configuration files for different environments
+### Configuration System
+Type-safe configuration using Pydantic models:
+- **RAGConfig**: Main pipeline configuration
+- **BM25Config, DenseRetrievalConfig, HybridFusionConfig**: Component-specific configs
+- **SecurityConfig**: Centralized security settings
+- Supports both Python objects and YAML files
 
 ## Key File Patterns
 
@@ -111,23 +147,26 @@ Government-grade security with multiple protection layers:
 
 ## Development Guidelines
 
-### Security First
-- All new code must pass security audit (`make security-audit`)
-- Use `SecureHybridSearch` wrapper for production code
-- Never bypass input validation or rate limiting
-- All file operations must use validated paths within project boundaries
+### Code Quality Standards
+- **Formatting**: Use Ruff for formatting and linting (`make format`)
+- **Type Safety**: All functions must have type hints, checked with MyPy
+- **Testing**: Maintain >80% test coverage, use pytest with proper markers
+- **Security**: All code must pass security audit (`make security`)
+- **Pre-commit**: Install hooks with `make dev-setup` for automatic quality checks
 
-### Testing Requirements  
-- All new retrieval components must implement abstract base classes
-- Add comprehensive tests in `tests/` directory
-- Maintain test coverage above current levels
-- Run full test suite before committing (`make all`)
+### Architecture Patterns
+- **Pipeline Pattern**: Extend `BasePipeline` for new RAG implementations
+- **Retriever Pattern**: Implement common interface for search components
+- **Configuration**: Use Pydantic models, avoid hardcoded values
+- **Security Wrapper**: Always use security-validated wrappers in production
+- **Dependency Injection**: Pass configurations rather than accessing globals
 
-### Configuration
-- Use Pydantic models for type-safe configuration
-- Support both Python and YAML configuration formats
-- Environment-specific configs in `config/` directory
-- Never hardcode paths - use `config/settings.py` constants
+### Adding New Components
+1. **New Retriever**: Extend base retriever, add to `src/core/retrieval/`
+2. **New Pipeline**: Extend `BasePipeline`, implement required methods
+3. **Configuration**: Add Pydantic model to `src/config/rag_config.py`
+4. **Security**: Integrate with security framework components
+5. **Testing**: Add comprehensive tests with proper coverage
 
 ## Scientific Research Context
 
@@ -154,20 +193,36 @@ This system is designed for SIGIR/CLEF 2025-2026 research paper submission. Key 
 ## Common Workflows
 
 ### Adding New Search Method
-1. Implement retriever in `src/core/retrieval/`
-2. Add configuration to `RAGConfig` 
-3. Integrate into `HybridSearch` fusion strategies
-4. Add tests and security validation
-5. Update benchmarking in `paper_cientifico/`
+1. Create retriever class in `src/core/retrieval/` extending base interface
+2. Add Pydantic configuration model to `src/config/rag_config.py`
+3. Integrate into `HybridSearch.search()` method with fusion strategy
+4. Add comprehensive tests in `tests/test_retrieval.py`
+5. Run security audit and update benchmarking data
 
-### Modifying Security Rules
-1. Update relevant security component in `src/core/security/`
-2. Test with `make security-audit`
-3. Verify compliance with government standards
-4. Update documentation and audit logs
+### Debugging Search Issues
+1. Use `demo_secure.py` with debug logging enabled
+2. Check vectorstore integrity in `data/processed/`
+3. Analyze metrics from `BasePipeline` built-in profiling
+4. Compare results across different retrievers individually
+5. Validate input preprocessing and query normalization
 
 ### Performance Optimization
-1. Profile with existing metrics in `src/core/base_pipeline.py`
-2. Optimize vectorstore generation and search algorithms  
-3. Benchmark against golden dataset
-4. Maintain security compliance during optimization
+1. Profile with `src/core/performance/` utilities
+2. Check cache hit rates and async pipeline performance
+3. Optimize vectorstore loading and search algorithms
+4. Benchmark against golden dataset in `paper_cientifico/dataset/`
+5. Monitor memory usage and token consumption metrics
+
+### Security Updates
+1. Modify security components in `src/core/security/`
+2. Run comprehensive audit: `make security`
+3. Test with edge cases and malicious inputs
+4. Update rate limiting and PII protection rules
+5. Verify compliance with government security standards
+
+### Deployment Troubleshooting
+1. Check Docker health endpoints and container logs
+2. Verify vectorstore availability and permissions
+3. Test API endpoints with realistic government data
+4. Monitor rate limiting and security audit logs
+5. Validate production vs development configuration differences
