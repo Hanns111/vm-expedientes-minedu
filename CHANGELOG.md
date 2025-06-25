@@ -1,9 +1,40 @@
-# Changelog
+# 📝 Changelog - AI Search Platform MINEDU
 
-Todos los cambios notables en este proyecto serán documentados en este archivo.
+> Registro completo de cambios, mejoras y hitos del proyecto
 
-El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## 🎯 Formato
+
+Este changelog sigue el formato [Keep a Changelog](https://keepachangelog.com/es/1.0.0/) y se adhiere al [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.3.0] - 2025-06-24 🚀
+
+### 🎉 LANZAMIENTO PRINCIPAL: Sistema Híbrido con Boost de Montos
+
+#### ✨ Added
+- **Sistema de Boost de Montos**: Implementación de scoring boost para resultados que contengan información monetaria
+- **Test Suite Completo**: Scripts de prueba para validación de endpoints (`test_search.sh`)
+- **API Mejorada**: Endpoint `/search` optimizado con mejor manejo de respuestas
+- **Validación de Entrada Mejorada**: Sistema de validación de entrada más robusto
+- **Documentación Técnica**: ARQUITECTURA_TECNICA_DETALLADA.md y METODOLOGIA_INVESTIGACION.md
+- **Manual de Deployment**: DEPLOYMENT_MANUAL.md con instrucciones completas
+- **Docker Optimizado**: Configuración Docker mejorada para producción
+
+#### 🔧 Changed
+- **Hybrid Search**: Mejoras significativas en el algoritmo de búsqueda híbrida
+- **Scoring System**: Sistema de puntuación mejorado con boost para montos
+- **Performance**: Optimizaciones de rendimiento en consultas complejas
+- **Error Handling**: Manejo de errores mejorado en toda la aplicación
+
+#### 🛡️ Security
+- **Input Validation**: Validación de entrada reforzada
+- **Security Config**: Configuración de seguridad actualizada
+- **Safe Operations**: Operaciones seguras implementadas
+
+#### 📊 Technical Achievements
+- **Deployment Success**: Sistema completamente desplegado y funcional
+- **Docker Integration**: Integración Docker + WSL2 exitosa
+- **Research Ready**: Sistema preparado para publicación científica
+- **Production Ready**: Listo para ambiente de producción gubernamental
 
 ## [1.2.0-security-complete] - 2025-06-14
 
@@ -179,7 +210,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ---
 
-## Tipos de Cambios
+## 📋 Tipos de Cambios
 
 - **Added** para nuevas funcionalidades
 - **Changed** para cambios en funcionalidades existentes

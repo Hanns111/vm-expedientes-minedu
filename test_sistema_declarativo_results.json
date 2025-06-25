@@ -1,0 +1,99 @@
+{
+  "timestamp": "2025-06-22T16:52:29.473007",
+  "sistema": "Declarativo MINEDU v2.0",
+  "test_results": [
+    {
+      "case_name": "Tres aeropuertos distintas provincias",
+      "input_concepts": [
+        {
+          "numeral": "8.4.17.1",
+          "amount": 35.0
+        },
+        {
+          "numeral": "8.4.17.1",
+          "amount": 35.0
+        },
+        {
+          "numeral": "8.4.17.1",
+          "amount": 35.0
+        }
+      ],
+      "validation_result": {
+        "valid": false,
+        "total_amount": 105.0,
+        "daily_limit": 30.0,
+        "location": "regiones",
+        "concepts_used": [
+          "8.4.17.1",
+          "8.4.17.1",
+          "8.4.17.1"
+        ],
+        "violations": [
+          "Total S/105.0 excede límite diario S/30.0"
+        ],
+        "warnings": [],
+        "suggestions": [
+          "Considere distribuir servicios en varios días",
+          "Reduzca el total en S/75.00 para cumplir límite",
+          "Use movilidad local general (8.4.17.3) que incluye todos los traslados"
+        ],
+        "valid_concepts": [
+          {
+            "numeral": "8.4.17.1",
+            "amount": 35.0
+          },
+          {
+            "numeral": "8.4.17.1",
+            "amount": 35.0
+          },
+          {
+            "numeral": "8.4.17.1",
+            "amount": 35.0
+          }
+        ]
+      }
+    },
+    {
+      "case_name": "Aeropuerto + Terrapuerto mismo día",
+      "input_concepts": [
+        {
+          "numeral": "8.4.17.1",
+          "amount": 35.0
+        },
+        {
+          "numeral": "8.4.17.2",
+          "amount": 25.0
+        }
+      ],
+      "validation_result": {
+        "valid": false,
+        "total_amount": 60.0,
+        "daily_limit": 30.0,
+        "location": "regiones",
+        "concepts_used": [
+          "8.4.17.1",
+          "8.4.17.2"
+        ],
+        "violations": [
+          "Total S/60.0 excede límite diario S/30.0"
+        ],
+        "warnings": [],
+        "suggestions": [
+          "Considere distribuir servicios en varios días",
+          "Reduzca el total en S/30.00 para cumplir límite",
+          "Use movilidad local general (8.4.17.3) que incluye todos los traslados"
+        ],
+        "valid_concepts": [
+          {
+            "numeral": "8.4.17.1",
+            "amount": 35.0
+          },
+          {
+            "numeral": "8.4.17.2",
+            "amount": 25.0
+          }
+        ]
+      }
+    }
+  ]
+}

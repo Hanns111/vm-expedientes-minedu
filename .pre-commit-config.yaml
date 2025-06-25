@@ -1,0 +1,127 @@
+# Pre-commit hooks para mantener calidad de código
+repos:
+  # Ruff - Linting y formateo
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.6
+    hooks:
+      # Linter
+      - id: ruff
+        name: Ruff Linter
+        args: [--fix]
+        types_or: [python, pyi, jupyter]
+        
+      # Formateador
+      - id: ruff-format
+        name: Ruff Formatter
+        types_or: [python, pyi, jupyter]
+
+  # Hooks básicos de pre-commit
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # Archivos básicos
+      - id: trailing-whitespace
+        name: Trim Trailing Whitespace
+        
+      - id: end-of-file-fixer
+        name: Fix End of Files
+        
+      - id: mixed-line-ending
+        name: Mixed Line Ending
+        args: [--fix=lf]
+        
+      # JSON/YAML
+      - id: check-json
+        name: Check JSON
+        
+      - id: check-yaml
+        name: Check YAML
+        args: [--unsafe]  # Permitir constructores personalizados
+        
+      - id: pretty-format-json
+        name: Pretty format JSON
+        args: [--autofix, --indent=2]
+        
+      # Python específico
+      - id: check-ast
+        name: Check Python AST
+        
+      - id: check-builtin-literals
+        name: Check builtin type constructor use
+        
+      - id: check-case-conflict
+        name: Check for case conflicts
+        
+      - id: check-docstring-first
+        name: Check docstring is first
+        
+      - id: debug-statements
+        name: Debug Statements (Python)
+        
+      # Seguridad básica
+      - id: detect-private-key
+        name: Detect Private Key
+        
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+        
+      # Archivos grandes
+      - id: check-added-large-files
+        name: Check for added large files
+        args: [--maxkb=1000]
+
+  # MyPy - Type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.7.1
+    hooks:
+      - id: mypy
+        name: MyPy Type Checker
+        additional_dependencies: [
+          types-PyYAML,
+          types-redis,
+          types-requests,
+          pydantic,
+          fastapi,
+        ]
+        args: [--config-file=pyproject.toml]
+        exclude: ^(tests/|migrations/|alembic/)
+
+  # Seguridad avanzada - Bandit
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        name: Bandit Security Linter
+        args: [
+          --config=pyproject.toml,
+          --severity-level=medium,
+          --confidence-level=medium,
+        ]
+        exclude: ^tests/
+
+  # Secrets scanning
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        name: Detect Secrets
+        args: [--baseline, .secrets.baseline]
+        exclude: package.lock.json
+
+# Configuración global
+default_stages: [commit]
+fail_fast: false
+minimum_pre_commit_version: "3.0.0"
+
+# Configuración de CI
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ""
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false

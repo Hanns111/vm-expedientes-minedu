@@ -1,0 +1,51 @@
+# Core dependencies - Optimized for PyTorch base image
+numpy>=2.0.0,<2.4.0
+scikit-learn>=1.4.0
+pandas>=2.1.0
+
+# Search algorithms
+rank-bm25==0.2.2
+sentence-transformers>=2.4.0
+
+# Text processing
+spacy>=3.7.0
+nltk>=3.8.1
+
+# PDF processing (lightweight versions)
+PyMuPDF>=1.23.0
+pdfplumber>=0.10.0
+
+# API Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Development
+black>=23.7.0
+flake8>=6.1.0
+
+# Computer Vision (lightweight)
+pillow>=10.0.0
+
+# NLP (transformers already included with PyTorch)
+transformers>=4.35.0
+regex>=2023.8.8
+
+# Document Processing
+pdf2image>=1.16.3
+
+# Security dependencies
+python-magic==0.4.27
+
+# Optional security tools
+bandit>=1.7.5
+safety>=2.3.5
+pip-audit>=2.6.1

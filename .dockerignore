@@ -1,0 +1,77 @@
+# Git and version control
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Frontend (separate deployment)
+frontend-new/
+node_modules/
+
+# Development files
+*.md
+docs/
+test_*.py
+tests/
+
+# Temporary files
+*.tmp
+*.temp
+data/temp/*
+
+# Backup files
+*.backup
+*.bak
+
+# Large model files (download at runtime)
+*.bin
+*.onnx
+models/
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+*.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Environment files
+.env
+.env.local
+.env.production

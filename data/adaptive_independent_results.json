@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-06-21T18:46:49.878523",
+  "test_type": "independent_direct_import",
+  "results": {
+    "smart_money_detector": true,
+    "adaptive_config": true,
+    "manual_money_detection": true,
+    "extraction_strategies": true,
+    "learning_simulation": true
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed_tests": 5,
+    "success_rate": 1.0
+  },
+  "system_status": "functional"
+}

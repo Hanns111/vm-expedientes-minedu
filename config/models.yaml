@@ -1,0 +1,83 @@
+models:
+  - provider: "openai"
+    model_name: "gpt-4-turbo"
+    display_name: "GPT-4 Turbo"
+    description: "Modelo avanzado para análisis complejos y razonamiento"
+    max_tokens: 4096
+    temperature: 0.1
+    cost_per_1k_tokens: 0.03
+    latency_ms: 2000
+    capabilities: ["reasoning", "analysis", "multilingual", "document_analysis"]
+    enabled: true
+    requires_api_key: true
+    priority: 1
+
+  - provider: "openai"
+    model_name: "gpt-3.5-turbo"
+    display_name: "GPT-3.5 Turbo"
+    description: "Modelo rápido para consultas generales"
+    max_tokens: 4096
+    temperature: 0.2
+    cost_per_1k_tokens: 0.002
+    latency_ms: 1200
+    capabilities: ["fast_response", "general_queries", "multilingual"]
+    enabled: true
+    requires_api_key: true
+    priority: 3
+
+  - provider: "anthropic"
+    model_name: "claude-3-sonnet"
+    display_name: "Claude 3 Sonnet"
+    description: "Modelo equilibrado con alta precisión"
+    max_tokens: 4096
+    temperature: 0.1
+    cost_per_1k_tokens: 0.015
+    latency_ms: 1800
+    capabilities: ["reasoning", "analysis", "safety", "multilingual"]
+    enabled: true
+    requires_api_key: true
+    priority: 2
+
+  - provider: "local_llama"
+    model_name: "llama-3-70b"
+    display_name: "Llama 3 Local"
+    description: "Modelo local para máxima privacidad"
+    max_tokens: 2048
+    temperature: 0.2
+    cost_per_1k_tokens: 0.0
+    latency_ms: 800
+    capabilities: ["fast", "private", "multilingual", "secure"]
+    enabled: false
+    requires_api_key: false
+    priority: 4
+
+routing_rules:
+  sensitive_documents:
+    document_classification: ["confidencial", "reservado"]
+    model: "llama-3-70b"
+    priority: 1
+    fallback: "claude-3-sonnet"
+  
+  complex_analysis:
+    query_complexity: "high"
+    model: "gpt-4-turbo"
+    priority: 2
+    fallback: "claude-3-sonnet"
+  
+  general_queries:
+    query_complexity: "low"
+    model: "gpt-3.5-turbo"
+    priority: 3
+    fallback: "claude-3-sonnet"
+
+  fast_responses:
+    response_time_requirement: "fast"
+    model: "gpt-3.5-turbo"
+    priority: 4
+    fallback: "gpt-4-turbo"
+
+load_balancing:
+  strategy: "round_robin"  # Options: round_robin, least_latency, weighted
+  health_check_interval: 60  # seconds
+  max_retries: 3
+  retry_delay: 1  # seconds

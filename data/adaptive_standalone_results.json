@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-06-20T18:23:12.837680",
+  "test_version": "standalone_v1.0",
+  "test_results": {
+    "smart_money_detector_standalone": false,
+    "adaptive_config_standalone": false,
+    "integration_simulation": true,
+    "performance_benchmarks": true
+  },
+  "system_info": {
+    "python_version": "3.11.11 | packaged by Anaconda, Inc. | (main, Dec 11 2024, 16:34:19) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "win32",
+    "test_mode": "standalone_no_dependencies"
+  },
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 2,
+    "success_rate": 0.5,
+    "critical_components": {
+      "money_detector": false,
+      "adaptive_config": false,
+      "integration": true
+    }
+  },
+  "recommendations": [
+    "Revisar patrones de detección de montos - posible mejora en expresiones regulares",
+    "Verificar lógica de optimización de configuración adaptativa",
+    "Sistema necesita optimización general - tasa de éxito por debajo del 80%"
+  ]
+}

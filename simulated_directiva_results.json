@@ -1,0 +1,297 @@
+{
+  "chunks": [
+    {
+      "id": 1,
+      "texto": "Establecer las disposiciones y procedimientos para el requerimiento, otorgamiento y rendición de cuenta de viáticos, pasajes y otros gastos de viaje en el territorio nacional.",
+      "titulo": "Objeto de la Directiva",
+      "metadatos": {
+        "section_number": "1",
+        "section_type": "section",
+        "hierarchy_level": 0,
+        "entities": {
+          "directive": [
+            "DIRECTIVA N° 011-2020-MINEDU"
+          ],
+          "procedure": [
+            "requerimiento",
+            "otorgamiento",
+            "rendición"
+          ]
+        },
+        "role_level": null,
+        "has_amounts": false,
+        "has_procedures": true,
+        "source": "OCR_pipeline_simulation",
+        "confidence": 0.9,
+        "document_type": "legal_regulation"
+      }
+    },
+    {
+      "id": 2,
+      "texto": "Los gastos de movilidad que se rindan mediante Declaración Jurada, deberán sujetarse a los montos indicados: Movilidad local en lugar de destino S/ 30,00 por día.",
+      "titulo": "Gastos de Movilidad - Declaración Jurada",
+      "metadatos": {
+        "section_number": "8.4",
+        "section_type": "section",
+        "hierarchy_level": 1,
+        "entities": {
+          "amount": [
+            "S/ 30.00"
+          ],
+          "declaration": [
+            "Declaración Jurada"
+          ],
+          "procedure": [
+            "gastos de movilidad"
+          ]
+        },
+        "role_level": null,
+        "has_amounts": true,
+        "has_procedures": true,
+        "source": "OCR_pipeline_simulation",
+        "confidence": 0.9,
+        "document_type": "legal_regulation"
+      }
+    },
+    {
+      "id": 3,
+      "texto": "El comisionado podrá presentar únicamente Declaración Jurada por un monto que no podrá exceder el treinta por ciento (30%) del monto total de los viáticos asignados.",
+      "titulo": "Límite Declaración Jurada",
+      "metadatos": {
+        "section_number": "8.4.17",
+        "section_type": "section",
+        "hierarchy_level": 2,
+        "entities": {
+          "percentage": [
+            "30%"
+          ],
+          "declaration": [
+            "Declaración Jurada"
+          ],
+          "procedure": [
+            "límite de viáticos"
+          ]
+        },
+        "role_level": null,
+        "has_amounts": false,
+        "has_procedures": true,
+        "source": "OCR_pipeline_simulation",
+        "confidence": 0.9,
+        "document_type": "legal_regulation"
+      }
+    },
+    {
+      "id": 4,
+      "texto": "Ministros de Estado tienen asignado S/ 380.00 diarios para viáticos nacionales, según lo establecido en el Decreto Supremo N° 007-2013-EF.",
+      "titulo": "Escala de Viáticos - Ministros de Estado",
+      "metadatos": {
+        "section_number": "ESCALA_MINISTROS",
+        "section_type": "section",
+        "hierarchy_level": 0,
+        "entities": {
+          "amount": [
+            "S/ 380.00"
+          ],
+          "role_minister": [
+            "Ministros de Estado"
+          ],
+          "reference": [
+            "DECRETO SUPREMO N° 007-2013-EF"
+          ]
+        },
+        "role_level": "minister",
+        "has_amounts": true,
+        "has_procedures": false,
+        "source": "OCR_pipeline_simulation",
+        "confidence": 0.9,
+        "document_type": "legal_regulation"
+      }
+    },
+    {
+      "id": 5,
+      "texto": "Servidor Público/Civil tiene asignado S/ 320.00 diarios para viáticos nacionales. Funcionarios de confianza S/ 350.00 diarios.",
+      "titulo": "Escala de Viáticos - Servidores Civiles",
+      "metadatos": {
+        "section_number": "ESCALA_CIVILES",
+        "section_type": "section",
+        "hierarchy_level": 0,
+        "entities": {
+          "amount": [
+            "S/ 320.00",
+            "S/ 350.00"
+          ],
+          "role_civil": [
+            "Servidor Público",
+            "Funcionarios de confianza"
+          ]
+        },
+        "role_level": "civil_servant",
+        "has_amounts": true,
+        "has_procedures": false,
+        "source": "OCR_pipeline_simulation",
+        "confidence": 0.9,
+        "document_type": "legal_regulation"
+      }
+    },
+    {
+      "id": 6,
+      "texto": "Los gastos de viáticos se rinden dentro de los cinco (5) días hábiles posteriores al término de la comisión. Para zonas rurales se podrá presentar Declaración Jurada hasta S/ 30.00 por día.",
+      "titulo": "Rendición de Cuentas",
+      "metadatos": {
+        "section_number": "8.5",
+        "section_type": "section",
+        "hierarchy_level": 1,
+        "entities": {
+          "timeframe": [
+            "5 días hábiles"
+          ],
+          "amount": [
+            "S/ 30.00"
+          ],
+          "declaration": [
+            "Declaración Jurada"
+          ]
+        },
+        "role_level": null,
+        "has_amounts": true,
+        "has_procedures": false,
+        "source": "OCR_pipeline_simulation",
+        "confidence": 0.9,
+        "document_type": "legal_regulation"
+      }
+    }
+  ],
+  "entities": {
+    "directive": [
+      {
+        "text": "DIRECTIVA N° 011-2020-MINEDU",
+        "page": 1,
+        "normalized": "DIRECTIVA N° 011-2020-MINEDU"
+      }
+    ],
+    "numeral": [
+      {
+        "text": "8.1",
+        "page": 2,
+        "normalized": "8.1"
+      },
+      {
+        "text": "8.4",
+        "page": 2,
+        "normalized": "8.4"
+      },
+      {
+        "text": "8.4.17",
+        "page": 3,
+        "normalized": "8.4.17"
+      },
+      {
+        "text": "20.00",
+        "page": 4,
+        "normalized": "20.00"
+      },
+      {
+        "text": "50.00",
+        "page": 4,
+        "normalized": "50.00"
+      },
+      {
+        "text": "80.00",
+        "page": 4,
+        "normalized": "80.00"
+      },
+      {
+        "text": "8.5",
+        "page": 5,
+        "normalized": "8.5"
+      },
+      {
+        "text": "30.00",
+        "page": 5,
+        "normalized": "30.00"
+      }
+    ],
+    "declaration": [
+      {
+        "text": "Declaración Jurada",
+        "page": 2,
+        "normalized": "declaración jurada"
+      }
+    ],
+    "amount": [
+      {
+        "text": "25",
+        "page": 3,
+        "normalized": "S/ 25.00"
+      },
+      {
+        "text": "35",
+        "page": 3,
+        "normalized": "S/ 35.00"
+      },
+      {
+        "text": "30",
+        "page": 3,
+        "normalized": "S/ 30.00"
+      },
+      {
+        "text": "45",
+        "page": 3,
+        "normalized": "S/ 45.00"
+      },
+      {
+        "text": "320.00",
+        "page": 4,
+        "normalized": "S/ 320.00"
+      },
+      {
+        "text": "350.00",
+        "page": 4,
+        "normalized": "S/ 350.00"
+      },
+      {
+        "text": "380.00",
+        "page": 4,
+        "normalized": "S/ 380.00"
+      }
+    ],
+    "percentage": [
+      {
+        "text": "30",
+        "page": 3,
+        "normalized": "30%"
+      }
+    ],
+    "reference": [
+      {
+        "text": "Decreto Supremo N° 007-2013-EF",
+        "page": 4,
+        "normalized": "DECRETO SUPREMO N° 007-2013-EF"
+      }
+    ],
+    "role_minister": [
+      {
+        "text": "Ministros de Estado",
+        "page": 4,
+        "normalized": "ministros de estado"
+      }
+    ],
+    "role_civil": [
+      {
+        "text": "Servidor Público",
+        "page": 4,
+        "normalized": "servidor público"
+      },
+      {
+        "text": "Funcionarios de confianza",
+        "page": 4,
+        "normalized": "funcionarios de confianza"
+      }
+    ]
+  },
+  "simulation_summary": {
+    "pages_processed": 5,
+    "entities_extracted": 22,
+    "chunks_created": 6
+  }
+}

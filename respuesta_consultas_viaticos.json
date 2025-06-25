@@ -1,0 +1,164 @@
+{
+  "timestamp": "2025-06-22T15:41:10.313880",
+  "consulta_1": {
+    "consulta": "Tres servicios de traslado al aeropuerto en distintas provincias",
+    "escenario": {
+      "funcionario": "Comisionado MINEDU",
+      "servicios": [
+        {
+          "numeral": "8.4.17(1)",
+          "ubicacion": "Arequipa",
+          "servicios_count": 1
+        },
+        {
+          "numeral": "8.4.17(1)",
+          "ubicacion": "Cusco",
+          "servicios_count": 1
+        },
+        {
+          "numeral": "8.4.17(1)",
+          "ubicacion": "Trujillo",
+          "servicios_count": 1
+        }
+      ],
+      "tipo_viaje": "mismo_viaje_multiples_provincias"
+    },
+    "calculo": {
+      "total_servicios": 3,
+      "monto_por_servicio": 35.0,
+      "total_monto": 105.0
+    },
+    "validacion": {
+      "servicios_individuales_validos": true,
+      "concepto_no_duplicado": true,
+      "dentro_limite_diario": {
+        "cumple": false,
+        "detalle_por_dia": {
+          "dia_Arequipa": {
+            "total_monto": 35.0,
+            "limite": 30.0,
+            "cumple": false
+          },
+          "dia_Cusco": {
+            "total_monto": 35.0,
+            "limite": 30.0,
+            "cumple": false
+          },
+          "dia_Trujillo": {
+            "total_monto": 35.0,
+            "limite": 30.0,
+            "cumple": false
+          }
+        }
+      },
+      "registro_declaracion_jurada": {
+        "registros_individuales": [
+          {
+            "concepto": "Traslado aeropuerto - Arequipa",
+            "numeral": "8.4.17(1)",
+            "cantidad_servicios": 1,
+            "monto_unitario": 35.0,
+            "monto_total": 35.0,
+            "justificacion": "Traslado necesario en Arequipa"
+          },
+          {
+            "concepto": "Traslado aeropuerto - Cusco",
+            "numeral": "8.4.17(1)",
+            "cantidad_servicios": 1,
+            "monto_unitario": 35.0,
+            "monto_total": 35.0,
+            "justificacion": "Traslado necesario en Cusco"
+          },
+          {
+            "concepto": "Traslado aeropuerto - Trujillo",
+            "numeral": "8.4.17(1)",
+            "cantidad_servicios": 1,
+            "monto_unitario": 35.0,
+            "monto_total": 35.0,
+            "justificacion": "Traslado necesario en Trujillo"
+          }
+        ],
+        "total_conceptos": 3,
+        "monto_total_solicitud": 105.0
+      }
+    },
+    "respuesta_sistema": {
+      "procede": false,
+      "forma_registro": "Servicios separados por ubicación en DJ",
+      "observaciones": [
+        "Cada provincia constituye un servicio independiente",
+        "No hay duplicación de concepto - diferentes ubicaciones",
+        "Verificar límite diario por jornada individual"
+      ]
+    }
+  },
+  "consulta_2": {
+    "consulta": "Traslado aeropuerto + terrapuerto mismo día en provincias",
+    "escenario": {
+      "funcionario": "Comisionado MINEDU",
+      "jornada": "2024-06-22",
+      "servicios": [
+        {
+          "numeral": "8.4.17(1)",
+          "tipo": "aeropuerto",
+          "monto": 35.0,
+          "hora": "08:00"
+        },
+        {
+          "numeral": "8.4.17(2)",
+          "tipo": "terrapuerto",
+          "monto": 25.0,
+          "hora": "15:00"
+        }
+      ],
+      "ubicacion": "Provincia (no Lima)"
+    },
+    "calculo": {
+      "monto_aeropuerto": 35.0,
+      "monto_terrapuerto": 25.0,
+      "total_dia": 60.0,
+      "limite_diario": 30.0,
+      "excede_limite": true
+    },
+    "validacion": {
+      "conceptos_diferentes": true,
+      "ambos_proceden_provincia": true,
+      "suma_permitida": false,
+      "tratamiento_separado": true,
+      "verificacion_individual": {
+        "verificaciones": [
+          {
+            "numeral": "8.4.17(1)",
+            "concepto": "Traslado domicilio/hotel/hospedaje al aeropuerto y viceversa",
+            "monto": 35.0,
+            "monto_normativa": 35.0,
+            "cumple_monto": true,
+            "procede_provincia": true
+          },
+          {
+            "numeral": "8.4.17(2)",
+            "concepto": "Traslado domicilio/hotel/hospedaje al terrapuerto y viceversa",
+            "monto": 25.0,
+            "monto_normativa": 25.0,
+            "cumple_monto": true,
+            "procede_provincia": true
+          }
+        ],
+        "todos_cumplen": true
+      }
+    },
+    "respuesta_sistema": {
+      "pueden_sumarse": false,
+      "declaracion_jurada": "Conceptos separados con verificación individual",
+      "cumple_normativa": false,
+      "criterios_aplicados": [
+        "Numerales diferentes = conceptos independientes",
+        "Verificación individual de cada servicio",
+        "Tope diario global aplicado al total",
+        "No hay duplicación de concepto específico"
+      ]
+    }
+  },
+  "sistema": "MINEDU Adaptativo v1.0",
+  "extractor": "Universal Pattern Learning System"
+}

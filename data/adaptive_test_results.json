@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-06-20T17:57:04.264049",
+  "test_results": {
+    "smart_money_detector": false,
+    "adaptive_config": false,
+    "adaptive_table_extractor": false,
+    "end_to_end_simulation": true,
+    "performance_metrics": true
+  },
+  "system_info": {
+    "python_version": "3.11.11 | packaged by Anaconda, Inc. | (main, Dec 11 2024, 16:34:19) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "win32"
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed_tests": 2,
+    "success_rate": 0.4
+  }
+}
