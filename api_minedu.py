@@ -344,8 +344,14 @@ async def search_documents(search_request: SearchRequest):
         )
     
     # Validar entrada
-    if not InputValidator.validate_query(search_request.query):
-        raise HTTPException(status_code=400, detail="Consulta contiene caracteres no válidos")
+    try:
+        # Crear payload dict para validación
+        payload = {"query": search_request.query}
+        valid_query = InputValidator().validate_query(payload)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error validando consulta: {str(e)}")
     
     try:
         start_time = time.time()

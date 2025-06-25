@@ -200,68 +200,6 @@ class HybridSearch:
         
         return final_results
     
-    def _weighted_fusion(self, results: List[Dict[str, Any]], top_k: int) -> List[Dict[str, Any]]:
-        """
-        Combine results using weighted fusion strategy.
-        
-        Args:
-            results (List[Dict[str, Any]]): Results from all methods
-            top_k (int): Number of top results to return
-            
-        Returns:
-            List[Dict[str, Any]]: Combined results with weighted scores
-        """
-        # Group results by document index
-        doc_scores = {}
-        
-        for result in results:
-            doc_id = result.get('index', result.get('texto', ''))
-            
-            if doc_id not in doc_scores:
-                doc_scores[doc_id] = {
-                    'doc': result,
-                    'scores': [],
-                    'methods': []
-                }
-            
-            doc_scores[doc_id]['scores'].append(result['score'])
-            doc_scores[doc_id]['methods'].append(result['method'])
-        
-        # Calculate weighted scores
-        final_results = []
-        for doc_id, data in doc_scores.items():
-            # Weight by method (can be customized)
-            weights = {
-                'BM25': 0.3,
-                'TF-IDF': 0.3,
-                'Transformer': 0.4
-            }
-            
-            weighted_score = 0
-            total_weight = 0
-            
-            for score, method in zip(data['scores'], data['methods']):
-                weight = weights.get(method, 0.33)
-                weighted_score += score * weight
-                total_weight += weight
-            
-            if total_weight > 0:
-                final_score = weighted_score / total_weight
-            else:
-                final_score = max(data['scores'])
-            
-            # Create final result
-            final_result = data['doc'].copy()
-            final_result['score'] = final_score
-            final_result['hybrid_score'] = final_score
-            final_result['methods_used'] = data['methods']
-            final_result['source'] = 'hybrid'
-            
-            final_results.append(final_result)
-        
-        # Sort by final score and return top_k
-        final_results.sort(key=lambda x: x['score'], reverse=True)
-        return final_results[:top_k]
 
     def _weighted_fusion(self, query: str, results: List[Dict[str, Any]], top_k: int) -> List[Dict[str, Any]]:
         """

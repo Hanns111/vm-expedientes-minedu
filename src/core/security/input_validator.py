@@ -116,4 +116,24 @@ class InputValidator:
         except ValueError:
             return False
         
-        return True 
+        return True
+    
+    def validate_query(self, payload: dict) -> str:
+        """
+        Valida el payload de query y retorna la consulta sanitizada
+        
+        Args:
+            payload: Diccionario con la consulta del usuario
+            
+        Returns:
+            Consulta validada y sanitizada
+            
+        Raises:
+            HTTPException: Si el campo 'query' es inválido
+        """
+        from fastapi import HTTPException
+        
+        query = payload.get("query")
+        if not isinstance(query, str) or not query.strip():
+            raise HTTPException(status_code=422, detail="Campo 'query' inválido")
+        return self.sanitize_query(query.strip()) 
