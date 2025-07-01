@@ -11,33 +11,57 @@
 
 Desarrollar un asistente inteligente que permita realizar búsquedas semánticas e híbridas sobre normativas del Ministerio de Educación del Perú, utilizando procesamiento de texto y embeddings generados localmente con TF-IDF, BM25 y Sentence Transformers, **con implementación completa de seguridad gubernamental**.
 
-## 🚀 Estado del Proyecto - DESPLIEGUE LOCAL EXITOSO
+## 🚀 Estado del Proyecto - SISTEMA FUNCIONAL CON PROBLEMAS CRÍTICOS
 
-> **✅ HITO ALCANZADO**: ¡Despliegue Docker completo y validado en entorno local!
+> **✅ LOGRADO**: Frontend + Backend integrados y funcionando  
+> **🚨 PROBLEMA**: Respuestas hardcodeadas vs documentos reales  
+> **🎯 SOLUCIÓN**: Migración planificada a LangChain/LangGraph  
 
-### 📊 Estado Actual del Despliegue
-- **🔧 Backend (FastAPI)**: ✅ Operativo en `http://localhost:8000`
-- **🎨 Frontend (Next.js)**: ✅ Operativo en `http://localhost:3000`
-- **🐳 Docker**: ✅ Integración WSL2 + Docker Desktop funcionando sin errores
-- **🛡️ Seguridad**: ✅ Implementación completa de módulos de seguridad gubernamental
+### 📊 Estado Actual del Sistema
+- **🎨 Frontend Next.js**: ✅ Operativo en `localhost:3000` - Interfaz ChatGPT moderna
+- **🔧 Backend FastAPI**: ✅ Operativo en `localhost:8001` - API REST robusta
+- **🔗 Integración F↔B**: ✅ Comunicación perfecta frontend ↔ backend
+- **📚 Chunks procesados**: ✅ 5 documentos MINEDU en `data/processed/chunks.json`
+- **🔍 Vectorstores**: ✅ BM25, TF-IDF, Transformers funcionando
+- **🔎 Retrieval**: ✅ Sistema encuentra documentos relevantes
 
-### 🎯 Optimizaciones Clave Implementadas
-- **📦 Estrategia de Construcción Liviana**: Migración de imágenes pesadas PyTorch a `python:3.11-slim`
-- **⚡ Dependencies Management**: Uso de `requirements_essential.txt` para dependencias iniciales
-- **🔧 Resource Optimization**: Solución a problemas de 'Command timed out' con recursos limitados (8GB RAM)
-- **🗂️ Git LFS Ready**: Configuración optimizada para archivos grandes con exclusión automática de `node_modules`
+### 🚨 **PROBLEMA CRÍTICO IDENTIFICADO**
 
-### 🌐 Puntos de Acceso Validados
-- **Backend API**: `http://localhost:8000` - Sistema completo de IA funcionando
-- **Frontend Interface**: `http://localhost:3000` - Interfaz tipo ChatGPT operativa
-- **Docker Health**: Todos los servicios en estado `healthy`
-- **WSL2 Integration**: Ubuntu 24.04 LTS integrado perfectamente
+#### **Respuestas Hardcodeadas vs Documentos Reales**
+```python
+# Lo que dicen los chunks procesados:
+"texto": "S/ 320.00 soles para funcionarios y directivos"
 
-### 📈 Próximos Pasos Post-Despliegue
-- [ ] **Pruebas de Integración**: Validación funcional completa del sistema
-- [ ] **Performance Testing**: Evaluación de rendimiento en entorno local
-- [ ] **Production Dependencies**: Integración gradual de dependencias completas de IA
-- [ ] **User Acceptance Testing**: Pruebas con usuarios finales
+# Lo que responde el sistema:
+"response": "Ministros de Estado: S/ 380.00 soles"
+```
+
+**Diagnóstico**: El sistema ignora completamente los documentos reales y genera respuestas inventadas desde plantillas hardcodeadas.
+
+#### **No hay RAG verdadero**
+- ✅ **Retrieval**: Funciona - encuentra documentos relevantes
+- ❌ **Generation**: Falla - ignora documentos y responde hardcodeado
+- ❌ **Augmentation**: No hay aumentación real del contexto
+
+### 🎯 **PLAN DE MIGRACIÓN APROBADO**
+
+#### **Solución: LangChain + LangGraph**
+- **Objetivo**: RAG real en lugar de respuestas inventadas
+- **Metodología**: Migración híbrida preservando 100% infraestructura actual
+- **Inversión**: $20-150/mes OpenAI API vs $300K+ soluciones enterprise
+- **Timeline**: Fase 1 (2-3 semanas), Fase 2 (1-2 meses), Fase 3 (3-6 meses)
+
+#### **Arquitectura objetivo**
+```
+Frontend Next.js (MANTENER) → FastAPI (EVOLUCIONAR) → LangGraph → ChromaDB → RAG REAL
+```
+
+### 📈 Próximos Pasos Críticos
+- [ ] **Decisión**: Proceder con migración Fase 1
+- [ ] **Setup**: Configurar OpenAI API Key
+- [ ] **Migración**: chunks.json → ChromaDB 
+- [ ] **Validación**: RAG real vs respuestas hardcodeadas
+- [ ] **Paper**: "Migración RAG Gubernamental: Hardcoded → LangChain"
 
 ## ✨ Características Principales
 

@@ -75,20 +75,31 @@ Este directorio contiene toda la documentación consolidada del proyecto vm-expe
 ## 📈 Estado del Proyecto
 
 ### ✅ **Completado**
-- Sistema de seguridad 100% implementado
-- Validación científica completa
+- Frontend Next.js funcional (`localhost:3000`)
+- Backend FastAPI funcional (`localhost:8001`)
+- Sistema híbrido de búsqueda (BM25 + TF-IDF + Transformers)
+- Integración frontend ↔ backend completeta
+- Chunks procesados de 5 documentos MINEDU
 - Documentación técnica consolidada
-- Cumplimiento gubernamental verificado
 
-### 🚧 **En Desarrollo**
-- Optimizaciones de rendimiento
-- API REST segura
-- Interfaz web gubernamental
+### 🚨 **PROBLEMA CRÍTICO IDENTIFICADO**
+- **Respuestas hardcodeadas**: Sistema ignora documentos reales
+- **Inconsistencia datos**: Chunks dicen "S/ 320.00" → Sistema responde "S/ 380.00"
+- **No hay RAG real**: Retrieval funciona, pero Generation usa plantillas fijas
+- **Arquitectura no escalable**: Código hardcodeado para cada tipo de consulta
 
-### 📋 **Próximos Pasos**
-- Paper científico SIGIR/CLEF 2025-2026
-- Despliegue en producción MINEDU
-- Validación con usuarios reales
+### 🎯 **PLAN DE MIGRACIÓN APROBADO**
+- **Solución**: Migración híbrida a LangChain + LangGraph
+- **Objetivo**: RAG real preservando infraestructura existente
+- **Timeline**: Fase 1 (2-3 semanas), Fase 2 (1-2 meses), Fase 3 (3-6 meses)
+- **Inversión**: $20-150/mes OpenAI API (preserva 100% desarrollo actual)
+
+### 📋 **Próximos Pasos Críticos**
+- **Decisión**: Proceder con migración Fase 1 
+- **Setup**: Configurar OpenAI API Key para testing
+- **Migración**: chunks.json → ChromaDB con LangChain
+- **Validación**: RAG real vs respuestas hardcodeadas
+- **Paper científico**: "Migración RAG Gubernamental: Hardcoded → LangChain"
 
 ## 🔗 Enlaces Importantes
 

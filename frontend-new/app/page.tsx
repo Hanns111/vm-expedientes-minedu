@@ -1,297 +1,338 @@
 "use client"
 
-import { useState } from 'react'
-import { Search, FileText, Shield, BarChart3, Upload, MessageSquare, Home, Database, Activity } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { Send, MessageSquare, FileText, Search, Settings, Plus, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { HybridSearchUI } from '@/components/HybridSearchUI'
-import { DocumentUploader } from '@/components/DocumentUploader'
-import { MetricsDashboard } from '@/components/MetricsDashboard'
 
-export default function HomePage() {
-  const [query, setQuery] = useState('')
-  const [isSearching, setIsSearching] = useState(false)
-  const [activeTab, setActiveTab] = useState<'home' | 'search' | 'upload' | 'metrics'>('home')
+interface Message {
+  id: string
+  type: 'user' | 'ai'
+  content: string
+  timestamp: Date
+  sources?: Array<{
+    title: string
+    excerpt: string
+    confidence: number
+  }>
+}
 
-  const handleSearch = async () => {
-    if (!query.trim()) return
-    
-    setIsSearching(true)
-    // TODO: Implementar búsqueda con API
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setIsSearching(false)
+interface ChatResponse {
+  response: string
+  conversation_id: string
+  timestamp: string
+  sources: Array<{
+    title: string
+    excerpt: string
+    confidence: number
+  }>
+  processing_time: number
+}
+
+export default function ChatPage() {
+  const [messages, setMessages] = useState<Message[]>([])
+  const [input, setInput] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [conversationId, setConversationId] = useState<string | null>(null)
+  const [isDark, setIsDark] = useState(false)
+  
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
+  // Auto-resize textarea
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = 'auto'
+      inputRef.current.style.height = inputRef.current.scrollHeight + 'px'
+    }
+  }, [input])
+
+  // Toggle dark mode
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDark])
+
+  const sendMessage = async () => {
+    if (!input.trim() || isLoading) return
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      type: 'user',
+      content: input.trim(),
+      timestamp: new Date()
+    }
+
+    setMessages(prev => [...prev, userMessage])
+    setInput('')
+    setIsLoading(true)
+
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api';
+      const response = await fetch(`${API_URL}/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: userMessage.content,
+          ...(conversationId && { conversation_id: conversationId })
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to send message')
+      }
+
+      const data: ChatResponse = await response.json()
+      
+      setConversationId(data.conversation_id)
+
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        type: 'ai',
+        content: data.response,
+        timestamp: new Date(),
+        sources: data.sources
+      }
+
+      setMessages(prev => [...prev, aiMessage])
+    } catch (error) {
+      console.error('Error sending message:', error)
+      
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        type: 'ai',
+        content: 'Lo siento, hubo un error al procesar tu mensaje. Por favor, inténtalo de nuevo.',
+        timestamp: new Date()
+      }
+      
+      setMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const features = [
-    {
-      icon: Search,
-      title: "Hybrid Intelligent Search",
-      description: "System combining TF-IDF, BM25 and Transformers with 94.2% accuracy",
-      color: "text-blue-600"
-    },
-    {
-      icon: FileText,
-      title: "Document Processing",
-      description: "Advanced OCR and entity extraction for complex documents",
-      color: "text-green-600"
-    },
-    {
-      icon: Shield,
-      title: "Enterprise Security",
-      description: "ISO27001 and NIST compliance with sensitive data protection",
-      color: "text-purple-600"
-    },
-    {
-      icon: BarChart3,
-      title: "Analytics & Metrics",
-      description: "Complete dashboard with real-time performance analysis",
-      color: "text-orange-600"
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      sendMessage()
     }
-  ]
+  }
 
-  const stats = [
-    { label: "System Accuracy", value: "94.2%", color: "text-green-600" },
-    { label: "Documents Processed", value: "10,000+", color: "text-blue-600" },
-    { label: "Daily Queries", value: "500+", color: "text-purple-600" },
-    { label: "Response Time", value: "<2s", color: "text-orange-600" }
+  const startNewChat = () => {
+    setMessages([])
+    setConversationId(null)
+    setInput('')
+  }
+
+  const examplePrompts = [
+    "¿Cuál es el monto máximo para viáticos en comisiones de servicio?",
+    "¿Qué documentos se requieren para solicitar viáticos?",
+    "¿Cuál es el procedimiento para autorizar viajes al extranjero?",
+    "¿Cuánto tiempo antes debo solicitar los viáticos?"
   ]
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
-      <header className="border-b bg-white sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center">
-              <Search className="w-6 h-6 text-white" />
+    <div className={`chat-container flex h-screen ${isDark ? 'dark' : ''}`}>
+      {/* Sidebar */}
+      <div className="chat-sidebar">
+        <div className="p-4">
+          <Button 
+            onClick={startNewChat}
+            className="w-full flex items-center gap-2 justify-start bg-gray-800 hover:bg-gray-700 text-white border border-gray-600"
+          >
+            <Plus className="w-4 h-4" />
+            Nueva conversación
+          </Button>
+        </div>
+        
+        <div className="px-4 pb-4">
+          <div className="text-xs text-gray-400 uppercase tracking-wide mb-2">Conversaciones recientes</div>
+          <div className="space-y-2">
+            <div className="text-sm text-gray-300 p-2 rounded hover:bg-gray-800 cursor-pointer truncate">
+              Consulta sobre viáticos
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">AI Search</h1>
-              <p className="text-sm text-gray-600">Hybrid Document Platform</p>
+            <div className="text-sm text-gray-300 p-2 rounded hover:bg-gray-800 cursor-pointer truncate">
+              Documentos requeridos
+            </div>
+            <div className="text-sm text-gray-300 p-2 rounded hover:bg-gray-800 cursor-pointer truncate">
+              Procedimiento de autorización
             </div>
           </div>
-          <nav className="hidden md:flex space-x-2">
-            <Button 
-              variant={activeTab === 'home' ? 'default' : 'ghost'}
-              onClick={() => setActiveTab('home')}
-              className="flex items-center gap-2"
-            >
-              <Home className="w-4 h-4" />
-              Inicio
-            </Button>
-            <Button 
-              variant={activeTab === 'search' ? 'default' : 'ghost'}
-              onClick={() => setActiveTab('search')}
-              className="flex items-center gap-2"
-            >
-              <Search className="w-4 h-4" />
-              Búsqueda
-            </Button>
-            <Button 
-              variant={activeTab === 'upload' ? 'default' : 'ghost'}
-              onClick={() => setActiveTab('upload')}
-              className="flex items-center gap-2"
-            >
-              <Upload className="w-4 h-4" />
-              Documentos
-            </Button>
-            <Button 
-              variant={activeTab === 'metrics' ? 'default' : 'ghost'}
-              onClick={() => setActiveTab('metrics')}
-              className="flex items-center gap-2"
-            >
-              <BarChart3 className="w-4 h-4" />
-              Métricas
-            </Button>
-          </nav>
         </div>
-      </header>
 
-      <main className="container mx-auto px-4 py-8">
-        {/* Contenido condicional basado en la tab activa */}
-        {activeTab === 'home' && (
-          <>
-            {/* Hero Section */}
-            <section className="text-center mb-16">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900">
-                  Sistema de IA MINEDU
-                </h2>
-                <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                  Plataforma avanzada de IA con tecnología de búsqueda híbrida. 
-                  Encuentra información precisa en documentos complejos con 94.2% de precisión.
+        <div className="mt-auto p-4 border-t border-gray-700">
+          <Button
+            onClick={() => setIsDark(!isDark)}
+            variant="ghost"
+            size="sm"
+            className="w-full flex items-center gap-2 justify-start text-gray-300 hover:text-white hover:bg-gray-800"
+          >
+            {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {isDark ? 'Modo claro' : 'Modo oscuro'}
+          </Button>
+        </div>
+      </div>
+
+      {/* Main Chat Area */}
+      <div className="chat-main">
+        {/* Header */}
+        <div className="chat-header p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-[#10a37f] rounded-full flex items-center justify-center">
+                <MessageSquare className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h1 className="font-semibold text-gray-900 dark:text-gray-100">
+                  Asistente Inteligente
+                </h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Búsqueda avanzada de documentos
                 </p>
-                
-                {/* Search Bar */}
-                <div className="max-w-2xl mx-auto mb-8">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <Textarea
-                        placeholder="¿Cuál es el monto máximo para viáticos en comisiones de servicio?"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        className="min-h-[120px] text-base"
-                      />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm">
+                <Search className="w-4 h-4" />
+              </Button>
+              <Button variant="ghost" size="sm">
+                <Settings className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div className="chat-messages scrollbar-thin">
+          {messages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center px-4">
+              <div className="w-16 h-16 bg-[#10a37f] rounded-full flex items-center justify-center mb-6">
+                <MessageSquare className="w-8 h-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                ¿En qué puedo ayudarte?
+              </h2>
+              <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md">
+                Especialista en análisis de documentos y consultas normativas.
+                Encuentra información precisa y confiable al instante.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
+                {examplePrompts.map((prompt, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    className="text-left h-auto py-3 px-4 whitespace-normal"
+                    onClick={() => setInput(prompt)}
+                  >
+                    <div className="text-sm leading-relaxed">{prompt}</div>
+                  </Button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <>
+              {messages.map((message) => (
+                <div key={message.id} className="fade-in">
+                  <div className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={message.type === 'user' ? 'message-user' : 'message-ai'}>
+                      <div className="whitespace-pre-wrap leading-relaxed">
+                        {message.content}
+                      </div>
+                      
+                      {message.sources && message.sources.length > 0 && (
+                        <div className="mt-4 space-y-2">
+                          <div className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                            Fuentes consultadas:
+                          </div>
+                          {message.sources.map((source, index) => (
+                            <div key={index} className="source-citation">
+                              <div className="source-title">{source.title}</div>
+                              <div className="source-excerpt">{source.excerpt}</div>
+                              <div className="flex items-center justify-between mt-2">
+                                <div className="confidence-badge">
+                                  {Math.round(source.confidence * 100)}% relevancia
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <div className="flex gap-3 mt-4">
-                    <Button 
-                      onClick={() => setActiveTab('search')}
-                      className="flex-1 h-12 bg-blue-600 hover:bg-blue-700"
-                    >
-                      <Search className="w-5 h-5 mr-2" />
-                      Buscar con IA
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      className="h-12"
-                      onClick={() => setActiveTab('upload')}
-                    >
-                      <Upload className="w-5 h-5 mr-2" />
-                      Subir Documento
-                    </Button>
-                  </div>
                 </div>
-
-                {/* Quick Examples */}
-                <div className="flex flex-wrap gap-2 justify-center">
-                  <span className="text-sm text-gray-500">Ejemplos:</span>
-                  {[
-                    "¿Cuál es el procedimiento para solicitar viáticos?",
-                    "Montos máximos para comisiones de servicio",
-                    "Documentos requeridos para procedimientos"
-                  ].map((example, i) => (
-                    <Button
-                      key={i}
-                      variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        setQuery(example)
-                        setActiveTab('search')
-                      }}
-                      className="text-xs"
-                    >
-                      {example}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* Stats Section */}
-            <section className="mb-16">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {stats.map((stat, i) => (
-                  <Card key={i} className="text-center">
-                    <CardContent className="p-6">
-                      <div className={`text-3xl font-bold ${stat.color} mb-2`}>
-                        {stat.value}
-                      </div>
-                      <div className="text-sm text-gray-600">{stat.label}</div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            {/* Features Section */}
-            <section className="mb-16">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold mb-4 text-gray-900">Tecnología Avanzada para Gobierno</h3>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Nuestro sistema híbrido combina múltiples técnicas de IA para entregar 
-                  máxima precisión en recuperación de información y análisis de documentos.
-                </p>
-              </div>
+              ))}
               
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {features.map((feature, i) => (
-                  <Card key={i} className="group hover:shadow-lg transition-shadow duration-200">
-                    <CardHeader className="text-center">
-                      <div className={`w-16 h-16 mx-auto rounded-full bg-gray-100 flex items-center justify-center mb-4`}>
-                        <feature.icon className={`w-8 h-8 ${feature.color}`} />
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="message-ai">
+                    <div className="typing-indicator">
+                      <div className="loading-dots">
+                        <div className="loading-dot" style={{ animationDelay: '0ms' }}></div>
+                        <div className="loading-dot" style={{ animationDelay: '150ms' }}></div>
+                        <div className="loading-dot" style={{ animationDelay: '300ms' }}></div>
                       </div>
-                      <CardTitle className="text-lg">{feature.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="text-center">
-                        {feature.description}
-                      </CardDescription>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            {/* CTA Section */}
-            <section className="text-center">
-              <Card className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                <CardContent className="p-12">
-                  <h3 className="text-3xl font-bold mb-4">
-                    ¿Listo para mejorar la eficiencia de tu organización?
-                  </h3>
-                  <p className="text-xl mb-8 opacity-90">
-                    Únete a las organizaciones que confían en nuestra tecnología 
-                    para gestión inteligente y análisis de documentos.
-                  </p>
-                  <div className="flex gap-4 justify-center">
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      className="bg-white text-gray-900 hover:bg-gray-100"
-                      onClick={() => setActiveTab('search')}
-                    >
-                      <MessageSquare className="w-5 h-5 mr-2" />
-                      Probar Sistema
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      className="bg-transparent border-white text-white hover:bg-white/10"
-                      onClick={() => setActiveTab('metrics')}
-                    >
-                      Ver Métricas
-                    </Button>
+                      <span className="text-sm">Pensando...</span>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            </section>
-          </>
-        )}
+                </div>
+              )}
+            </>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
 
-        {/* Búsqueda Híbrida */}
-        {activeTab === 'search' && (
-          <div className="py-8">
-            <HybridSearchUI />
-          </div>
-        )}
-
-        {/* Subida de Documentos */}
-        {activeTab === 'upload' && (
-          <div className="py-8">
-            <DocumentUploader />
-          </div>
-        )}
-
-        {/* Dashboard de Métricas */}
-        {activeTab === 'metrics' && (
-          <div className="py-8">
-            <MetricsDashboard />
-          </div>
-        )}
-      </main>
-
-      {/* Footer */}
-      <footer className="mt-20 border-t bg-gray-50">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center text-gray-600">
-            <p>© 2024 AI Search Platform - Hybrid Document System. All rights reserved.</p>
-            <p className="text-sm mt-2">Advanced AI Technology | Powered by Hybrid Intelligence</p>
+        {/* Input */}
+        <div className="chat-input-container">
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              <textarea
+                ref={inputRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Escribe tu mensaje aquí..."
+                className="input-modern min-h-[50px] max-h-32"
+                disabled={isLoading}
+                rows={1}
+              />
+              <Button
+                onClick={sendMessage}
+                disabled={!input.trim() || isLoading}
+                className="btn-send absolute right-2 bottom-2"
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
+            
+            <div className="flex items-center justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
+              <div>
+                Presiona Enter para enviar, Shift+Enter para nueva línea
+              </div>
+              <div className="flex items-center gap-4">
+                <span>
+                  {input.length > 0 && `${input.length} caracteres`}
+                </span>
+                {isLoading && (
+                  <span className="flex items-center gap-1">
+                    <div className="w-2 h-2 bg-[#10a37f] rounded-full animate-pulse"></div>
+                    Procesando...
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   )
 }
