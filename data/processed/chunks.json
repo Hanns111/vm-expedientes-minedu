@@ -178,5 +178,65 @@
       "confidence": 0.95,
       "page": 4
     }
+  },
+  {
+    "id": 13,
+    "texto": "Numeral 8.4.2. Los gastos de viáticos se rinden dentro de los diez (10) días hábiles posteriores al término de la comisión, presentando los comprobantes correspondientes y la documentación sustentatoria.",
+    "titulo": "Plazo de Rendición 10 Días Hábiles",
+    "metadatos": {
+      "section_number": "8.4.2",
+      "entities": {
+        "days": [
+          "10",
+          "diez"
+        ],
+        "period": [
+          "días hábiles"
+        ],
+        "procedure": [
+          "rendición de viáticos"
+        ],
+        "documents": [
+          "comprobantes",
+          "documentación sustentatoria"
+        ]
+      },
+      "role_level": null,
+      "has_amounts": false,
+      "source": "Directiva N° 011-2020-MINEDU",
+      "confidence": 0.95,
+      "page": 8
+    }
+  },
+  {
+    "id": 14,
+    "texto": "Numeral 7.6. Cuando el comisionado utilice vehículo oficial del MINEDU para el desplazamiento, se deducirá el treinta por ciento (30%) del monto total de los viáticos asignados por concepto de transporte y alimentación.",
+    "titulo": "Deducción 30% por Vehículo Oficial",
+    "metadatos": {
+      "section_number": "7.6",
+      "entities": {
+        "percentage": [
+          "30%",
+          "treinta por ciento"
+        ],
+        "vehicle": [
+          "vehículo oficial",
+          "vehículo oficial del MINEDU"
+        ],
+        "deduction": [
+          "deducción",
+          "se deducirá"
+        ],
+        "concepts": [
+          "transporte",
+          "alimentación"
+        ]
+      },
+      "role_level": null,
+      "has_amounts": false,
+      "source": "Directiva N° 011-2020-MINEDU",
+      "confidence": 0.95,
+      "page": 6
+    }
   }
 ]
