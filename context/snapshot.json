@@ -101,5 +101,7 @@
     "confidence_threshold": "DEACTIVATED",
     "script_verification": "DEACTIVATED",
     "checksums_missing": "DEACTIVATED"
-  }
+  },
+  "context_checksum": "1EC11875F9CDDF1F0BE13E9B5EC09CA326AEAA5EE76251E287CCF219AB078958",
+  "snapshot_self_checksum": "4036C2F645DF8EE55DB503CD49A786F7C74764DD97C87CD83E6D80E3F8A09AC8"
 }
