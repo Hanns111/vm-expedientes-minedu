@@ -162,51 +162,12 @@ class AdaptiveProcessorMINEDU:
         
         return strategy
     
-    def extract_text_simulation(self, file_path: str, characteristics: Dict[str, Any]) -> str:
-        """Simula extracción de texto (en producción usaría PyMuPDF/camelot)"""
-        logger.info("📖 Simulando extracción de texto...")
-        
-        # Texto simulado basado en tipo de documento
-        doc_type = characteristics.get('document_type', 'documento_general')
-        
-        if 'directiva' in doc_type or 'viaticos' in doc_type:
-            return """
-            DIRECTIVA N° 005-2023-MINEDU/SG-OADM
-            NORMAS PARA EL OTORGAMIENTO DE VIÁTICOS POR COMISIÓN DE SERVICIOS
-            
-            CAPÍTULO IV: MONTOS DE VIÁTICOS
-            
-            4.1 Los viáticos diarios serán de S/ 380.00 para Ministros y Viceministros,
-            S/ 320.00 para servidores civiles del grupo ocupacional Profesional,
-            S/ 280.00 para servidores del grupo ocupacional Técnico,
-            S/ 240.00 para servidores del grupo ocupacional Auxiliar,
-            y hasta S/ 30.00 para la declaración jurada según el numeral 8.4.16.
-            
-            4.2 Para eventos internacionales:
-            - El monto máximo autorizado es USD 1,500.00 por evento.
-            - Gastos adicionales hasta EUR 500.00 para materiales especializados.
-            - Límite para hospedaje: USD 200.00 por noche.
-            
-            4.3 Para eventos nacionales:
-            - El límite es de S/ 2,000.00 por participante.
-            - Gastos de transporte hasta S/ 150.00 por día.
-            - Alimentación máximo S/ 80.00 por día.
-            
-            CAPÍTULO V: PRESUPUESTO
-            TOTAL PRESUPUESTO ANUAL: S/ 1,250,000.00
-            Reserva de contingencia: S/ 125,000.00
-            """
-        else:
-            return """
-            DOCUMENTO MINISTERIAL
-            
-            Montos aprobados:
-            - Categoría A: S/ 500.00
-            - Categoría B: S/ 350.00
-            - Categoría C: S/ 200.00
-            
-            Presupuesto total: S/ 50,000.00
-            """
+    def extract_text_real(self, file_path: str, characteristics: Dict[str, Any]) -> str:
+        """PRODUCCIÓN: Extracción real de texto de documentos"""
+        # TODO: Implementar extracción real usando PyMuPDF, pdfplumber, etc.
+        # PROHIBIDO: Nunca generar o simular contenido de documentos
+        logger.error("❌ CRÍTICO: Extracción de texto real no implementada")
+        return ""  # Retorno vacío seguro hasta implementación real
     
     def process_document(self, file_path: str) -> Dict[str, Any]:
         """Procesa un documento completo"""
@@ -283,64 +244,12 @@ class AdaptiveProcessorMINEDU:
             logger.error(f"❌ Error en procesamiento: {e}")
             return self._get_error_results(file_path, str(e), time.time() - start_time)
     
-    def _simulate_table_extraction(self, characteristics: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Simula extracción de tablas"""
-        doc_type = characteristics.get('document_type', '')
-        
-        if 'directiva' in doc_type or 'viaticos' in doc_type:
-            return [
-                {
-                    'page': 12,
-                    'rows': 8,
-                    'cols': 4,
-                    'type': 'tabla_montos_viaticos',
-                    'confidence': 0.92,
-                    'data_preview': [
-                        ['Cargo', 'Grupo Ocupacional', 'Viático Diario', 'Moneda'],
-                        ['Ministro', 'Funcionario', 'S/ 380.00', 'PEN'],
-                        ['Profesional', 'Servidor Civil', 'S/ 320.00', 'PEN']
-                    ]
-                },
-                {
-                    'page': 15,
-                    'rows': 6,
-                    'cols': 3,
-                    'type': 'tabla_gastos_internacionales',
-                    'confidence': 0.88,
-                    'data_preview': [
-                        ['Concepto', 'Monto', 'Moneda'],
-                        ['Evento Internacional', 'USD 1,500.00', 'USD'],
-                        ['Materiales', 'EUR 500.00', 'EUR']
-                    ]
-                },
-                {
-                    'page': 18,
-                    'rows': 12,
-                    'cols': 5,
-                    'type': 'tabla_presupuesto_detallado',
-                    'confidence': 0.95,
-                    'data_preview': [
-                        ['Partida', 'Descripción', 'Monto', 'Moneda', 'Estado'],
-                        ['001', 'Viáticos Nacionales', 'S/ 800,000.00', 'PEN', 'Aprobado'],
-                        ['002', 'Viáticos Internacionales', 'S/ 450,000.00', 'PEN', 'Aprobado']
-                    ]
-                }
-            ]
-        else:
-            return [
-                {
-                    'page': 5,
-                    'rows': 4,
-                    'cols': 3,
-                    'type': 'tabla_montos_generales',
-                    'confidence': 0.85,
-                    'data_preview': [
-                        ['Categoría', 'Monto', 'Observaciones'],
-                        ['A', 'S/ 500.00', 'Nivel superior'],
-                        ['B', 'S/ 350.00', 'Nivel medio']
-                    ]
-                }
-            ]
+    def _real_table_extraction(self, characteristics: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """PRODUCCIÓN: Extracción real de tablas - NO SIMULACIÓN"""
+        # TODO: Implementar extracción real usando library apropiada (PyMuPDF, Camelot, etc.)
+        # PROHIBIDO: Nunca retornar datos simulados en sistema gubernamental
+        logger.error("❌ CRÍTICO: Extracción de tablas real no implementada")
+        return []  # Retorno vacío seguro hasta implementación real
     
     def _update_processing_stats(self, results: Dict[str, Any]):
         """Actualiza estadísticas de procesamiento"""
