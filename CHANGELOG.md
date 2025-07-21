@@ -6,6 +6,20 @@
 
 Este changelog sigue el formato [Keep a Changelog](https://keepachangelog.com/es/1.0.0/) y se adhiere al [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2025-07-21 🔒
+
+### Fixed
+* Final Zero-Trust hardening: ERR_FILE_TOO_LARGE, IPC cleanup, UTC logs, etc.
+
+### Security
+* Circuit-breaker & multiprocessing isolation.
+* SHA-256 hash verification with timing-safe comparison
+* Structured error codes for all failure modes
+* Sanitized logging to prevent sensitive data leakage
+
+### Docs
+* Added zero-trust audit report in docs/security/
+
 ## [1.3.0] - 2025-06-24 🚀
 
 ### 🎉 LANZAMIENTO PRINCIPAL: Sistema Híbrido con Boost de Montos
