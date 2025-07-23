@@ -67,7 +67,8 @@ class AdaptiveProcessorMINEDU:
             # Características básicas del archivo
             file_size_mb = file_path_obj.stat().st_size / (1024 * 1024)
             
-            # Simular análisis de características (en producción real usaríamos PyMuPDF)
+            # Análisis REAL de características - Sistema Antialucinaciones v2.0.0
+            # PROHIBIDO: Simular características de documentos gubernamentales
             characteristics = {
                 'file_size_mb': file_size_mb,
                 'filename': file_path_obj.name,
@@ -184,16 +185,16 @@ class AdaptiveProcessorMINEDU:
             # 2. Seleccionar estrategia
             strategy = self.get_optimal_extraction_strategy(characteristics)
             
-            # 3. Extraer texto (simulado)
-            text = self.extract_text_simulation(file_path, characteristics)
+            # 3. Extraer texto real (sin simulación)
+            text = self.extract_text_real(file_path, characteristics)
             
             # 4. Extraer montos usando detector inteligente
             logger.info("💰 Extrayendo montos monetarios...")
             amounts = self.money_detector.extract_all_amounts(text)
             
-            # 5. Simular extracción de tablas
-            logger.info("📊 Simulando extracción de tablas...")
-            tables = self._simulate_table_extraction(characteristics)
+            # 5. TODO: Implementar extracción real de tablas
+            logger.warning("⚠️ TODO: Extracción de tablas no implementada - usando lista vacía")
+            tables = []  # TODO: Implementar extracción real con PyMuPDF/Camelot
             
             # 6. Calcular métricas
             processing_time = time.time() - start_time

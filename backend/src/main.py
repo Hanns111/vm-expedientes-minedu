@@ -79,14 +79,10 @@ except ImportError as e:
     professional_orchestrator = None
     real_orchestrator = None
 
-# LEGACY: Mantener simulador como fallback (será eliminado)
-try:
-    from .langchain_integration.orchestration.simple_orchestrator import orchestrator
-    LANGCHAIN_SIMULATOR_AVAILABLE = True
-    print("⚠️ Simulador disponible como fallback (será eliminado)")
-except ImportError:
-    LANGCHAIN_SIMULATOR_AVAILABLE = False
-    orchestrator = None
+# ANTIALUCINACIONES v2.0.0: Simuladores eliminados completamente
+# PROHIBIDO: Importar o usar simuladores en sistema gubernamental
+LANGCHAIN_SIMULATOR_AVAILABLE = False  # Permanentemente deshabilitado
+orchestrator = None  # Solo se usa real_orchestrator
 
 # Mantener sistema híbrido existente como fallback
 try:
@@ -1627,16 +1623,13 @@ async def langchain_system_status():
                 "langgraph_real_error": "LangGraph REAL not loaded"
             })
         
-        # Simulador status (FALLBACK)
-        if LANGCHAIN_SIMULATOR_AVAILABLE and orchestrator:
-            simulator_status = orchestrator.get_system_status()
-            status_info.update({
-                "langchain_simulator_available": True,
-                "langchain_simulator_status": simulator_status
-            })
-        else:
-            status_info.update({
-                "langchain_simulator_available": False
+        # Sistema Antialucinaciones v2.0.0 - Solo sistemas reales
+        status_info.update({
+            "anti_hallucination_system": "v2.0.0",
+            "government_compliance": True,
+            "simulation_disabled": True,
+            "real_only_processing": True,
+            "langchain_simulator_available": False  # Permanentemente deshabilitado
             })
         
         # Hybrid fallback
