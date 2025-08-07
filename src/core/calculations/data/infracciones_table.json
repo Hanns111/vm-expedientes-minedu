@@ -1,0 +1,35 @@
+[
+  {
+    "code":"INF001",
+    "description":"Uso indebido de vi\u00e1ticos",
+    "severity":"Grave",
+    "min_uit":0.5,
+    "max_uit":2.0,
+    "article":"Art\u00edculo 166",
+    "law":"Ley 27815",
+    "valid_from":"2020-01-01",
+    "valid_to":"2025-12-31"
+  },
+  {
+    "code":"INF002",
+    "description":"No rendici\u00f3n de cuentas en plazo",
+    "severity":"Leve",
+    "min_uit":0.1,
+    "max_uit":0.5,
+    "article":"Art\u00edculo 167",
+    "law":"Ley 27815",
+    "valid_from":"2020-01-01",
+    "valid_to":"2025-12-31"
+  },
+  {
+    "code":"INF003",
+    "description":"Falsificaci\u00f3n de comprobantes",
+    "severity":"Muy Grave",
+    "min_uit":2.0,
+    "max_uit":8.0,
+    "article":"Art\u00edculo 168",
+    "law":"Ley 27815",
+    "valid_from":"2020-01-01",
+    "valid_to":"2025-12-31"
+  }
+]

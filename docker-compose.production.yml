@@ -1,0 +1,169 @@
+version: '3.8'
+
+# Define secrets for production
+secrets:
+  # Database secrets
+  db_password:
+    external: true
+  db_user:
+    external: true
+  
+  # Redis secrets
+  redis_password:
+    external: true
+  
+  # JWT and encryption
+  jwt_secret_key:
+    external: true
+  encryption_key:
+    external: true
+  
+  # API Keys
+  openai_api_key:
+    external: true
+  anthropic_api_key:
+    external: true
+  elasticsearch_api_key:
+    external: true
+  
+  # SSL certificates
+  ssl_cert:
+    external: true
+  ssl_key:
+    external: true
+
+services:
+  # PostgreSQL with secrets
+  postgres:
+    image: postgres:15-alpine
+    container_name: minedu-postgres-prod
+    environment:
+      POSTGRES_DB: minedu
+      POSTGRES_USER_FILE: /run/secrets/db_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_user
+      - db_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./config/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - backend-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Redis with authentication
+  redis:
+    image: redis:7-alpine
+    container_name: minedu-redis-prod
+    command: sh -c 'redis-server --requirepass "$$(cat /run/secrets/redis_password)" --appendonly yes'
+    secrets:
+      - redis_password
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "$$(cat /run/secrets/redis_password)", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MINEDU Backend with all secrets
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: minedu-backend-prod
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - HOST=0.0.0.0
+      - PORT=8000
+      - WORKERS=4
+      - LOG_LEVEL=info
+      - SECRETS_PATH=/run/secrets
+      - USE_DOCKER_SECRETS=true
+    secrets:
+      - db_user
+      - db_password
+      - redis_password
+      - jwt_secret_key
+      - encryption_key
+      - openai_api_key
+      - anthropic_api_key
+      - elasticsearch_api_key
+    volumes:
+      - ./data:/app/data:ro
+      - ./logs:/app/logs
+    networks:
+      - backend-network
+      - frontend-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Nginx with SSL secrets
+  nginx:
+    image: nginx:alpine
+    container_name: minedu-nginx-prod
+    ports:
+      - "80:80"
+      - "443:443"
+    secrets:
+      - ssl_cert
+      - ssl_key
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/ssl.conf:/etc/nginx/conf.d/ssl.conf:ro
+    networks:
+      - frontend-network
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend with production build
+  frontend:
+    build:
+      context: ./frontend-new
+      dockerfile: Dockerfile.production
+    container_name: minedu-frontend-prod
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=https://api.minedu.gob.pe
+    networks:
+      - frontend-network
+    restart: unless-stopped
+
+networks:
+  backend-network:
+    driver: bridge
+    internal: true  # Backend network isolated
+  frontend-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local

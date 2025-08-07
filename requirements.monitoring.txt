@@ -1,0 +1,47 @@
+# Dependencias de monitoring para producción - Sistema IA MINEDU v1.3.0
+# =============================================================================
+
+# Métricas y observabilidad
+prometheus-client==0.19.0
+grafana-api==1.0.3
+
+# Logging avanzado
+loguru==0.7.2
+structlog==23.2.0
+python-json-logger==2.0.7
+
+# Telemetría y trazabilidad
+opentelemetry-api==1.21.0
+opentelemetry-sdk==1.21.0
+opentelemetry-instrumentation-fastapi==0.42b0
+opentelemetry-instrumentation-requests==0.42b0
+opentelemetry-instrumentation-sqlalchemy==0.42b0
+opentelemetry-exporter-prometheus==1.12.0
+
+# Manejo de errores y alertas
+sentry-sdk[fastapi]==1.38.0
+bugsnag==4.6.1
+
+# Búsqueda y análisis de logs
+elasticsearch==8.11.0
+
+# Health checks y status endpoints
+healthcheck==1.3.3
+
+# Métricas de aplicación
+statsd==4.0.1
+datadog==0.47.0
+
+# Monitoreo de base de datos
+sqlalchemy-utils==0.41.1
+alembic==1.13.0
+
+# APM (Application Performance Monitoring)
+elastic-apm==6.20.0
+
+# Alertas y notificaciones
+slack-sdk==3.23.0
+
+# Dashboards y visualización
+plotly==5.17.0
+matplotlib==3.8.2

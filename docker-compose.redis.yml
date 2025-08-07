@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # Redis Master for caching and sessions
+  redis-master:
+    image: redis:7-alpine
+    container_name: minedu-redis-master
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_master_data:/data
+      - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    networks:
+      - redis-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis Sentinel for HA (optional for production)
+  redis-sentinel:
+    image: redis:7-alpine
+    container_name: minedu-redis-sentinel
+    ports:
+      - "26379:26379"
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    volumes:
+      - ./config/redis/sentinel.conf:/usr/local/etc/redis/sentinel.conf:ro
+    networks:
+      - redis-network
+    depends_on:
+      - redis-master
+    restart: unless-stopped
+    profiles:
+      - ha  # Only start with --profile ha
+
+  # Redis Replica (for read scaling)
+  redis-replica:
+    image: redis:7-alpine
+    container_name: minedu-redis-replica
+    ports:
+      - "6380:6379"
+    command: redis-server --slaveof redis-master 6379 --appendonly yes
+    volumes:
+      - redis_replica_data:/data
+    networks:
+      - redis-network
+    depends_on:
+      - redis-master
+    restart: unless-stopped
+    profiles:
+      - ha
+
+  # Redis Commander for monitoring
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: minedu-redis-commander
+    ports:
+      - "8081:8081"
+    environment:
+      REDIS_HOSTS: "master:redis-master:6379,replica:redis-replica:6379"
+      HTTP_USER: admin
+      HTTP_PASSWORD: ${REDIS_COMMANDER_PASSWORD:-admin123}
+    networks:
+      - redis-network
+    depends_on:
+      - redis-master
+    restart: unless-stopped
+
+  # MINEDU Backend with Redis integration
+  backend-redis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minedu-backend-redis
+    ports:
+      - "8003:8000"
+    environment:
+      - ENVIRONMENT=production
+      - REDIS_HOST=redis-master
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - CACHE_ENABLED=true
+      - CACHE_TTL=1800
+      - SESSION_TTL=3600
+      - RATE_LIMIT_ENABLED=true
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - redis-network
+      - minedu-network
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  redis-network:
+    driver: bridge
+  minedu-network:
+    driver: bridge
+
+volumes:
+  redis_master_data:
+    driver: local
+  redis_replica_data:
+    driver: local

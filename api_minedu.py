@@ -25,6 +25,8 @@ import time
 from adaptive_processor_minedu import AdaptiveProcessorMINEDU
 from src.core.security.file_validator import FileValidator
 from src.core.security.input_validator import InputValidator
+from src.core.performance.model_manager import get_model_manager, preload_all_models
+from src.core.monitoring.prometheus_metrics import get_metrics, track_request_metrics, track_search_metrics
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -43,27 +45,59 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3001", 
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001",
         "https://ai.minedu.gob.pe",
-        "*"  # Permitir todos durante desarrollo
+        "http://localhost:3000",  # Solo para desarrollo local
+        "http://127.0.0.1:3000"   # Solo para desarrollo local
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
+# Inicializar métricas
+metrics = get_metrics()
+
 # Inicializar procesador global y sistema de búsqueda
 processor = None
 hybrid_search = None
+model_manager = None
+api_start_time = time.time()
+
+def validate_critical_env_vars():
+    """Validar variables de entorno críticas al inicio"""
+    required_vars = ["OPENAI_API_KEY", "ANTHROPIC_API_KEY"]
+    missing = []
+    
+    for var in required_vars:
+        if not os.getenv(var):
+            missing.append(var)
+    
+    if missing:
+        logger.error(f"❌ CRÍTICO: Variables de entorno faltantes: {missing}")
+        raise RuntimeError(f"Variables críticas faltantes: {missing}")
+    
+    logger.info("✅ Variables de entorno críticas validadas")
 
 @app.on_event("startup")
 async def startup_event():
     """Inicializar componentes al arrancar la API"""
-    global processor, hybrid_search
+    global processor, hybrid_search, model_manager
     logger.info("🚀 Inicializando API MINEDU...")
+    
+    # 0. VALIDAR CONFIGURACIÓN CRÍTICA PRIMERO
+    validate_critical_env_vars()
+    
+    # 1. Inicializar Model Manager y precargar modelos
+    logger.info("⚡ Precargando modelos ML...")
+    model_manager = get_model_manager()
+    
+    try:
+        preload_results = await preload_all_models()
+        logger.info(f"✅ Modelos precargados: {preload_results}")
+    except Exception as e:
+        logger.warning(f"⚠️ Error precargando modelos: {e}")
+    
+    # 2. Inicializar procesador adaptativo
     processor = AdaptiveProcessorMINEDU(learning_mode=True)
     
     # Inicializar sistema de búsqueda híbrida
@@ -166,7 +200,7 @@ async def root():
 @app.get("/health", response_model=SystemStatus)
 async def health_check():
     """Verificar salud del sistema compatible con frontend"""
-    global hybrid_search
+    global hybrid_search, model_manager
     
     # Verificar estado de vectorstores
     vectorstore_path = Path("data/vectorstores")
@@ -176,18 +210,30 @@ async def health_check():
         "transformers": (vectorstore_path / "transformers.pkl").exists()
     }
     
+    # Verificar estado de modelos
+    models_healthy = True
+    if model_manager:
+        try:
+            model_health = await model_manager.health_check()
+            models_healthy = model_health.get('status') == 'healthy'
+        except Exception:
+            models_healthy = False
+    
     # Determinar estado general
-    system_status = "healthy" if any(vectorstores_status.values()) else "degraded"
+    system_status = "healthy" if (any(vectorstores_status.values()) and models_healthy) else "degraded"
+    
+    uptime_seconds = time.time() - api_start_time
     
     return SystemStatus(
         status=system_status,
-        version="2.0.0",
-        uptime=time.time(),  # Simplicado para demo
+        version="2.0.0-performance",
+        uptime=uptime_seconds,
         active_searches=0,  # En producción sería un contador real
         vectorstores=vectorstores_status
     )
 
 @app.post("/analyze", response_model=DocumentAnalysisResponse)
+@track_request_metrics("/analyze")
 async def analyze_document(
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...)
@@ -249,6 +295,15 @@ async def analyze_document(
         results = processor.process_document(str(temp_path))
         
         processing_time = (datetime.now() - start_time).total_seconds()
+        
+        # Registrar métricas de procesamiento
+        file_size = file.size if file.size else len(content)
+        metrics.record_document_upload(
+            file_type=file_extension[1:],  # sin el punto
+            file_size=file_size,
+            processing_time=processing_time,
+            success=results['success']
+        )
         
         # Programar limpieza del archivo temporal
         background_tasks.add_task(cleanup_temp_file, temp_path)
@@ -314,17 +369,117 @@ async def analyze_batch(
 @app.get("/stats")
 async def get_system_stats():
     """Obtener estadísticas del sistema"""
+    stats_data = {
+        "status": "active",
+        "timestamp": datetime.now().isoformat(),
+        "uptime_seconds": time.time() - api_start_time
+    }
+    
+    # Estadísticas del procesador
     if processor:
-        stats = processor.get_processing_stats()
+        processor_stats = processor.get_processing_stats()
+        stats_data["processor_stats"] = processor_stats
+    
+    # Estadísticas de modelos
+    if model_manager:
+        try:
+            model_stats = model_manager.get_model_stats()
+            stats_data["model_stats"] = model_stats
+        except Exception as e:
+            stats_data["model_stats_error"] = str(e)
+    
+    # Estadísticas de sistema
+    import psutil
+    stats_data["system_resources"] = {
+        "cpu_percent": psutil.cpu_percent(interval=1),
+        "memory_percent": psutil.virtual_memory().percent,
+        "disk_usage_percent": psutil.disk_usage('/').percent
+    }
+    
+    return stats_data
+
+@app.get("/metrics")
+async def get_prometheus_metrics():
+    """Endpoint de métricas para Prometheus"""
+    global metrics
+    
+    # Actualizar métricas del sistema
+    metrics.update_system_metrics()
+    metrics.update_uptime(api_start_time)
+    
+    # Actualizar métricas de modelos
+    if model_manager:
+        try:
+            model_stats = model_manager.get_model_stats()
+            metrics.update_models_count(model_stats.get('total_models', 0))
+            
+            # Actualizar estado de salud de componentes
+            health_check = await model_manager.health_check()
+            metrics.update_health_status('models', health_check.get('status') == 'healthy')
+        except Exception as e:
+            logger.error(f"Error updating model metrics: {e}")
+            metrics.record_error('metrics', 'model_update_failed')
+    
+    # Actualizar estado de búsqueda
+    if hybrid_search:
+        metrics.update_health_status('search', True)
+    else:
+        metrics.update_health_status('search', False)
+    
+    # Retornar métricas en formato Prometheus
+    from fastapi.responses import PlainTextResponse
+    return PlainTextResponse(
+        content=metrics.get_metrics_text(),
+        media_type="text/plain"
+    )
+
+@app.get("/models/status")
+async def get_models_status():
+    """Obtener estado detallado de modelos ML"""
+    global model_manager
+    
+    if not model_manager:
+        return {"error": "Model manager no inicializado"}
+    
+    try:
+        health_check = await model_manager.health_check()
+        model_stats = model_manager.get_model_stats()
+        
         return {
-            "system_stats": stats,
-            "status": "active",
+            "health": health_check,
+            "stats": model_stats,
             "timestamp": datetime.now().isoformat()
         }
-    else:
-        return {"error": "Procesador no inicializado"}
+    except Exception as e:
+        return {
+            "error": f"Error obteniendo estado de modelos: {str(e)}",
+            "timestamp": datetime.now().isoformat()
+        }
+
+@app.post("/models/warmup")
+async def warmup_models():
+    """Calentar modelos ML para optimizar rendimiento"""
+    global model_manager
+    
+    if not model_manager:
+        return {"error": "Model manager no inicializado"}
+    
+    try:
+        warmup_results = await model_manager.warmup_models()
+        return {
+            "success": True,
+            "warmup_results": warmup_results,
+            "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": f"Error calentando modelos: {str(e)}",
+            "timestamp": datetime.now().isoformat()
+        }
 
 @app.post("/search", response_model=SearchResponse)
+@track_search_metrics("search")
 async def search_documents(search_request: SearchRequest):
     """
     Realizar búsqueda híbrida en documentos MINEDU
@@ -357,12 +512,20 @@ async def search_documents(search_request: SearchRequest):
         start_time = time.time()
         logger.info(f"🔍 Búsqueda: '{search_request.query}' con método {search_request.method}")
         
+        # Optimización: usar modelos precargados si están disponibles
+        preloaded_model = None
+        if model_manager and search_request.method in ['transformers', 'hybrid']:
+            preloaded_model = model_manager.get_sentence_transformer()
+            if preloaded_model:
+                logger.info("🚀 Usando modelo transformer precargado")
+        
         # Realizar búsqueda según el método especificado
         if search_request.method == 'hybrid':
             results = hybrid_search.search(
                 query=search_request.query,
                 top_k=search_request.top_k,
-                use_methods=['bm25', 'tfidf', 'transformer']
+                use_methods=['bm25', 'tfidf', 'transformer'],
+                preloaded_transformer=preloaded_model
             )
         elif search_request.method == 'bm25' and hybrid_search.bm25_retriever:
             results = hybrid_search.bm25_retriever.search(search_request.query, search_request.top_k)
@@ -375,6 +538,14 @@ async def search_documents(search_request: SearchRequest):
             results = hybrid_search.search(search_request.query, search_request.top_k)
         
         processing_time = time.time() - start_time
+        
+        # Registrar métricas de búsqueda
+        metrics.record_search_request(
+            method=search_request.method,
+            duration=processing_time,
+            result_count=len(results),
+            success=True
+        )
         
         # Formatear resultados para el frontend
         formatted_results = []

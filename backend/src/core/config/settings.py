@@ -2,11 +2,10 @@
 Application settings and configuration.
 """
 
-from pydantic_settings import BaseSettings
 from typing import List, Optional
 import os
 
-class Settings(BaseSettings):
+class Settings:
     """Application settings."""
     
     # API Configuration
@@ -63,11 +62,6 @@ class Settings(BaseSettings):
     # Rate Limiting Configuration
     rate_limit_requests_per_minute: int = 60
     rate_limit_burst: int = 100
-    
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
 
 # Global settings instance
 _settings = None

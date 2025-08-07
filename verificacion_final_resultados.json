@@ -6,7 +6,7 @@
     ],
     [
       true,
-      "✅ src/core/secure_search.py (10343 bytes)"
+      "✅ src/core/secure_search.py (10587 bytes)"
     ],
     [
       true,
@@ -14,7 +14,7 @@
     ],
     [
       true,
-      "✅ src/core/security/input_validator.py (4051 bytes)"
+      "✅ src/core/security/input_validator.py (4747 bytes)"
     ],
     [
       true,
@@ -46,7 +46,7 @@
     ],
     [
       true,
-      "✅ demo_secure.py (10912 bytes)"
+      "✅ demo_secure.py (18206 bytes)"
     ],
     [
       true,
@@ -178,7 +178,7 @@
     ]
   ],
   "summary": {
-    "timestamp": "2025-06-21T18:32:39.512765",
+    "timestamp": "2025-07-02T19:59:12.694052",
     "total_files": 15,
     "files_ok": 13,
     "total_classes": 12,

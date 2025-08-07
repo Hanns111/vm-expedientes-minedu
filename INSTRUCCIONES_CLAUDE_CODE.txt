@@ -1,0 +1,24 @@
+🚀 CLAUDE CODE - INSTRUCCIONES PASO A PASO
+
+📋 MÉTODO 1: PASO A PASO (RECOMENDADO)
+1. Abrir PowerShell nueva (Win + X → Windows PowerShell)
+2. wsl -d Ubuntu
+3. cd /mnt/c/Users/hanns/Documents/proyectos/vm-expedientes-minedu
+4. npx @anthropic-ai/claude-code
+
+🏃 MÉTODO 2: TODO EN UNO (RÁPIDO)
+wsl -d Ubuntu bash -c "cd /mnt/c/Users/hanns/Documents/proyectos/vm-expedientes-minedu && npx @anthropic-ai/claude-code"
+
+🔧 COMANDOS ÚTILES:
+- Ayuda: npx @anthropic-ai/claude-code --help
+- No interactivo: npx @anthropic-ai/claude-code --print "pregunta"
+- Continuar: npx @anthropic-ai/claude-code --continue
+- Versión: npx @anthropic-ai/claude-code --version
+
+🚨 IMPORTANTE:
+- Usar PowerShell NUEVA (no desde Cursor/VSCode)
+- Especificar -d Ubuntu para usar Ubuntu WSL
+- Tienes versión de pago (no necesitas API key)
+- Versión instalada: 1.0.43
+
+📌 GUARDA ESTE ARCHIVO PARA FUTURAS REFERENCIAS

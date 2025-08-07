@@ -67,8 +67,7 @@ class AdaptiveProcessorMINEDU:
             # Características básicas del archivo
             file_size_mb = file_path_obj.stat().st_size / (1024 * 1024)
             
-            # Análisis REAL de características - Sistema Antialucinaciones v2.0.0
-            # PROHIBIDO: Simular características de documentos gubernamentales
+            # Simular análisis de características (en producción real usaríamos PyMuPDF)
             characteristics = {
                 'file_size_mb': file_size_mb,
                 'filename': file_path_obj.name,

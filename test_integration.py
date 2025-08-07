@@ -1,224 +1,137 @@
 #!/usr/bin/env python3
 """
-Test de Integración Frontend-Backend MINEDU
-==========================================
-
-Pruebas para verificar la comunicación entre el frontend Next.js
-y el backend FastAPI con sistema híbrido de búsqueda.
+Test de integración para diagnosticar problema LangGraph 503
 """
-import requests
-import json
-import time
-from typing import Dict, Any
+import sys
+import os
+from pathlib import Path
 
-# Configuración
-API_BASE_URL = "http://localhost:8000"
-FRONTEND_URL = "http://localhost:3000"
+# Add project root to path
+project_root = Path(__file__).parent
+sys.path.insert(0, str(project_root))
 
-def test_backend_health():
-    """Probar endpoint de salud del backend"""
-    print("🔍 Probando conexión con backend...")
-    
+def test_retriever():
+    """Test 1: SimpleRetriever standalone"""
+    print("🔍 TEST 1: SimpleRetriever standalone...")
     try:
-        response = requests.get(f"{API_BASE_URL}/health", timeout=5)
-        if response.status_code == 200:
-            data = response.json()
-            print(f"✅ Backend responde correctamente")
-            print(f"   Estado: {data.get('status', 'unknown')}")
-            print(f"   Versión: {data.get('version', 'unknown')}")
-            print(f"   Vectorstores: {data.get('vectorstores', {})}")
-            return True
-        else:
-            print(f"❌ Backend responde con error: {response.status_code}")
-            return False
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Error conectando con backend: {e}")
+        from backend.src.langchain_integration.vectorstores.simple_retriever import retriever
+        
+        stats = retriever.get_stats()
+        print(f"✅ Retriever loaded: {stats['total_documents']} documents")
+        
+        # Test search
+        results = retriever.simple_similarity_search("monto viáticos", k=3)
+        print(f"✅ Search works: {len(results)} results found")
+        
+        if results:
+            first_result = results[0].page_content[:100]
+            print(f"✅ First result: {first_result}...")
+        
+        return True
+    except Exception as e:
+        print(f"❌ Retriever failed: {e}")
         return False
 
-def test_search_endpoint():
-    """Probar endpoint de búsqueda"""
-    print("\n🔍 Probando endpoint de búsqueda...")
-    
-    search_data = {
-        "query": "¿Cuál es el monto máximo para viáticos?",
-        "method": "hybrid",
-        "top_k": 3,
-        "fusion_method": "weighted"
-    }
-    
+def test_professional_langgraph():
+    """Test 2: Professional LangGraph import"""
+    print("\n🔍 TEST 2: Professional LangGraph import...")
     try:
-        response = requests.post(
-            f"{API_BASE_URL}/search",
-            json=search_data,
-            timeout=10
-        )
-        
-        if response.status_code == 200:
-            data = response.json()
-            print(f"✅ Búsqueda exitosa")
-            print(f"   Query: {data.get('query', '')}")
-            print(f"   Método: {data.get('method', '')}")
-            print(f"   Tiempo: {data.get('processing_time', 0):.3f}s")
-            print(f"   Resultados: {data.get('total_results', 0)}")
-            
-            # Mostrar primer resultado si existe
-            results = data.get('results', [])
-            if results:
-                first_result = results[0]
-                print(f"   Primer resultado:")
-                print(f"     Score: {first_result.get('score', 0):.3f}")
-                print(f"     Contenido: {first_result.get('content', '')[:100]}...")
-            
-            return True
-        else:
-            print(f"❌ Error en búsqueda: {response.status_code}")
-            print(f"   Respuesta: {response.text}")
-            return False
-            
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Error en búsqueda: {e}")
+        from backend.src.langchain_integration.orchestration.professional_langgraph import professional_orchestrator
+        print("✅ Professional LangGraph imported successfully")
+        return True
+    except Exception as e:
+        print(f"❌ Professional LangGraph failed: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
-def test_cors_headers():
-    """Probar headers CORS"""
-    print("\n🔍 Probando configuración CORS...")
-    
+def test_config():
+    """Test 3: Config loading"""
+    print("\n🔍 TEST 3: Config loading...")
     try:
-        # Simular request desde frontend
-        headers = {
-            'Origin': 'http://localhost:3000',
-            'Access-Control-Request-Method': 'POST',
-            'Access-Control-Request-Headers': 'Content-Type'
-        }
-        
-        response = requests.options(f"{API_BASE_URL}/search", headers=headers)
-        
-        if response.status_code == 200:
-            cors_headers = {
-                'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
-                'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
-                'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers')
-            }
-            
-            print("✅ CORS configurado correctamente")
-            for header, value in cors_headers.items():
-                if value:
-                    print(f"   {header}: {value}")
-            return True
-        else:
-            print(f"❌ Error en CORS: {response.status_code}")
-            return False
-            
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Error probando CORS: {e}")
+        from backend.src.langchain_integration.config import config
+        print(f"✅ Config loaded: {type(config)}")
+        return True
+    except Exception as e:
+        print(f"❌ Config failed: {e}")
         return False
 
-def test_error_handling():
-    """Probar manejo de errores"""
-    print("\n🔍 Probando manejo de errores...")
-    
-    # Test con query vacía
+def test_backend_import():
+    """Test 4: Backend main.py imports"""
+    print("\n🔍 TEST 4: Backend main.py imports...")
     try:
-        response = requests.post(
-            f"{API_BASE_URL}/search",
-            json={"query": "", "method": "hybrid"},
-            timeout=5
-        )
+        # Simulate backend imports
+        sys.path.insert(0, str(project_root / "backend" / "src"))
         
-        if response.status_code == 422:  # Validation error esperado
-            print("✅ Validación de entrada funciona correctamente")
-            return True
-        else:
-            print(f"⚠️  Respuesta inesperada para query vacía: {response.status_code}")
-            return False
-            
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Error probando validación: {e}")
+        print("  - Testing LangGraph imports...")
+        from langchain_integration.orchestration.professional_langgraph import professional_orchestrator
+        print("  ✅ professional_orchestrator imported")
+        
+        from langchain_integration.vectorstores.simple_retriever import retriever
+        print("  ✅ retriever imported")
+        
+        return True
+    except Exception as e:
+        print(f"  ❌ Backend imports failed: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
-def test_api_documentation():
-    """Probar acceso a documentación API"""
-    print("\n🔍 Probando documentación API...")
+def diagnose_503_error():
+    """Diagnose specific 503 error"""
+    print("\n🚨 DIAGNÓSTICO ERROR 503:")
+    
+    # Check paths
+    print("📁 Checking paths...")
+    chunks_path = project_root / "data" / "processed" / "chunks.json"
+    print(f"  - chunks.json exists: {chunks_path.exists()}")
+    
+    if chunks_path.exists():
+        import json
+        with open(chunks_path) as f:
+            chunks = json.load(f)
+        print(f"  - chunks count: {len(chunks)}")
+    
+    # Check missing dependencies
+    print("\n📦 Checking dependencies...")
+    try:
+        import langchain
+        print(f"  ✅ langchain: {langchain.__version__}")
+    except ImportError:
+        print("  ❌ langchain not installed")
     
     try:
-        # Test docs endpoint
-        response = requests.get(f"{API_BASE_URL}/docs", timeout=5)
-        if response.status_code == 200:
-            print("✅ Documentación FastAPI disponible en /docs")
-            docs_available = True
-        else:
-            print(f"⚠️  Documentación no disponible: {response.status_code}")
-            docs_available = False
-        
-        # Test redoc endpoint
-        response = requests.get(f"{API_BASE_URL}/redoc", timeout=5)
-        if response.status_code == 200:
-            print("✅ ReDoc disponible en /redoc")
-            redoc_available = True
-        else:
-            print(f"⚠️  ReDoc no disponible: {response.status_code}")
-            redoc_available = False
-        
-        return docs_available or redoc_available
-        
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Error accediendo a documentación: {e}")
-        return False
-
-def main():
-    """Ejecutar todas las pruebas de integración"""
-    print("🚀 INICIANDO PRUEBAS DE INTEGRACIÓN FRONTEND-BACKEND")
-    print("=" * 60)
+        import langgraph
+        print(f"  ✅ langgraph: {langgraph.__version__}")
+    except ImportError:
+        print("  ❌ langgraph not installed")
     
-    tests = [
-        ("Backend Health", test_backend_health),
-        ("Search Endpoint", test_search_endpoint),
-        ("CORS Configuration", test_cors_headers),
-        ("Error Handling", test_error_handling),
-        ("API Documentation", test_api_documentation)
-    ]
-    
-    results = []
-    
-    for test_name, test_func in tests:
-        print(f"\n📋 {test_name}")
-        print("-" * 40)
-        success = test_func()
-        results.append((test_name, success))
-        time.sleep(1)  # Pausa entre tests
-    
-    # Resumen final
-    print("\n" + "=" * 60)
-    print("📊 RESUMEN DE PRUEBAS")
-    print("=" * 60)
-    
-    passed = 0
-    for test_name, success in results:
-        status = "✅ PASSED" if success else "❌ FAILED"
-        print(f"{test_name:.<40} {status}")
-        if success:
-            passed += 1
-    
-    print(f"\nResultado: {passed}/{len(results)} pruebas exitosas")
-    
-    if passed == len(results):
-        print("\n🎉 ¡INTEGRACIÓN COMPLETAMENTE FUNCIONAL!")
-        print("   El frontend puede comunicarse correctamente con el backend.")
-        print("   Puedes proceder a iniciar ambos servicios:")
-        print()
-        print("   1. Backend:  cd /mnt/c/Users/hanns/Documents/proyectos/vm-expedientes-minedu")
-        print("               python api_minedu.py")
-        print()
-        print("   2. Frontend: cd /mnt/c/Users/hanns/Documents/proyectos/vm-expedientes-minedu/frontend-new")
-        print("               npm install && npm run dev")
-        print()
-        print("   3. Acceder:  http://localhost:3000")
-    else:
-        print("\n⚠️  ALGUNAS PRUEBAS FALLARON")
-        print("   Revisa la configuración antes de proceder.")
-        print(f"   Asegúrate de que el backend esté ejecutándose en {API_BASE_URL}")
-    
-    return passed == len(results)
+    try:
+        import openai
+        print(f"  ✅ openai: {openai.__version__}")
+    except ImportError:
+        print("  ❌ openai not installed")
 
 if __name__ == "__main__":
-    main()
+    print("🔧 DIAGNÓSTICO DE INTEGRACIÓN LANGGRAPH\n")
+    
+    # Run tests
+    test1_ok = test_retriever()
+    test2_ok = test_professional_langgraph()
+    test3_ok = test_config()
+    test4_ok = test_backend_import()
+    
+    # Diagnose
+    diagnose_503_error()
+    
+    # Summary
+    print(f"\n📊 RESUMEN:")
+    print(f"  - Retriever: {'✅' if test1_ok else '❌'}")
+    print(f"  - LangGraph: {'✅' if test2_ok else '❌'}")
+    print(f"  - Config: {'✅' if test3_ok else '❌'}")
+    print(f"  - Backend imports: {'✅' if test4_ok else '❌'}")
+    
+    if all([test1_ok, test2_ok, test3_ok, test4_ok]):
+        print("\n✅ TODOS LOS TESTS PASARON - Error 503 podría ser de runtime")
+    else:
+        print("\n❌ PROBLEMAS DETECTADOS - Revisar imports faltantes")

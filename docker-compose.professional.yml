@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  # Backend RAG con LangGraph profesional
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.professional
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./coverage_reports:/app/coverage_reports
+      - ./evaluation_reports:/app/evaluation_reports
+    environment:
+      - PYTHONPATH=/app
+      - JWT_SECRET_KEY=minedu-production-secret-2025
+      - FASTAPI_ENV=production
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    networks:
+      - minedu-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Streamlit profesional
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.professional
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+      - BACKEND_URL=http://backend:8000
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    depends_on:
+      - backend
+    networks:
+      - minedu-network
+    restart: unless-stopped
+    command: ["streamlit", "run", "frontend/streamlit_professional.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+  # Redis para caching y sesiones
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - minedu-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.professional.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+      - streamlit
+    networks:
+      - minedu-network
+    restart: unless-stopped
+
+  # Monitoring con Prometheus (opcional)
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - minedu-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Grafana para visualización (opcional)
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=minedu2025
+    networks:
+      - minedu-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+volumes:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  minedu-network:
+    driver: bridge

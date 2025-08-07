@@ -1,0 +1,32 @@
+[
+  {
+    "year":2020,
+    "value":4300.0,
+    "source":"SUNAT"
+  },
+  {
+    "year":2021,
+    "value":4400.0,
+    "source":"SUNAT"
+  },
+  {
+    "year":2022,
+    "value":4600.0,
+    "source":"SUNAT"
+  },
+  {
+    "year":2023,
+    "value":4950.0,
+    "source":"SUNAT"
+  },
+  {
+    "year":2024,
+    "value":5150.0,
+    "source":"SUNAT"
+  },
+  {
+    "year":2025,
+    "value":5350.0,
+    "source":"SUNAT"
+  }
+]

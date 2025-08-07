@@ -1,0 +1,198 @@
+# Prometheus alerting rules for MINEDU
+groups:
+  - name: minedu.performance
+    rules:
+      # High response time alert
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(minedu_http_request_duration_seconds_bucket[5m])) > 0.5
+        for: 2m
+        labels:
+          severity: warning
+          service: minedu-backend
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time is {{ $value }}s (threshold: 0.5s)"
+
+      # Very high response time alert
+      - alert: VeryHighResponseTime
+        expr: histogram_quantile(0.95, rate(minedu_http_request_duration_seconds_bucket[5m])) > 2.0
+        for: 1m
+        labels:
+          severity: critical
+          service: minedu-backend
+        annotations:
+          summary: "Very high response time detected"
+          description: "95th percentile response time is {{ $value }}s (threshold: 2.0s)"
+
+      # High search latency
+      - alert: HighSearchLatency
+        expr: histogram_quantile(0.95, rate(minedu_search_duration_seconds_bucket[5m])) > 1.0
+        for: 2m
+        labels:
+          severity: warning
+          service: minedu-search
+        annotations:
+          summary: "High search latency detected"
+          description: "95th percentile search time is {{ $value }}s (threshold: 1.0s)"
+
+  - name: minedu.resources
+    rules:
+      # High CPU usage
+      - alert: HighCPUUsage
+        expr: minedu_system_cpu_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: minedu-backend
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}% (threshold: 80%)"
+
+      # Very high CPU usage
+      - alert: VeryHighCPUUsage
+        expr: minedu_system_cpu_percent > 95
+        for: 2m
+        labels:
+          severity: critical
+          service: minedu-backend
+        annotations:
+          summary: "Very high CPU usage detected"
+          description: "CPU usage is {{ $value }}% (threshold: 95%)"
+
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: minedu_system_memory_percent > 85
+        for: 5m
+        labels:
+          severity: warning
+          service: minedu-backend
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value }}% (threshold: 85%)"
+
+      # Very high memory usage
+      - alert: VeryHighMemoryUsage
+        expr: minedu_system_memory_percent > 95
+        for: 2m
+        labels:
+          severity: critical
+          service: minedu-backend
+        annotations:
+          summary: "Very high memory usage detected"
+          description: "Memory usage is {{ $value }}% (threshold: 95%)"
+
+      # High disk usage
+      - alert: HighDiskUsage
+        expr: minedu_disk_usage_percent > 90
+        for: 5m
+        labels:
+          severity: warning
+          service: minedu-backend
+        annotations:
+          summary: "High disk usage detected"
+          description: "Disk usage is {{ $value }}% (threshold: 90%)"
+
+  - name: minedu.application
+    rules:
+      # Service down
+      - alert: ServiceDown
+        expr: up{job="minedu-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: minedu-backend
+        annotations:
+          summary: "MINEDU Backend service is down"
+          description: "The MINEDU backend service has been down for more than 1 minute"
+
+      # High error rate
+      - alert: HighErrorRate
+        expr: rate(minedu_http_requests_total{status=~"5.."}[5m]) / rate(minedu_http_requests_total[5m]) > 0.05
+        for: 3m
+        labels:
+          severity: warning
+          service: minedu-backend
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+
+      # Very high error rate
+      - alert: VeryHighErrorRate
+        expr: rate(minedu_http_requests_total{status=~"5.."}[5m]) / rate(minedu_http_requests_total[5m]) > 0.15
+        for: 1m
+        labels:
+          severity: critical
+          service: minedu-backend
+        annotations:
+          summary: "Very high error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 15%)"
+
+      # No requests (possible service issue)
+      - alert: NoRequests
+        expr: rate(minedu_http_requests_total[10m]) == 0
+        for: 5m
+        labels:
+          severity: warning
+          service: minedu-backend
+        annotations:
+          summary: "No requests received"
+          description: "No HTTP requests received in the last 10 minutes"
+
+  - name: minedu.models
+    rules:
+      # No models loaded
+      - alert: NoModelsLoaded
+        expr: minedu_models_loaded == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: minedu-ml
+        annotations:
+          summary: "No ML models loaded"
+          description: "No machine learning models are currently loaded"
+
+      # Model inference taking too long
+      - alert: SlowModelInference
+        expr: histogram_quantile(0.95, rate(minedu_model_inference_duration_seconds_bucket[5m])) > 1.0
+        for: 3m
+        labels:
+          severity: warning
+          service: minedu-ml
+        annotations:
+          summary: "Model inference is slow"
+          description: "95th percentile model inference time is {{ $value }}s (threshold: 1.0s)"
+
+      # High model memory usage
+      - alert: HighModelMemoryUsage
+        expr: sum(minedu_model_memory_bytes) / (1024 * 1024 * 1024) > 8  # 8GB
+        for: 5m
+        labels:
+          severity: warning
+          service: minedu-ml
+        annotations:
+          summary: "High model memory usage"
+          description: "Models are using {{ $value | humanize }}GB of memory (threshold: 8GB)"
+
+  - name: minedu.health
+    rules:
+      # Component unhealthy
+      - alert: ComponentUnhealthy
+        expr: minedu_health_check_status == 0
+        for: 2m
+        labels:
+          severity: warning
+          service: minedu-backend
+        annotations:
+          summary: "Component is unhealthy"
+          description: "Component {{ $labels.component }} is reporting unhealthy status"
+
+      # Search system unavailable
+      - alert: SearchSystemUnavailable
+        expr: minedu_health_check_status{component="search"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: minedu-search
+        annotations:
+          summary: "Search system is unavailable"
+          description: "The search system is not responding to health checks"

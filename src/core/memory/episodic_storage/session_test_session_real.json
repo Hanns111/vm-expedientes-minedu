@@ -1,0 +1,26 @@
+[
+  {
+    "episode_id": "80d0e4158075c4a2",
+    "session_id": "test_session_real",
+    "episode_type": "calculation",
+    "query": "Cuánto es el viático para funcionario por 3 días",
+    "response": "Según el cálculo realizado: Error en cálculo\n\n**Base legal:** No determinada\n\n**Pasos del cálculo:**\n1. Error procesando consulta\n\nEsta información se basa en la normativa vigente del Ministerio de Educación.",
+    "context": {},
+    "confidence": 0.0,
+    "timestamp": "2025-07-03T13:09:05.737338",
+    "tags": [
+      "viaticos",
+      "successful"
+    ],
+    "success": true,
+    "reasoning_chain": [
+      "Clasificación: Tipo identificado: calculation | Confianza: 0.14 | Complejidad: 0.11 | Consulta sobre montos, cálculos o valores monetarios",
+      "Routing: calculation_agent para calculation",
+      "Cálculo completado: Error en cálculo",
+      "Contexto mejorado con memoria episódica",
+      "Respuesta sintetizada exitosamente"
+    ],
+    "related_episodes": [],
+    "metadata": {}
+  }
+]

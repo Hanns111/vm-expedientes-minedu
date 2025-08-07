@@ -1,0 +1,63 @@
+# Dockerfile para sistema RAG profesional con LangGraph
+FROM python:3.11-slim
+
+# Configurar variables de entorno
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app \
+    JWT_SECRET_KEY=minedu-production-secret-2025 \
+    FASTAPI_ENV=production
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    make \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY requirements.txt .
+COPY backend/requirements.txt ./backend/
+COPY paper_cientifico/requirements.txt ./paper_cientifico/
+
+# Instalar dependencias de Python
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir -r backend/requirements.txt \
+    && pip install --no-cache-dir -r paper_cientifico/requirements.txt
+
+# Instalar dependencias profesionales adicionales
+RUN pip install --no-cache-dir \
+    streamlit \
+    graphviz \
+    mermaid-py \
+    coverage \
+    pytest-asyncio \
+    pytest-cov \
+    ragas \
+    passlib[bcrypt] \
+    python-multipart \
+    uvicorn[standard]
+
+# Copiar código fuente
+COPY . .
+
+# Crear directorios necesarios
+RUN mkdir -p /app/logs \
+    /app/coverage_reports \
+    /app/evaluation_reports \
+    /app/data/vectorstores \
+    /app/data/processed
+
+# Configurar permisos
+RUN chmod +x /app/scripts/*.sh 2>/dev/null || true
+
+# Exponer puertos
+EXPOSE 8000 8501
+
+# Comando por defecto
+CMD ["uvicorn", "backend.src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

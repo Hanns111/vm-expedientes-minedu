@@ -1,0 +1,27 @@
+[
+  {
+    "episode_id": "9f2fabfd31b92663",
+    "session_id": "test_corrected",
+    "episode_type": "calculation",
+    "query": "¿Cuánto es el viático para funcionario por 3 días?",
+    "response": "Según el cálculo realizado: S/ 960.00\n\n**Base legal:** Decreto Supremo N° 007-2013-EF - Viáticos para el sector público\n\n**Pasos del cálculo:**\n1. 1. Identificar nivel jerárquico: funcionario\n2. 2. Tarifa diaria aplicable: S/ 320.00\n3. 3. Número de días: 3\n4. 4. Cálculo: S/ 320.00 × 3 días = S/ 960.00\n\nEsta información se basa en la normativa vigente del Ministerio de Educación.",
+    "context": {},
+    "confidence": 0.8666666666666667,
+    "timestamp": "2025-07-03T15:09:29.598843",
+    "tags": [
+      "viaticos",
+      "high_confidence",
+      "successful"
+    ],
+    "success": true,
+    "reasoning_chain": [
+      "Clasificación: Tipo identificado: calculation | Confianza: 0.14 | Complejidad: 0.11 | Consulta sobre montos, cálculos o valores monetarios",
+      "Routing: calculation_agent para calculation",
+      "Cálculo completado: S/ 960.00",
+      "Contexto mejorado con memoria episódica",
+      "Respuesta sintetizada exitosamente"
+    ],
+    "related_episodes": [],
+    "metadata": {}
+  }
+]

@@ -1,269 +1,90 @@
-# 🚀 CHECKLIST FINAL DE DEPLOYMENT
+# ✅ CHECKLIST DEPLOYMENT MINEDU v1.3.0
 
-## ✅ ESTADO ACTUAL DEL PROYECTO
+## 📋 PRE-REQUISITOS
 
-### 🎨 **Rediseño Neutro Completado**
-- ✅ Eliminada toda referencia visual a MINEDU
-- ✅ Paleta de colores neutral (grises profesionales)
-- ✅ Marca genérica "AI Search Platform"
-- ✅ Textos en inglés para escalabilidad internacional
-- ✅ Animaciones reducidas (solo feedback esencial UX)
+### Sistema Base
+- [ ] Docker >= 20.10.0 instalado
+- [ ] Docker Compose >= 2.0.0 instalado  
+- [ ] Python >= 3.8 instalado
+- [ ] Git configurado
+- [ ] Puertos libres: 8000, 3000, 9090, 9093, 9100
 
-### 🏗️ **Arquitectura Lista para Producción**
-- ✅ Frontend Next.js 14 con TypeScript completamente neutro
-- ✅ Backend FastAPI integrado con sistema híbrido especializado
-- ✅ Configuración Docker multi-stage para backend
-- ✅ Configuración Vercel para frontend
-- ✅ Variables de entorno establecidas
+### Archivos del Proyecto
+- [ ] `api_minedu.py` existe
+- [ ] `requirements.txt` existe
+- [ ] `docker-compose.production.yml` existe
+- [ ] Directorio `src/core/` completo
+- [ ] Directorio `data/` creado
 
----
+## 🚀 PROCESO DE DEPLOYMENT
 
-## 📋 PASOS DE DEPLOYMENT
-
-### **FASE 1: PREPARACIÓN LOCAL**
-
-#### 1.1 Verificar Sistema Local
+### Fase 1: Preparación (5 min)
 ```bash
-# Verificar que todo funciona localmente
-python test_integration.py
-
-# Resultado esperado: 5/5 pruebas exitosas
+# Verificar prerequisitos
+./scripts/deploy-minedu.sh
 ```
+- [ ] Repositorio actualizado
+- [ ] Scripts tienen permisos de ejecución
+- [ ] Prerequisitos verificados
 
-#### 1.2 Preparar Archivos de Configuración
-- ✅ `.env.production` creado (actualizar con valores reales)
-- ✅ `vercel.json` configurado
-- ✅ `Dockerfile` listo
-- ✅ `docker-compose.yml` configurado
-
----
-
-### **FASE 2: DEPLOYMENT BACKEND**
-
-#### 2.1 Opción A: Docker (Recomendado)
+### Fase 2: Instalación Dependencias (10 min)
 ```bash
-# Deployment automático
-./deploy.sh production
-
-# O manual:
-docker-compose --profile production up -d --build
-```
-
-#### 2.2 Opción B: Servidor Manual
-```bash
-# En servidor de producción
-git clone <tu-repositorio>
-cd ai-search-platform
+# Instalar dependencias Python
 pip install -r requirements.txt
-cp .env.production .env
-# Editar .env con valores reales
-python api_minedu.py
+pip install -r requirements.performance.txt
+pip install -r requirements.monitoring.txt
 ```
+- [ ] Dependencias base instaladas
+- [ ] Dependencias de performance instaladas
+- [ ] Dependencias de monitoring instaladas
 
-#### 2.3 Verificar Backend
+### Fase 3: Configuración Vectorstores (15 min)
 ```bash
-curl https://tu-backend-domain.com/health
-# Debe retornar: {"status": "healthy", ...}
-```
-
----
-
-### **FASE 3: DEPLOYMENT FRONTEND**
-
-#### 3.1 Preparar Variables de Entorno
-En Vercel, configurar:
-```
-NEXT_PUBLIC_API_URL=https://tu-backend-domain.com
-NODE_ENV=production
-```
-
-#### 3.2 Deploy en Vercel
-```bash
-# Opción A: GitHub Integration
-1. Push código a GitHub
-2. Conectar repositorio en vercel.com
-3. Seleccionar carpeta: frontend-new
-4. Configurar variables de entorno
-5. Deploy
-
-# Opción B: Vercel CLI
-cd frontend-new
-npm install -g vercel
-vercel --prod
-```
-
-#### 3.3 Verificar Frontend
-- Acceder a tu dominio Vercel
-- Probar búsqueda híbrida
-- Verificar conexión con backend
-
----
-
-### **FASE 4: CONFIGURACIÓN PRODUCCIÓN**
-
-#### 4.1 Dominio y SSL
-```bash
-# Si usas dominio propio
-1. Configurar DNS → IP del servidor backend
-2. Configurar SSL (Let's Encrypt)
-3. Actualizar CORS en backend
-4. Actualizar NEXT_PUBLIC_API_URL en frontend
-```
-
-#### 4.2 Monitoreo y Logs
-```bash
-# Ver logs del sistema
-docker-compose logs -f backend
-
-# Configurar alertas (opcional)
-# - Sentry para errores
-# - Uptime monitoring
-# - Performance monitoring
-```
-
----
-
-## 🔧 COMANDOS ESENCIALES
-
-### **Para Desarrollo**
-```bash
-# Backend local
-python api_minedu.py
-
-# Frontend local
-cd frontend-new && npm run dev
-
-# Test integración
-python test_integration.py
-```
-
-### **Para Producción**
-```bash
-# Deploy completo
-./deploy.sh production
-
-# Solo backend
-docker-compose up -d --build backend
-
-# Ver estado
-docker-compose ps
-docker-compose logs backend
-
-# Restart
-docker-compose restart backend
-
-# Clean rebuild
-docker-compose down && docker-compose up -d --build
-```
-
-### **Para Troubleshooting**
-```bash
-# Debug backend
-docker-compose logs -f backend
-
-# Debug frontend (local)
-cd frontend-new && npm run build
-
-# Test conectividad
-curl http://localhost:8000/health
-curl http://localhost:8000/docs
-```
-
----
-
-## 🎯 VALIDACIÓN FINAL
-
-### **Checklist de Funcionalidad**
-- [ ] Backend responde en `/health`
-- [ ] Documentación API disponible en `/docs`
-- [ ] Frontend carga sin errores
-- [ ] Búsqueda híbrida funciona
-- [ ] Upload de documentos funciona
-- [ ] Métricas se muestran correctamente
-- [ ] CORS configurado correctamente
-- [ ] SSL habilitado (producción)
-
-### **Checklist de Performance**
-- [ ] Búsquedas <2s
-- [ ] Frontend responsive
-- [ ] Vectorstores cargados
-- [ ] Backend logs sin errores críticos
-
-### **Checklist de Seguridad**
-- [ ] Variables de entorno protegidas
-- [ ] HTTPS habilitado
-- [ ] Headers de seguridad configurados
-- [ ] Rate limiting activo
-- [ ] Input validation funcionando
-
----
-
-## 🌐 URLs DE ACCESO
-
-### **Desarrollo**
-- Frontend: http://localhost:3000
-- Backend: http://localhost:8000
-- API Docs: http://localhost:8000/docs
-
-### **Producción** (actualizar con tus dominios)
-- Frontend: https://tu-app.vercel.app
-- Backend: https://tu-backend-domain.com
-- API Docs: https://tu-backend-domain.com/docs
-
----
-
-## 🚨 TROUBLESHOOTING COMÚN
-
-### **Backend no inicia**
-```bash
-# Verificar logs
-docker-compose logs backend
-
-# Verificar vectorstores
-ls -la data/vectorstores/
-
-# Regenerar si faltan
+# Generar vectorstores si no existen
 python src/data_pipeline/generate_vectorstores.py
 ```
+- [ ] `data/vectorstores/bm25.pkl` existe
+- [ ] `data/vectorstores/tfidf.pkl` existe  
+- [ ] `data/vectorstores/transformers.pkl` existe
 
-### **Frontend no conecta**
+### Fase 4: Secrets Management (5 min)
 ```bash
-# Verificar variables de entorno
-cat frontend-new/.env.local
-
-# Verificar CORS en backend
-curl -H "Origin: http://localhost:3000" http://localhost:8000/health
+# Crear secrets de Docker
+chmod +x scripts/create-secrets.sh
+./scripts/create-secrets.sh production
 ```
+- [ ] Docker secrets creados
+- [ ] SSL certificates generados
 
-### **Búsquedas fallan**
+### Fase 5: Test Local (10 min)
 ```bash
-# Test directo API
-curl -X POST http://localhost:8000/search \
-  -H "Content-Type: application/json" \
-  -d '{"query": "test", "method": "hybrid"}'
+# Probar API localmente
+python api_minedu.py
+curl http://localhost:8000/health
 ```
+- [ ] API inicia sin errores
+- [ ] Health check responde 200
 
----
+### Fase 6: Deployment Docker (15 min)
+```bash
+# Deployment completo
+docker-compose -f docker-compose.production.yml up -d
+```
+- [ ] Todos los containers "Up"
+- [ ] API accesible en puerto 8000
 
-## 📞 SIGUIENTE PASOS POST-DEPLOYMENT
+### Fase 7: Monitoreo (10 min)
+```bash
+# Configurar monitoreo
+./scripts/start-monitoring.sh production
+```
+- [ ] Prometheus corriendo en :9090
+- [ ] Grafana corriendo en :3000
 
-1. **Configurar monitoreo**
-2. **Setup backups automáticos**
-3. **Documentar procedimientos operativos**
-4. **Training para usuarios finales**
-5. **Plan de escalamiento**
+## 🧪 VALIDACIÓN FINAL
 
----
-
-## ✅ ESTADO FINAL
-
-**El sistema está 100% listo para deployment en producción** con:
-
-- ✅ Diseño neutro profesional
-- ✅ Arquitectura escalable
-- ✅ Configuración Docker completa
-- ✅ Scripts de deployment automatizados
-- ✅ Documentación completa
-- ✅ Testing integrado
-
-**Ejecuta `./deploy.sh production` para iniciar el deployment completo.**
+- [ ] API Backend: http://localhost:8000/health ✅
+- [ ] Documentación: http://localhost:8000/docs ✅
+- [ ] Métricas: http://localhost:8000/metrics ✅
+- [ ] Grafana: http://localhost:3000 ✅
+- [ ] Búsqueda híbrida funcional

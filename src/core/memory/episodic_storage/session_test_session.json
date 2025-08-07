@@ -1,0 +1,19 @@
+[
+  {
+    "episode_id": "4dceff406f804710",
+    "session_id": "test_session",
+    "episode_type": "query_response",
+    "query": "test query",
+    "response": "test response",
+    "context": {},
+    "confidence": 0.8,
+    "timestamp": "2025-07-03T13:08:12.216272",
+    "tags": [
+      "successful"
+    ],
+    "success": true,
+    "reasoning_chain": [],
+    "related_episodes": [],
+    "metadata": {}
+  }
+]
